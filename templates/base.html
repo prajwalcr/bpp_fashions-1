@@ -15,22 +15,24 @@
             </form>
         </div>
     </div>
-    <div id="Category1">
-      <label for="category 1">Category 1:</label>
-      <select name="category 1" id="category 1">
-        <option value="sub category 1"><a href="#link1">Sub Category 1</a></option>
-        <option value="sub category 2"><a href="#link2">Sub Category 2</a></option>
-        <option value="sub category 3"><a href="#link3">Sub Category 3</a></option>
+    <div id="Category">
+      <label for="category 1"></label>
+      <select name="category 1" id="category1">
+        <option value="S">None</option>
+        <option value="Men">Men</option>
+        <option value="Women">Women</option>
+        <option value="EXP">EXP</option>
       </select>
-    </div>
-    <div id="Category2">
-      <label for="category 2">Category 2:</label>
-      <select name="category 2" id="category 2">
-        <option value="sub category 1"><a href="#link4">Sub Category 1</a></option>
-        <option value="sub category 2"><a href="#link5">Sub Category 2</a></option>
-        <option value="sub category 3"><a href="#link6">Sub Category 3</a></option>
+      <label for="category 2"></label>
+      <select name="category 2" id="category2">
+        <option value="None">None</option>
+        <option value="subcategory-1"><a href="#link4">Sub Category 1</a></option>
+        <option value="subcategory-2"><a href="#link5">Sub Category 2</a></option>
+        <option value="subcategory-3"><a href="#link6">Sub Category 3</a></option>
       </select>
+      <button type="submit">Submit</button>
     </div>
+  
     {% block content %}
 
     {% endblock %}
