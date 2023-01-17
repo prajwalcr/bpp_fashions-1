@@ -1,0 +1,39 @@
+<html>
+<head>
+  <link rel="stylesheet" href="{{ url_for('static',filename='stylesheets/style.css') }}">
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='/js/script.js') }}"></script>
+</head>
+<body>
+    <div id="navlist">
+        <a href="{{ url_for('index') }}"><img id="logo" src="{{ url_for('static',filename='img/bpp_fashions.png') }}"></a>
+        <div class="search">
+            <form action="submit">
+                <input id="src" type="text"
+                    placeholder=" Search "
+                    name="search">
+            </form>
+        </div>
+    </div>
+    <div id="Category1">
+      <label for="category 1">Category 1:</label>
+      <select name="category 1" id="category 1">
+        <option value="sub category 1"><a href="#link1">Sub Category 1</a></option>
+        <option value="sub category 2"><a href="#link2">Sub Category 2</a></option>
+        <option value="sub category 3"><a href="#link3">Sub Category 3</a></option>
+      </select>
+    </div>
+    <div id="Category2">
+      <label for="category 2">Category 2:</label>
+      <select name="category 2" id="category 2">
+        <option value="sub category 1"><a href="#link4">Sub Category 1</a></option>
+        <option value="sub category 2"><a href="#link5">Sub Category 2</a></option>
+        <option value="sub category 3"><a href="#link6">Sub Category 3</a></option>
+      </select>
+    </div>
+    {% block content %}
+
+    {% endblock %}
+
+</body>
+</html>    
