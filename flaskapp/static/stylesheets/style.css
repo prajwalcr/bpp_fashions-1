@@ -1,6 +1,6 @@
 body{
-    background-color:bisque
-}
+    background-color:beige}
+
 
 .search{
     float:right;
@@ -14,9 +14,7 @@ body{
 
 #sort{
     float:right;
-    width:100px;
-    height:100px;
-    font-size:15px;
+    width:200px;
 }
 
 #logo{
@@ -25,11 +23,19 @@ body{
 }
 
 #recommend{
-    margin-top : 300px;
+    margin-top : 50px;
     margin-left: 20px;
 }
 
 #navlist{
     margin-bottom: 30px;
 }
-
+#category1{
+    width:100px
+}
+#category2{
+    width:100px
+}
+#facets{
+    margin-top: 20px;
+}

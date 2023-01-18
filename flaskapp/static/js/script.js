@@ -1,7 +1,7 @@
 $(document).ready(function(){
-$('select[name="category 2"]').hide();
-$('select[name="category 1"]').change(function(){
-    $('select[name="category 2"]').show();
+$('select[id="category2"]').hide();
+$('select[id="category1"]').change(function(){
+    $('select[id="category2"]').show();
 });
 $("button").click(function(){
   $.ajax({
