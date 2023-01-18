@@ -1,4 +1,6 @@
 import json
+from flaskapp.models import Product
+from flaskapp import db
 
 class CatalogProcessor:
     def __init__(self, filepath):
@@ -11,11 +13,15 @@ class JsonCatalogProcessor(CatalogProcessor):
         self.data = None
 
     def load(self):
-        f = open(self.filepath)
+        try:
+            f = open(self.filepath)
+        except IOError:
+            return False
         try:
             self.data = json.load(f)
         except ValueError:
-            pass
+            return False
+        return True
 
     def validate(self):
         if self.data is None:
@@ -24,15 +30,31 @@ class JsonCatalogProcessor(CatalogProcessor):
         if type(self.data) != list:
             return False
 
-        for product in self.data:
-            if type(product) != dict:
+        for dataItem in self.data:
+            if type(dataItem) != dict:
                 return False
-            if "sku" not in product:
+            if "sku" not in dataItem:
                 return False
-            if "price" not in product:
+            if "price" not in dataItem:
                 return False
 
         return True
 
     def ingest(self):
+        if self.data is None:
+            return False
+
+        for dataItem in self.data:
+            product = Product(
+                id=dataItem["sku"],
+                # availability=dataItem["availability"],
+                # productDescription=dataItem["productDescription"],
+                # imageURL=dataItem["productImage"],
+                price=dataItem["price"]
+            )
+
+            db.session.add(product)
+
+        db.session.commit()
+
         return True

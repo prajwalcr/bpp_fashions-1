@@ -14,6 +14,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 4 * 1024 * 1024 * 1024
 app.config['INGESTION_KEY'] = 'dummy'
+
 db = SQLAlchemy(app)
 
 from flaskapp import routes
