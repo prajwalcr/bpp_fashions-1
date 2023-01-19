@@ -3,3 +3,4 @@ venv
 out.json
 .DS_Store
 instance
+site.db
