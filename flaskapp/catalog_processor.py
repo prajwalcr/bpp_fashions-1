@@ -3,6 +3,8 @@ from flaskapp.models import Product
 
 from flaskapp import SessionLocal
 
+import time
+
 class CatalogProcessor:
     def __init__(self, filepath):
         self.filepath = filepath
@@ -58,7 +60,7 @@ class JsonCatalogProcessor(CatalogProcessor):
                 )
 
                 session.add(product)
-
+                # time.sleep(0.02)
             session.commit()
 
         return True

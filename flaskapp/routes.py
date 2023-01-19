@@ -7,7 +7,7 @@ import os
 from flaskapp.catalog_processor import *
 import uuid
 from flaskapp.models import Catalog
-
+from threading import Thread
 CATALOG_PROCESSORS = {
     "json": JsonCatalogProcessor,
 }
@@ -69,7 +69,7 @@ def upload_catalog(ingestionKey):
                 "tracking ID": trackingID
             }
 
-            ingest_catalog(trackingID)
+            Thread(target=ingest_catalog, args=(trackingID,)).start()
 
             return jsonify(response), status.HTTP_200_OK
 
