@@ -1,6 +1,7 @@
 import json
 from flaskapp.models import Product
-from flaskapp import db
+
+from flaskapp import SessionLocal
 
 class CatalogProcessor:
     def __init__(self, filepath):
@@ -44,17 +45,20 @@ class JsonCatalogProcessor(CatalogProcessor):
         if self.data is None:
             return False
 
-        for dataItem in self.data:
-            product = Product(
-                id=dataItem["sku"],
-                # availability=dataItem["availability"],
-                # productDescription=dataItem["productDescription"],
-                # imageURL=dataItem["productImage"],
-                price=dataItem["price"]
-            )
+        # Session = db.sessionmaker()
+        with SessionLocal() as session:
 
-            db.session.add(product)
+            for dataItem in self.data:
+                product = Product(
+                    id=dataItem["sku"],
+                    # availability=dataItem["availability"],
+                    # productDescription=dataItem["productDescription"],
+                    # imageURL=dataItem["productImage"],
+                    price=dataItem["price"]
+                )
 
-        db.session.commit()
+                session.add(product)
+
+            session.commit()
 
         return True
