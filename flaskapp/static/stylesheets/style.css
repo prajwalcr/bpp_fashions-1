@@ -39,3 +39,12 @@ body{
 #facets{
     margin-top: 20px;
 }
+.card{
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
+}
+#prodi{
+    margin: 5rem 10rem 10rem 10rem;
+}

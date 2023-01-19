@@ -1,7 +1,8 @@
 {%extends "base.html"%}
 
 {% block content %}
-<div class="card mx-auto" style="width:400px">
+<!--
+<div class="card" style="width:400px">
   <img class="card-img-top" src="{{ url_for('static',filename='img/bpp_fashions.png') }}" alt="Card image">
   <div class="card-body mx-auto">
     <h4 class="card-title">Product 1</h4>
@@ -9,7 +10,57 @@
     <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit architecto officia voluptatibus consequuntur quas ea nam laudantium ratione minima consectetur praesentium quisquam tempore nostrum a, recusandae aut natus ipsam eum?</p>
   </div>
 </div>
+-->
+<div class="card" id="prodi">
+  <img src="{{ url_for('static',filename='img/bpp_fashions.png') }}" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+  </div>
+</div>
     <div id="recommend">
       <p>Recommended For you</p>
     </div>  
+    <div class="row row-cols-1 row-cols-md-4 mx-center">
+      <div class="col md-4">
+        <div class="card">
+          <img src="{{ url_for('static',filename='img/bpp_fashions.png') }}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            <a href="{{ url_for('info') }}" class="btn btn-primary stretched-link">View Product</a>
+          </div>
+        </div>
+      </div>
+      <div class="col md-4">
+        <div class="card">
+          <img src="{{ url_for('static',filename='img/bpp_fashions.png') }}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Card title   </h5>
+            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            <a href="{{ url_for('info') }}" class="btn btn-primary stretched-link">View Product</a>
+          </div>
+        </div>
+      </div>
+      <div class="col md-4">
+        <div class="card">
+          <img src="{{ url_for('static',filename='img/bpp_fashions.png') }}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            <a href="{{ url_for('info') }}" class="btn btn-primary stretched-link">View Product</a>
+          </div>
+        </div>
+      </div>
+      <div class="col md-4">
+        <div class="card">
+          <img src="{{ url_for('static',filename='img/bpp_fashions.png') }}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            <a href="{{ url_for('info') }}" class="btn btn-primary stretched-link">View Product</a>
+          </div>
+        </div>
+      </div>
+    </div>
 {% endblock %}
