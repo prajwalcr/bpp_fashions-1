@@ -159,18 +159,18 @@ def get_products():
 def categories():
     catlevel1List = list(db.query(Category.catlevel1).distinct())
     catlevel2List = list(db.query(Category.catlevel2).distinct())
+
+    # Make the below code simpler
     # print(db.query(Category.catlevel1, func.group_concat(Category.catlevel2.distinct())).group_by(Category.catlevel1).all())
-    sq = db.query(Category.catlevel1, Category.catlevel2).distinct().filter(Category.catlevel1!=None).filter(Category.catlevel2!=None).subquery()
+    sq = db.query(Category.catlevel1, Category.catlevel2).distinct().filter(Category.catlevel1!=None).subquery()
     catTree = db.query(sq.c.catlevel1, sq.c.catlevel2, func.row_number().over(partition_by=sq.c.catlevel1).label("row_number")).all()
 
     resp = {}
     for item in catTree:
         if item[0] in resp:
-            resp[item[0]].append(item[1])
+            item[1] is None or resp[item[0]].append(item[1])
         else:
-            resp[item[0]] = [item[1]]
-    print(catlevel2List, catlevel1List)
-
+            resp[item[0]] = [item[1]] if item[1] is not None else []
     return jsonify(resp)
 
 @app.route('/')
