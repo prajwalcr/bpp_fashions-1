@@ -1,6 +1,31 @@
 {% extends "base.html" %}
 
 {% block content %}
+<script type='text/javascript'>
+$(document).ready(function(){
+  $.ajax({
+    url:'/products',
+    type:'GET',
+    success:function(data){
+      $.each(data,function(i,val){
+        console.log(val.id)
+        var html='<div class="col md-4">';
+        html+='<div class="card" id="'+val.id+'">';
+        html+='<img class="card-img-top" src="'+val.imageURL+'" alt="...">';
+        html+='<div class="card-body">';
+        html+='<h4 class="card-title">'+val.title+' - '+val.price+'</h4>';
+        html+='<p class="card-text">'+val.productDescription+'</p>';
+        html+='<a href="{{url_for("info",id="val.id")}}" class="btn btn-primary stretched-link">View Product</a>'.replace('val.id',val.id);
+        html+='</div>';
+        html+='</div>';
+        html+='</div>';
+        $('#forma').append(html)
+
+      })
+    }
+  })
+});
+</script>
     <div>
       <select class="custom-select" id="sort">
         <option value="Nons">None</option>
@@ -9,47 +34,19 @@
         <option value="ESP">Relevance</option>
       </select>
     </div>
-      <div class="row row-cols-1 row-cols-md-3 mx-center">
+      <div class="row row-cols-1 row-cols-md-3 mx-center" id="forma">
+        <!--
         <div class="col md-4">
           <div class="card">
             <img src="{{ url_for('static',filename='img/bpp_fashions.png') }}" class="card-img-top" alt="...">
             <div class="card-body">
-              <h5 class="card-title">Card title</h5>
+              <h4 class="card-title">Card title - price</h4>
               <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              <a href="{{ url_for('info') }}" class="btn btn-primary stretched-link">View Product</a>
             </div>
           </div>
         </div>
-        <div class="col md-4">
-          <div class="card">
-            <img src="{{ url_for('static',filename='img/bpp_fashions.png') }}" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Card title   </h5>
-              <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              <a href="{{ url_for('info') }}" class="btn btn-primary stretched-link">View Product</a>
-            </div>
-          </div>
-        </div>
-        <div class="col md-4">
-          <div class="card">
-            <img src="{{ url_for('static',filename='img/bpp_fashions.png') }}" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              <a href="{{ url_for('info') }}" class="btn btn-primary stretched-link">View Product</a>
-            </div>
-          </div>
-        </div>
-        <div class="col md-4">
-          <div class="card">
-            <img src="{{ url_for('static',filename='img/bpp_fashions.png') }}" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              <a href="{{ url_for('info') }}" class="btn btn-primary stretched-link">View Product</a>
-            </div>
-          </div>
-        </div>
+      -->
       </div>
+      
       
 {% endblock %}

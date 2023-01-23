@@ -1,5 +1,6 @@
 from flask import render_template, request, jsonify, abort
 from flaskapp import app, SessionLocal
+
 from werkzeug.utils import secure_filename
 from flaskapp.utils import allowed_file, validate_ingestion_key
 from flask_api import status
@@ -7,6 +8,7 @@ import os
 from flaskapp.catalog_processor import JsonCatalogProcessor
 import uuid
 from flaskapp.models import Catalog, Product, Category
+
 from threading import Thread
 from sqlalchemy import func, desc
 
@@ -157,8 +159,6 @@ def get_products():
 
 @app.route('/categories')
 def categories():
-    catlevel1List = list(db.query(Category.catlevel1).distinct())
-    catlevel2List = list(db.query(Category.catlevel2).distinct())
 
     # Make the below code simpler
     # print(db.query(Category.catlevel1, func.group_concat(Category.catlevel2.distinct())).group_by(Category.catlevel1).all())
@@ -181,9 +181,11 @@ def index():
     return render_template('search.html')
 
 
-@app.route('/productinfo')
-def info():
+@app.route('/productinfo/<string:id>')
+def info(id):
     return render_template('product.html')
+
+
 
 
 @app.errorhandler(404)
