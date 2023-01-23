@@ -1,19 +1,22 @@
-from flask import render_template, request, jsonify
-from flaskapp import app
+from flask import render_template, request, jsonify, abort
+from flaskapp import app, SessionLocal
 from werkzeug.utils import secure_filename
 from flaskapp.utils import allowed_file, validate_ingestion_key
 from flask_api import status
 import os
-from flaskapp.catalog_processor import *
+from flaskapp.catalog_processor import JsonCatalogProcessor
 import uuid
-from flaskapp.models import Catalog
+from flaskapp.models import Catalog, Product, Category
 from threading import Thread
+from sqlalchemy import func, desc
+
 CATALOG_PROCESSORS = {
     "json": JsonCatalogProcessor,
 }
 ALLOWED_FILES = set(CATALOG_PROCESSORS.keys())
 
 db = SessionLocal()
+
 
 def ingest_catalog(id):
     catalog = db.query(Catalog).filter_by(id=id).first()
@@ -40,6 +43,7 @@ def ingest_catalog(id):
     db.commit()
     return
 
+
 @app.route('/upload-catalog/<string:ingestionKey>', methods=["POST"])
 def upload_catalog(ingestionKey):
     if not validate_ingestion_key(ingestionKey):
@@ -55,7 +59,6 @@ def upload_catalog(ingestionKey):
         if allowed_file(file.filename, ALLOWED_FILES):
             filename = secure_filename(file.filename)
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            ext = filename.rsplit('.', 1)[1].lower()
             file.save(filepath)
 
             trackingID = str(uuid.uuid4())
@@ -74,6 +77,7 @@ def upload_catalog(ingestionKey):
             return jsonify(response), status.HTTP_200_OK
 
         return "Invalid File", status.HTTP_400_BAD_REQUEST
+
 
 @app.route('/ingest/<string:ingestionKey>', methods=["POST"])
 def ingest(ingestionKey):
@@ -107,6 +111,67 @@ def ingest(ingestionKey):
     return "Invalid File", status.HTTP_400_BAD_REQUEST
 
 
+@app.route('/product/<string:id>')
+def get_product(id):
+    q = db.query(Product).filter_by(id=id)
+    if not db.query(q.exists()).scalar():
+        abort(404, description="Resource not found")
+
+    product = q.first()
+    resp = {
+        "id": product.id,
+        "title": product.title,
+        "availability": product.availability,
+        "productDescription": product.productDescription,
+        "imageURL": product.imageURL,
+        "price": product.price
+    }
+    return jsonify(resp)
+
+@app.route('/products')  # /products?cat1=dfjslk&cat2=dfasljk
+def get_products():
+    cat1 = request.args.get("cat1")
+    cat2 = request.args.get("cat2")
+
+    q = db.query(Product)
+    if cat1 is not None:
+        q = q.filter_by(parent_category=cat1)
+    if cat2 is not None:
+        q = q.filter_by(category_name=cat2)
+
+    products = q.all()
+
+    resp = []
+    for product in products:
+        productDict = {
+            "id": product.id,
+            "title": product.title,
+            "availability": product.availability,
+            "productDescription": product.productDescription,
+            "imageURL": product.imageURL,
+            "price": product.price
+        }
+        resp.append(productDict)
+
+    return jsonify(resp)
+
+@app.route('/categories')
+def categories():
+    catlevel1List = list(db.query(Category.catlevel1).distinct())
+    catlevel2List = list(db.query(Category.catlevel2).distinct())
+
+    # Make the below code simpler
+    # print(db.query(Category.catlevel1, func.group_concat(Category.catlevel2.distinct())).group_by(Category.catlevel1).all())
+    sq = db.query(Category.catlevel1, Category.catlevel2).distinct().filter(Category.catlevel1!=None).subquery()
+    catTree = db.query(sq.c.catlevel1, sq.c.catlevel2, func.row_number().over(partition_by=sq.c.catlevel1).label("row_number")).all()
+
+    resp = {}
+    for item in catTree:
+        if item[0] in resp:
+            item[1] is None or resp[item[0]].append(item[1])
+        else:
+            resp[item[0]] = [item[1]] if item[1] is not None else []
+    return jsonify(resp)
 
 @app.route('/')
 def index():
