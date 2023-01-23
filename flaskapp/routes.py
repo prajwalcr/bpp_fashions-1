@@ -135,23 +135,23 @@ def get_products():
     cat1 = request.args.get("cat1")
     cat2 = request.args.get("cat2")
 
-    q = db.query(Product)
+    q = db.query(Product,Category).filter(Product.id==Category.product_id)
     if cat1 is not None:
-        q = q.filter_by(parent_category=cat1)
+        q = q.filter(Category.catlevel1==cat1)
     if cat2 is not None:
-        q = q.filter_by(category_name=cat2)
+        q = q.filter(Category.catlevel2==cat2)
 
     products = q.all()
 
     resp = []
     for product in products:
         productDict = {
-            "id": product.id,
-            "title": product.title,
-            "availability": product.availability,
-            "productDescription": product.productDescription,
-            "imageURL": product.imageURL,
-            "price": product.price
+            "id": product.Product.id,
+            "title": product.Product.title,
+            "availability": product.Product.availability,
+            "productDescription": product.Product.productDescription,
+            "imageURL": product.Product.imageURL,
+            "price": product.Product.price
         }
         resp.append(productDict)
 
