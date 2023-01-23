@@ -1,12 +1,66 @@
 {% extends "base.html" %}
 
 {% block content %}
+<script type='text/javascript'>
+$(document).ready(function(){
+  var currenturl=window.location.search
+  console.log(currenturl)
+  var urlparams=new URLSearchParams(currenturl);
+  var cat1=urlparams.get('cat1')
+  var cat2=urlparams.get('cat2')
+  if (cat1!=null && cat2!=null){
+    var newurl='/products?cat1='+cat1+'&cat2='+cat2
+  }
+  else if(cat1!=null && cat2==null){
+    var newurl='/products?cat1='+cat1
+  }
+  else if(cat1==null && cat2==null){
+    var newurl='/products'
+  }
+  $.ajax({
+    url:newurl,
+    type:'GET',
+    success:function(data){
+      $.each(data,function(i,val){
+        console.log(val.id)
+        var html='<div class="col md-4">';
+        html+='<div class="card" id="'+val.id+'">';
+        html+='<img class="card-img-top" src="'+val.imageURL+'" alt="...">';
+        html+='<div class="card-body">';
+        html+='<h4 class="card-title">'+val.title+'       '+val.price+'$</h4>';
+        html+='<p class="card-text">'+val.productDescription+'</p>';
+        html+='<a href="{{url_for("info",id="val.id")}}" class="btn btn-primary stretched-link">View Product</a>'.replace('val.id',val.id);
+        html+='</div>';
+        html+='</div>';
+        html+='</div>';
+        $('#forma').append(html)
+
+      })
+    }
+  })
+});
+</script>
     <div>
-      <label for="Sort"></label>
-      <select name="Sort" id="Sort">
-        <option value="Price-asc"><a href="#link10">Price-Asc</a></option>
-        <option value="Price-dsc"><a href="#link11">Price-Dsc</a></option>
-        <option value="Relevance"><a href="#link12">Relevance</a></option>
+      <select class="custom-select" id="sort">
+        <option value="Nons">None</option>
+        <option value="Men">Price-Asc</option>
+        <option value="Women">Price-Desc</option>
+        <option value="ESP">Relevance</option>
       </select>
+    </div>
+      <div class="row row-cols-1 row-cols-md-3 mx-center" id="forma">
+        <!--
+        <div class="col md-4">
+          <div class="card">
+            <img src="{{ url_for('static',filename='img/bpp_fashions.png') }}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h4 class="card-title">Card title - price</h4>
+              <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            </div>
+          </div>
+        </div>
+      -->
+      </div>
+      
       
 {% endblock %}
