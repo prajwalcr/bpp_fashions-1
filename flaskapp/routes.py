@@ -72,6 +72,7 @@ def upload_catalog(ingestionKey):
             trackingID = str(uuid.uuid4())
 
             catalog = Catalog(id=trackingID, status="Validating Catalog", filepath=filepath)
+            print("added catalog")
             db.add(catalog)
             db.commit()
 
@@ -86,7 +87,7 @@ def upload_catalog(ingestionKey):
 
         return "Invalid File", status.HTTP_400_BAD_REQUEST
 
-
+# Delete this route
 @app.route('/ingest/<string:ingestionKey>', methods=["POST"])
 def ingest(ingestionKey):
     if not validate_ingestion_key(ingestionKey):

@@ -1,14 +1,9 @@
 import json
 from flaskapp.models import ProductModel, CategoryModel, ColorModel, SizeModel
-
-from flaskapp import SessionLocal
+from flaskapp.CatalogProcessor import CatalogProcessor
+from flaskapp.database import SessionLocal
 
 import time
-
-class CatalogProcessor:
-    def __init__(self, filepath):
-        self.filepath = filepath
-
 
 class JsonCatalogProcessor(CatalogProcessor):
     def __init__(self, filepath):
@@ -70,7 +65,7 @@ class JsonCatalogProcessor(CatalogProcessor):
                 colors = dataItem.get("color", list())
                 sizes = dataItem.get("size", list())
 
-                product = ProductModel(
+                product = Product(
                     id=id,
                     title=title,
                     availability=availability,
@@ -79,7 +74,7 @@ class JsonCatalogProcessor(CatalogProcessor):
                     price=price
                 )
 
-                category = CategoryModel(
+                category = Category(
                     product_id=id,
                     catlevel1=catlevel1,
                     catlevel2=catlevel2
@@ -87,11 +82,11 @@ class JsonCatalogProcessor(CatalogProcessor):
 
                 colorList = []
                 for color in colors:
-                    colorList.append(ColorModel(product_id=id, product_color=color))
+                    colorList.append(Color(product_id=id, product_color=color))
 
                 sizeList = []
                 for size in sizes:
-                    sizeList.append(SizeModel(product_id=id, product_size=size))
+                    sizeList.append(Size(product_id=id, product_size=size))
 
                 product.category = category
                 product.colors = colorList
