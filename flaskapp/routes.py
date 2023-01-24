@@ -11,6 +11,12 @@ from flaskapp.models import Catalog, Product, Category
 
 from threading import Thread
 from sqlalchemy import func, desc
+from flask import Flask,render_template
+import requests
+
+
+import os
+
 
 CATALOG_PROCESSORS = {
     "json": JsonCatalogProcessor,
@@ -115,6 +121,7 @@ def ingest(ingestionKey):
 
 @app.route('/product/<string:id>')
 def get_product(id):
+
     q = db.query(Product).filter_by(id=id)
     if not db.query(q.exists()).scalar():
         abort(404, description="Resource not found")
@@ -135,7 +142,7 @@ def get_products():
     cat1 = request.args.get("cat1")
     cat2 = request.args.get("cat2")
 
-    q = db.query(Product,Category).filter(Product.id==Category.product_id)
+    q = db.query(Product,Category).filter(Product.id == Category.product_id)
     if cat1 is not None:
         q = q.filter(Category.catlevel1==cat1)
     if cat2 is not None:
@@ -191,3 +198,15 @@ def info(id):
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
+
+"search?q=shirt"
+@app.route("/search")
+def get_search():
+
+    query = request.args.get("q")
+    params = {"q": query}
+    response = requests.get("https://search.unbxd.io/fb853e3332f2645fac9d71dc63e09ec1/demo-unbxd700181503576558/search", params = params)
+
+    print(response.json())
+    return jsonify(response.json())
+
