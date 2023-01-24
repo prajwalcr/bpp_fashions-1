@@ -1,29 +1,29 @@
 {% extends "base.html" %}
 
 {% block content %}
+<link rel="stylesheet" href="{{ url_for('static',filename='stylesheets/stylesrc.css') }}">
 <script type='text/javascript'>
 $(document).ready(function(){
-  var currenturl=window.location.search
-  console.log(currenturl)
-  var urlparams=new URLSearchParams(currenturl);
-  var cat1=urlparams.get('cat1')
-  var cat2=urlparams.get('cat2')
+  var currenturl=new URL(window.location.href)
+  cat1=currenturl.searchParams.get('cat1')
+  cat2=currenturl.searchParams.get('cat2')
+  console.log(cat1,cat2)
+  var newurl=new URL("http://127.0.0.1:5000/products")
   if (cat1!=null && cat2!=null){
-    var newurl='/products?cat1='+cat1+'&cat2='+cat2
+    newurl.searchParams.append("cat1",cat1)
+    newurl.searchParams.append("cat2",cat2)
   }
   else if(cat1!=null && cat2==null){
-    var newurl='/products?cat1='+cat1
+    newurl.searchParams.append("cat1",cat1)
   }
-  else if(cat1==null && cat2==null){
-    var newurl='/products'
-  }
+  console.log(newurl)
   $.ajax({
-    url:newurl,
+    url:newurl.toString(),
     type:'GET',
     success:function(data){
       $.each(data,function(i,val){
         console.log(val.id)
-        var html='<div class="col md-4">';
+        var html='<div class="col md-4 d-flex">';
         html+='<div class="card" id="'+val.id+'">';
         html+='<img class="card-img-top" src="'+val.imageURL+'" alt="...">';
         html+='<div class="card-body">';

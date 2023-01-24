@@ -14,8 +14,8 @@
     <img src="{{ url_for('static',filename='img/bpp_fashions.png') }}" alt="Logo" style="width:40px;">
   </a>
   <form class="form-inline" action="#">
-    <input class="form-control mr-sm-2" type="text" placeholder="Search">
-    <button class="btn btn-success" type="submit">Go</button>
+    <input id="srcq" class="form-control mr-sm-2" type="text" placeholder="Search">
+    <button id="srcb" class="btn btn-success" type="submit">Go</button>
   </form>
 </nav>
 <div id="facets">
@@ -25,6 +25,7 @@
   </select>
   <label for="category2"></label>
   <select class="custom-select" id="category2">
+    <option value="" selected disabled hidden>Choose here</option>
   </select>
   <button id="fac" type="submit">Apply</button>
 </div>
