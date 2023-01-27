@@ -6,6 +6,7 @@ from flaskapp.database import db
 
 from flaskapp.api.product import blp as ProductBlueprint
 from flaskapp.api.ingestion import blp as IngestionBlueprint
+from flaskapp.routes import blp as RoutesBlueprint
 
 def create_app():
     app = Flask(__name__)
@@ -25,12 +26,17 @@ def create_app():
     # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
     app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
     app.config['MAX_CONTENT_LENGTH'] = 4 * 1024 * 1024 * 1024
-    app.config['INGESTION_KEY'] = 'dummy'
+
+    #Change to env variables
+    app.config['SITE_KEY'] = 'demo-unbxd700181503576558'
+    app.config['UNBXD_API_KEY'] = 'fb853e3332f2645fac9d71dc63e09ec1'
+    app.config['UNBXD_SEARCH_URL'] = 'https://search.unbxd.io/'
 
     api = Api(app)
 
     api.register_blueprint(ProductBlueprint)
     api.register_blueprint(IngestionBlueprint)
+    api.register_blueprint(RoutesBlueprint)
 
     return app
 

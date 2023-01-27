@@ -4,7 +4,7 @@ from flaskapp.database import SessionLocal
 from flask_smorest import Blueprint, abort
 
 from flaskapp.models import CatalogModel
-from flaskapp.utils import allowed_file, validate_ingestion_key
+from flaskapp.utils import allowed_file, validate_site_key
 from werkzeug.utils import secure_filename
 from flaskapp.CatalogProcessors.CatalogProcessor import CatalogProcessor
 from flaskapp.CatalogProcessors.JsonCatalogProcessor import JsonCatalogProcessor
@@ -22,7 +22,7 @@ CATALOG_PROCESSORS = {
 }
 ALLOWED_FILES = set(CATALOG_PROCESSORS.keys())
 
-@blp.route("/api/upload-catalog/<string:ingestionKey>")
+@blp.route("/api/upload-catalog/<string:siteKey>")
 class IngestCatalog(MethodView):
     def exception_handler(func):
         from functools import wraps
@@ -67,8 +67,8 @@ class IngestCatalog(MethodView):
 
     @blp.arguments(MultiPartFileSchema, location="files")
     @blp.response(201)
-    def post(self, files, ingestionKey):
-        if not validate_ingestion_key(ingestionKey):
+    def post(self, files, siteKey):
+        if not validate_site_key(siteKey):
             abort(401, message="Invalid Ingestion Key")
         if request.method == "POST":
             if "file" not in files:

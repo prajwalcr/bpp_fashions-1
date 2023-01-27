@@ -1,11 +1,13 @@
-from flask import jsonify, request
+from flask import jsonify, request, current_app
 from flask.views import MethodView
 from flask_smorest import Blueprint, abort
 
 from flaskapp import db
 from sqlalchemy import func
-from flaskapp.schemas import PlainProductSchema
+from flaskapp.schemas import PlainProductSchema, ProductSearchSchema, ProductPaginationSchema
 from flaskapp.models import ProductModel, CategoryModel
+
+import requests
 
 blp = Blueprint("product", __name__, description="Operations on products")
 
@@ -55,3 +57,57 @@ class Category(MethodView):
             else:
                 resp[item[0]] = [item[1]] if item[1] is not None else []
         return jsonify(resp)
+
+
+@blp.route("/api/search")
+class ProductSearch(MethodView):
+    @blp.arguments(ProductSearchSchema, location="query")
+    @blp.response(200, ProductPaginationSchema)
+    def get(self, searchParams):
+
+        searchURL = current_app.config['UNBXD_SEARCH_URL'] + current_app.config['UNBXD_API_KEY'] \
+                    + "/" + current_app.config['SITE_KEY'] + "/search/"
+
+        searchData = requests.get(searchURL, params=searchParams).json()
+
+        if "response" not in searchData or "products" not in searchData["response"] or "numberOfProducts" not in searchData["response"]:
+            abort(500, message="Search API Down")
+
+        numberOfProducts = searchData["response"]["numberOfProducts"]
+
+        response = {
+            "total": numberOfProducts,
+            "products": []
+        }
+
+        for dataItem in searchData["response"]["products"]:
+            if "uniqueId" not in dataItem or "price" not in dataItem:
+                continue
+
+            id = dataItem["uniqueId"]
+            title = dataItem.get("title", None)
+
+            if "availability" in dataItem:
+                availability = dataItem["availability"].lower() == "true"
+            else:
+                availability = False
+
+            productDescription = dataItem.get("productDescription", None)
+            imageURL = dataItem.get("productImage", None)  # Replace this maybe
+            price = dataItem["price"]
+
+            product = ProductModel(
+                id=id,
+                title=title,
+                availability=availability,
+                productDescription=productDescription,
+                imageURL=imageURL,
+                price=price
+            )
+
+            response["products"].append(product)
+            print(response)
+        return response
+
+
+

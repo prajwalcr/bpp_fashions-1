@@ -31,7 +31,7 @@ class JsonCatalogProcessor(CatalogProcessor):
         for dataItem in self.data:
             if type(dataItem) != dict:
                 return False
-            if "sku" not in dataItem:
+            if "uniqueId" not in dataItem:
                 return False
             if "price" not in dataItem:
                 return False
@@ -46,7 +46,7 @@ class JsonCatalogProcessor(CatalogProcessor):
         with SessionLocal() as session:
 
             for dataItem in self.data:
-                id = dataItem["sku"]
+                id = dataItem["uniqueId"]
                 title = dataItem.get("title", None)
                 if "availability" in dataItem:
                     availability = dataItem["availability"].lower() == "true"
