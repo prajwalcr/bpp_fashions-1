@@ -1,6 +1,7 @@
 from marshmallow import Schema, fields
 from marshmallow.validate import Range
 from flask_smorest.fields import Upload
+from flask import current_app
 
 
 class PlainProductSchema(Schema):
@@ -16,16 +17,21 @@ class MultiPartFileSchema(Schema):
     file = Upload(load_only=True, required=True)
 
 
-class PaginationParameterSchema(Schema):
-    page = fields.Integer(load_only=True, validate=Range(min=1, error="Page value must be greater than 0"))
+class PaginationSchema(Schema):
+    page = fields.Integer(load_only=True, validate=Range(min=1, error="Page value must be greater than 0"), load_default=1)
     rows = fields.Integer(load_only=True, validate=Range(min=1, error="Rows value must be greater than 0"))
     sort = fields.Str(load_only=True)
 
 
-class ProductSearchSchema(PaginationParameterSchema):
+class SearchSchema(PaginationSchema):
     q = fields.Str(load_only=True, required=True)
 
 
-class ProductPaginationSchema(Schema):
+class ProductParameterSchema(PaginationSchema):
+    cat1 = fields.Str(load_only=True)
+    cat2 = fields.Str(load_only=True)
+
+
+class ProductListSchema(Schema):
     total = fields.Integer(dump_only=True)
     products = fields.List(fields.Nested(PlainProductSchema()), dump_only=True)

@@ -32,6 +32,8 @@ def create_app():
     app.config['UNBXD_API_KEY'] = 'fb853e3332f2645fac9d71dc63e09ec1'
     app.config['UNBXD_SEARCH_URL'] = 'https://search.unbxd.io/'
 
+    app.config['PRODUCTS_PER_PAGE'] = 9
+
     api = Api(app)
 
     api.register_blueprint(ProductBlueprint)

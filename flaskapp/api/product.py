@@ -4,7 +4,8 @@ from flask_smorest import Blueprint, abort
 
 from flaskapp import db
 from sqlalchemy import func
-from flaskapp.schemas import PlainProductSchema, ProductSearchSchema, ProductPaginationSchema, PaginationParameterSchema
+from flaskapp.schemas import PlainProductSchema, SearchSchema, ProductListSchema, PaginationSchema, \
+    ProductParameterSchema
 from flaskapp.models import ProductModel, CategoryModel
 
 import requests
@@ -25,22 +26,35 @@ class Product(MethodView):
 
 @blp.route("/api/products")
 class ProductList(MethodView):
-    @blp.arguments(PaginationParameterSchema)
-    @blp.response(200, PlainProductSchema(many=True))
-    def get(self, paginationParameters):
-        cat1 = request.args.get("cat1")
-        cat2 = request.args.get("cat2")
-
+    @blp.arguments(ProductParameterSchema, location="query")
+    @blp.response(200, ProductListSchema)
+    def get(self, productParameters):
         q = db.query(ProductModel, CategoryModel).filter(ProductModel.id == CategoryModel.product_id)
 
-        if cat1 is not None:
-            q = q.filter(CategoryModel.catlevel1 == cat1)
-        if cat2 is not None:
-            q = q.filter(CategoryModel.catlevel2 == cat2)
+        if "cat1" in productParameters:
+            q = q.filter(CategoryModel.catlevel1 == productParameters["cat1"])
+        if "cat2" in productParameters:
+            q = q.filter(CategoryModel.catlevel2 == productParameters["cat2"])
 
-        products = q.all()
+        if "sort" in productParameters and productParameters["sort"].lower().split()[0] == "price":
+            sortOrder = productParameters["sort"].lower().split()[-1]
 
-        return [product["ProductModel"] for product in products]
+            if sortOrder == "desc":
+                q = q.order_by(ProductModel.price.desc())
+            else:
+                q = q.order_by(ProductModel.price.asc())
+
+        rows = productParameters.get("rows", current_app.config["PRODUCTS_PER_PAGE"])
+        products = q.limit(rows).offset((productParameters.get("page", 1)-1)*rows).all()
+
+        total = q.count()
+
+        response = {
+            "total": total,
+            "products": [product["ProductModel"] for product in products]
+        }
+
+        return response
 
 @blp.route("/api/categories")
 class Category(MethodView):
@@ -62,10 +76,9 @@ class Category(MethodView):
 
 @blp.route("/api/search")
 class ProductSearch(MethodView):
-    @blp.arguments(ProductSearchSchema, location="query")
-    @blp.response(200, ProductPaginationSchema)
+    @blp.arguments(SearchSchema, location="query")
+    @blp.response(200, ProductListSchema)
     def get(self, searchParams):
-
         searchURL = current_app.config['UNBXD_SEARCH_URL'] + current_app.config['UNBXD_API_KEY'] \
                     + "/" + current_app.config['SITE_KEY'] + "/search/"
 
