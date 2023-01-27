@@ -4,7 +4,7 @@ from flask_smorest import Blueprint, abort
 
 from flaskapp import db
 from sqlalchemy import func
-from flaskapp.schemas import PlainProductSchema, ProductSearchSchema, ProductPaginationSchema
+from flaskapp.schemas import PlainProductSchema, ProductSearchSchema, ProductPaginationSchema, PaginationParameterSchema
 from flaskapp.models import ProductModel, CategoryModel
 
 import requests
@@ -25,8 +25,9 @@ class Product(MethodView):
 
 @blp.route("/api/products")
 class ProductList(MethodView):
+    @blp.arguments(PaginationParameterSchema)
     @blp.response(200, PlainProductSchema(many=True))
-    def get(self):
+    def get(self, paginationParameters):
         cat1 = request.args.get("cat1")
         cat2 = request.args.get("cat2")
 
@@ -106,7 +107,7 @@ class ProductSearch(MethodView):
             )
 
             response["products"].append(product)
-            print(response)
+
         return response
 
 

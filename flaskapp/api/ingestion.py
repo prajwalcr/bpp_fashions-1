@@ -50,17 +50,17 @@ class IngestCatalog(MethodView):
 
         catalogProcessor.load()
         if not catalogProcessor.validate():
-            catalog.status = catalogProcessor.STATUS_CODE.get("VALIDATION_FAILURE", "Unavailable")
+            catalog.status = catalogProcessor.STATUS_CODES.get("VALIDATION_FAILURE", "Unavailable")
             db.commit()
             return
 
-        catalog.status = catalogProcessor.STATUS_CODE.get("INGESTING", "Unavailable")
+        catalog.status = catalogProcessor.STATUS_CODES.get("INGESTING", "Unavailable")
         db.commit()
 
         if catalogProcessor.ingest():
-            catalog.status = catalogProcessor.STATUS_CODE.get("SUCCESS", "Unavailable")
+            catalog.status = catalogProcessor.STATUS_CODES.get("SUCCESS", "Unavailable")
         else:
-            catalog.status = catalogProcessor.STATUS_CODE.get("INGESTION_FAILURE", "Unavailable")
+            catalog.status = catalogProcessor.STATUS_CODES.get("INGESTION_FAILURE", "Unavailable")
 
         db.commit()
         return
@@ -69,7 +69,7 @@ class IngestCatalog(MethodView):
     @blp.response(201)
     def post(self, files, siteKey):
         if not validate_site_key(siteKey):
-            abort(401, message="Invalid Ingestion Key")
+            abort(401, message="Invalid Site Key")
         if request.method == "POST":
             if "file" not in files:
                 abort(400, message="No File Selected")
@@ -86,7 +86,6 @@ class IngestCatalog(MethodView):
                 trackingID = str(uuid.uuid4().hex)
 
                 catalog = CatalogModel(id=trackingID, status=CatalogProcessor.STATUS_CODES.get("VALIDATING", "Unavailable"), filepath=filepath)
-                print("added catalog")
                 db.add(catalog)
                 db.commit()
 

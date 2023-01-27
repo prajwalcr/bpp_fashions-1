@@ -16,11 +16,14 @@ class MultiPartFileSchema(Schema):
     file = Upload(load_only=True, required=True)
 
 
-class ProductSearchSchema(Schema):
-    q = fields.Str(load_only=True, required=True)
+class PaginationParameterSchema(Schema):
     page = fields.Integer(load_only=True, validate=Range(min=1, error="Page value must be greater than 0"))
     rows = fields.Integer(load_only=True, validate=Range(min=1, error="Rows value must be greater than 0"))
     sort = fields.Str(load_only=True)
+
+
+class ProductSearchSchema(PaginationParameterSchema):
+    q = fields.Str(load_only=True, required=True)
 
 
 class ProductPaginationSchema(Schema):
