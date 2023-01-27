@@ -6,3 +6,4 @@ def allowed_file(filename, allowedExtensions=None):
 
 def validate_ingestion_key(ingestionKey):
     return ingestionKey == current_app.config['INGESTION_KEY']
+

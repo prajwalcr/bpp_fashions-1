@@ -6,7 +6,9 @@ from flask_smorest import Blueprint, abort
 from flaskapp.models import CatalogModel
 from flaskapp.utils import allowed_file, validate_ingestion_key
 from werkzeug.utils import secure_filename
-from flaskapp.CatalogProcessor import JsonCatalogProcessor
+from flaskapp.CatalogProcessors.CatalogProcessor import CatalogProcessor
+from flaskapp.CatalogProcessors.JsonCatalogProcessor import JsonCatalogProcessor
+from flaskapp.schemas import MultiPartFileSchema
 
 from threading import Thread
 import uuid
@@ -22,6 +24,22 @@ ALLOWED_FILES = set(CATALOG_PROCESSORS.keys())
 
 @blp.route("/api/upload-catalog/<string:ingestionKey>")
 class IngestCatalog(MethodView):
+    def exception_handler(func):
+        from functools import wraps
+        @wraps(func)
+        def inner_function(self, id, *args, **kwargs):
+            try:
+                return func(self, id, *args, **kwargs)
+            except Exception as e:
+                print(f"Exception in {func.__name__}:", e)
+
+                catalog = db.query(CatalogModel).filter_by(id=id).first()
+                catalog.status = CatalogProcessor.STATUS_CODES.get("INGESTION_FAILURE", "Unavailable")
+                db.commit()
+
+        return inner_function
+
+    @exception_handler
     def ingest_catalog(self, id):
         catalog = db.query(CatalogModel).filter_by(id=id).first()
 
@@ -32,29 +50,31 @@ class IngestCatalog(MethodView):
 
         catalogProcessor.load()
         if not catalogProcessor.validate():
-            catalog.status = "Validation Failed"
+            catalog.status = catalogProcessor.STATUS_CODE.get("VALIDATION_FAILURE", "Unavailable")
             db.commit()
             return
 
-        catalog.status = "Ingesting Catalog"
+        catalog.status = catalogProcessor.STATUS_CODE.get("INGESTING", "Unavailable")
         db.commit()
 
         if catalogProcessor.ingest():
-            catalog.status = "Successfully Ingested Catalog"
+            catalog.status = catalogProcessor.STATUS_CODE.get("SUCCESS", "Unavailable")
         else:
-            catalog.status = "Catalog Ingestion Failed"
+            catalog.status = catalogProcessor.STATUS_CODE.get("INGESTION_FAILURE", "Unavailable")
 
         db.commit()
         return
 
-    def post(self, ingestionKey):
+    @blp.arguments(MultiPartFileSchema, location="files")
+    @blp.response(201)
+    def post(self, files, ingestionKey):
         if not validate_ingestion_key(ingestionKey):
             abort(401, message="Invalid Ingestion Key")
         if request.method == "POST":
-            if "file" not in request.files:
+            if "file" not in files:
                 abort(400, message="No File Selected")
 
-            file = request.files["file"]
+            file = files["file"]
             if file and file.filename == '':
                 abort(400, message="No File Selected")
 
@@ -65,7 +85,7 @@ class IngestCatalog(MethodView):
 
                 trackingID = str(uuid.uuid4().hex)
 
-                catalog = CatalogModel(id=trackingID, status="Validating Catalog", filepath=filepath)
+                catalog = CatalogModel(id=trackingID, status=CatalogProcessor.STATUS_CODES.get("VALIDATING", "Unavailable"), filepath=filepath)
                 print("added catalog")
                 db.add(catalog)
                 db.commit()
@@ -75,7 +95,10 @@ class IngestCatalog(MethodView):
                     "tracking ID": trackingID
                 }
 
-                Thread(target=self.ingest_catalog, args=(trackingID,)).start()
+                try:
+                    Thread(target=self.ingest_catalog, args=(trackingID,)).start()
+                except Exception as e:
+                    print("Exception in ingestion:", e)
 
                 return jsonify(response)
 
