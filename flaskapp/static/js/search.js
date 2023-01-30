@@ -1,14 +1,18 @@
 $(document).ready(function(){
-$('button[id="srcb').click(function(){
-    searchquery=document.getElementById('srcq').val
-    var srcurl=new URL("http://127.0.0.1:5000/search")
-    srcurl.searchParams.append('q',searchquery)
+console.log('start')
+$(document).on('click','button[id="srcb"]',function(){
+    console.log("Search clicked")
+    var srcurl=new URL(window.location.href)
+    query=currenturl.searchParams.get('q')
+    srcurl.searchParams.append("q",query)
+    console.log(query,srcurl)
     $.ajax({
-        url:srcurl,
+        url:srcurl.toString(),
         type:'GET',
         success:function(data){
+            console.log(data)
             $.each(data,function(i,val){
-                console.log(val.id)
+                console.log(val)
                 var html='<div class="col md-4 d-flex">';
                 html+='<div class="card" id="'+val.id+'">';
                 html+='<img class="card-img-top" src="'+val.imageURL+'" alt="...">';
@@ -22,6 +26,6 @@ $('button[id="srcb').click(function(){
                 $('#forma').append(html)
         })
         }
-    })
+    }) 
 })
 })

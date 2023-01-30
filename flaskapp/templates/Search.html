@@ -1,51 +1,56 @@
 {% extends "base.html" %}
 
 {% block content %}
-<link rel="stylesheet" href="{{ url_for('static',filename='stylesheets/stylesrc.css') }}">
 <script type='text/javascript'>
-$(document).ready(function(){
+  $(document).ready(function(){
   var currenturl=new URL(window.location.href)
   cat1=currenturl.searchParams.get('cat1')
   cat2=currenturl.searchParams.get('cat2')
-  console.log(cat1,cat2)
-  var newurl=new URL("http://127.0.0.1:5000/products")
+  q=currenturl.searchParams.get('q')
+  console.log(cat1,cat2,q)
   if (cat1!=null && cat2!=null){
+    var newurl=new URL("http://127.0.0.1:5000/products")
     newurl.searchParams.append("cat1",cat1)
     newurl.searchParams.append("cat2",cat2)
   }
   else if(cat1!=null && cat2==null){
+    var newurl=new URL("http://127.0.0.1:5000/products")
     newurl.searchParams.append("cat1",cat1)
+  }
+  else if(q!=null){
+    var newurl=new URL("http://127.0.0.1:5000/search")
+    newurl.searchParams.append("q",q)
+  }
+  else if(cat1==null && cat2==null && q==null){
+    var newurl=new URL("http://127.0.0.1:5000/products")
   }
   console.log(newurl)
   $.ajax({
-    url:newurl.toString(),
+    url:/api/newurl.toString(),
     type:'GET',
     success:function(data){
-      $.each(data,function(i,val){
-        console.log(val.id)
+      for (var i=0;i<data.length;i++){
         var html='<div class="col md-4 d-flex">';
-        html+='<div class="card" id="'+val.id+'">';
-        html+='<img class="card-img-top" src="'+val.imageURL+'" alt="...">';
+        html+='<div class="card" id="'+data[i].id+'">';
+        html+='<img class="card-img-top" src="'+data[i].imageURL+'" alt="...">';
         html+='<div class="card-body">';
-        html+='<h4 class="card-title">'+val.title+'       '+val.price+'$</h4>';
-        html+='<p class="card-text">'+val.productDescription+'</p>';
-        html+='<a href="{{url_for("info",id="val.id")}}" class="btn btn-primary stretched-link">View Product</a>'.replace('val.id',val.id);
+        html+='<h4 class="card-title">'+data[i].title+'       '+data[i].price+'$</h4>';
+        html+='<p class="card-text">'+data[i].productDescription+'</p>';
+        html+='<a href="{{url_for("routes.info",id="val.id")}}" class="align-self-enmd btn btn-info stretched-link">View Product</a>'.replace('val.id',data[i].id);
         html+='</div>';
         html+='</div>';
         html+='</div>';
         $('#forma').append(html)
-
-      })
+      }
     }
   })
-});
+})
 </script>
     <div>
       <select class="custom-select" id="sort">
         <option value="Nons">None</option>
         <option value="Men">Price-Asc</option>
         <option value="Women">Price-Desc</option>
-        <option value="ESP">Relevance</option>
       </select>
     </div>
       <div class="row row-cols-1 row-cols-md-3 mx-center" id="forma">

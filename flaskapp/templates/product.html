@@ -1,17 +1,6 @@
 {%extends "base.html"%}
 
 {% block content %}
-<!--
-<div class="card" style="width:400px">
-  <img class="card-img-top" src="{{ url_for('static',filename='img/bpp_fashions.png') }}" alt="Card image">
-  <div class="card-body mx-auto">
-    <h4 class="card-title">Product 1</h4>
-    <p class="card-text">1$</p>
-    <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit architecto officia voluptatibus consequuntur quas ea nam laudantium ratione minima consectetur praesentium quisquam tempore nostrum a, recusandae aut natus ipsam eum?</p>
-  </div>
-</div>
--->
-<link rel="stylesheet" href="{{ url_for('static',filename='stylesheets/stylesrc.css') }}">
 <script type="text/javascript" >
 $(document).ready(function(){
 var currenturl=window.location.pathname
@@ -20,31 +9,32 @@ var lastpart=parts.slice(-1)
 console.log(lastpart)
 $.ajaxSetup({traditional: true});
 $.ajax({
-  url:'/product/'+lastpart,
+  url:'/api/product/'+lastpart,
   type:'GET',
   success:function(data){
     console.log(data)
-    var html ='<div class="card" id="prodi">';
-        html+='<img class="card-img-top" src="'+data.imageURL+'" alt="...">';
-        html+='<div class="card-body">';
-        html+='<h4 class="card-title">'+data.title+' - '+data.price+'</h4>';
-        html+='<p class="card-text">'+data.productDescription+'</p>';
+        var html='<div class="col-sm-6>';
+        html +='<div class="card" style="backgorund-color:#FFFFFF">';
+        html +='<div class="row card-body">'
+        html+='<img src="'+data.imageURL+'" alt="..." class="col-sm-6">';
+        html+='<div class="col-sm-6">';
+        html+='<h4>Name:'+data.title+'</h4>';
+        html+='<h5>Price:'+data.price+'$</h5>';
+        html+='<p>'+data.productDescription+'</p>';
         html+='</div>';
         html+='</div>';
         html+='</div>';
-        $('#container').append(html)
+        $('.container-fluid').append(html)
 
   }
 })
 })
 
 </script>
-<div id="container">
+<div class="container-fluid">
 </div>
-    <div id="recommend">
-      <p>Recommended For you</p>
-    </div>  
-    <div class="row row-cols-1 row-cols-md-4 mx-center">
-    </div>
+  <div id="recommend">
+    <p>Recommended For you</p>
+  </div>  
 
 {% endblock %}
