@@ -10,7 +10,63 @@ from flaskapp.models import ProductModel, CategoryModel
 
 import requests
 
+
 blp = Blueprint("product", __name__, description="Operations on products")
+
+def fireSearchQuery(searchParams):
+    searchURL = current_app.config['UNBXD_SEARCH_URL'] + current_app.config['UNBXD_API_KEY'] \
+                + "/" + current_app.config['SITE_KEY'] + "/search/"
+
+    requiredFields = ["uniqueId", "title", "availability", "productDescription", "productImage", "price"]
+
+    searchParams["fields"] = ",".join(requiredFields)
+    searchData = requests.get(searchURL, params=searchParams).json()
+
+    return searchData
+def getSearchResponse(searchParams):
+
+    searchData = fireSearchQuery(searchParams)
+
+    if "response" not in searchData or "products" not in searchData["response"] or "numberOfProducts" not in searchData[
+        "response"]:
+        return 500, "Search API Down"
+
+    numberOfProducts = searchData["response"]["numberOfProducts"]
+
+    productList = []
+
+    for dataItem in searchData["response"]["products"]:
+        if "uniqueId" not in dataItem or "price" not in dataItem:
+            numberOfProducts -= 1
+            continue
+
+        id = dataItem["uniqueId"]
+        title = dataItem.get("title", None)
+
+        if "availability" in dataItem:
+            availability = dataItem["availability"].lower() == "true"
+        else:
+            availability = False
+
+        productDescription = dataItem.get("productDescription", None)
+        imageURL = dataItem.get("productImage", None)  # Replace this maybe
+        price = dataItem["price"]
+
+        product = ProductModel(
+            id=id,
+            title=title,
+            availability=availability,
+            productDescription=productDescription,
+            imageURL=imageURL,
+            price=price
+        )
+
+        productList.append(product)
+
+    return 200, {
+        "products": productList,
+        "total": numberOfProducts
+    }
 
 @blp.route("/api/products/<string:product_id>")
 class Product(MethodView):
@@ -18,7 +74,19 @@ class Product(MethodView):
     def get(self, product_id):
         q = db.query(ProductModel).filter_by(id=product_id)
         if not db.query(q.exists()).scalar():
-            abort(404, message="Resource not found")
+            print("No exist")
+            searchParams = {
+                "q": product_id
+            }
+            status, response = getSearchResponse(searchParams)
+
+            if status != 200:
+                abort(status, message=response)
+
+            if response["total"] < 1:
+                abort(404, message="Resource not found")
+
+            return response["products"][0]
 
         product = q.first()
 
@@ -79,49 +147,11 @@ class ProductSearch(MethodView):
     @blp.arguments(SearchSchema, location="query")
     @blp.response(200, ProductListSchema)
     def get(self, searchParams):
-        searchURL = current_app.config['UNBXD_SEARCH_URL'] + current_app.config['UNBXD_API_KEY'] \
-                    + "/" + current_app.config['SITE_KEY'] + "/search/"
+        status, response = getSearchResponse(searchParams)
 
-        searchData = requests.get(searchURL, params=searchParams).json()
-
-        if "response" not in searchData or "products" not in searchData["response"] or "numberOfProducts" not in searchData["response"]:
-            abort(500, message="Search API Down")
-
-        numberOfProducts = searchData["response"]["numberOfProducts"]
-
-        response = {
-            "total": numberOfProducts,
-            "products": []
-        }
-
-        for dataItem in searchData["response"]["products"]:
-            if "uniqueId" not in dataItem or "price" not in dataItem:
-                continue
-
-            id = dataItem["uniqueId"]
-            title = dataItem.get("title", None)
-
-            if "availability" in dataItem:
-                availability = dataItem["availability"].lower() == "true"
-            else:
-                availability = False
-
-            productDescription = dataItem.get("productDescription", None)
-            imageURL = dataItem.get("productImage", None)  # Replace this maybe
-            price = dataItem["price"]
-
-            product = ProductModel(
-                id=id,
-                title=title,
-                availability=availability,
-                productDescription=productDescription,
-                imageURL=imageURL,
-                price=price
-            )
-
-            response["products"].append(product)
+        if status != 200:
+            abort(status, message=response)
 
         return response
-
 
 
