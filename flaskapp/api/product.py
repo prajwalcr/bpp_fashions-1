@@ -74,7 +74,6 @@ class Product(MethodView):
     def get(self, product_id):
         q = db.query(ProductModel).filter_by(id=product_id)
         if not db.query(q.exists()).scalar():
-            print("No exist")
             searchParams = {
                 "q": product_id
             }
@@ -99,10 +98,10 @@ class ProductList(MethodView):
     def get(self, productParameters):
         q = db.query(ProductModel, CategoryModel).filter(ProductModel.id == CategoryModel.product_id)
 
-        if "cat1" in productParameters:
-            q = q.filter(CategoryModel.catlevel1 == productParameters["cat1"])
-        if "cat2" in productParameters:
-            q = q.filter(CategoryModel.catlevel2 == productParameters["cat2"])
+        # if "cat1" in productParameters:
+        #     q = q.filter(CategoryModel.catlevel1 == productParameters["cat1"])
+        # if "cat2" in productParameters:
+        #     q = q.filter(CategoryModel.catlevel2 == productParameters["cat2"])
 
         if "sort" in productParameters and productParameters["sort"].lower().split()[0] == "price":
             sortOrder = productParameters["sort"].lower().split()[-1]
@@ -112,10 +111,14 @@ class ProductList(MethodView):
             else:
                 q = q.order_by(ProductModel.price.asc())
 
+        page = productParameters.get("page")
         rows = productParameters.get("rows", current_app.config["PRODUCTS_PER_PAGE"])
-        products = q.limit(rows).offset((productParameters.get("page", 1)-1)*rows).all()
 
+        products = q.limit(rows).offset((page-1)*rows).all()
         total = q.count()
+
+        if page > (total-1)//rows+1:
+            abort(400, message="Page number too high")
 
         response = {
             "total": total,
@@ -124,22 +127,22 @@ class ProductList(MethodView):
 
         return response
 
-@blp.route("/api/categories")
-class Category(MethodView):
-    def get(self):
-        # Make the below code simpler
-        # print(db.query(Category.catlevel1, func.group_concat(Category.catlevel2.distinct())).group_by(Category.catlevel1).all())
-        categoryQuery = db.query(CategoryModel.catlevel1, CategoryModel.catlevel2).distinct().filter(CategoryModel.catlevel1 != None).subquery()
-        categoryTree = db.query(categoryQuery.c.catlevel1, categoryQuery.c.catlevel2,
-                           func.row_number().over(partition_by=categoryQuery.c.catlevel1).label("row_number")).all()
-
-        resp = {}
-        for item in categoryTree:
-            if item[0] in resp:
-                item[1] is None or resp[item[0]].append(item[1])
-            else:
-                resp[item[0]] = [item[1]] if item[1] is not None else []
-        return jsonify(resp)
+# @blp.route("/api/categories")
+# class Category(MethodView):
+#     def get(self):
+#         # Make the below code simpler
+#         # print(db.query(Category.catlevel1, func.group_concat(Category.catlevel2.distinct())).group_by(Category.catlevel1).all())
+#         categoryQuery = db.query(CategoryModel.catlevel1, CategoryModel.catlevel2).distinct().filter(CategoryModel.catlevel1 != None).subquery()
+#         categoryTree = db.query(categoryQuery.c.catlevel1, categoryQuery.c.catlevel2,
+#                            func.row_number().over(partition_by=categoryQuery.c.catlevel1).label("row_number")).all()
+#
+#         resp = {}
+#         for item in categoryTree:
+#             if item[0] in resp:
+#                 item[1] is None or resp[item[0]].append(item[1])
+#             else:
+#                 resp[item[0]] = [item[1]] if item[1] is not None else []
+#         return jsonify(resp)
 
 
 @blp.route("/api/search")
@@ -147,6 +150,9 @@ class ProductSearch(MethodView):
     @blp.arguments(SearchSchema, location="query")
     @blp.response(200, ProductListSchema)
     def get(self, searchParams):
+        if "rows" not in searchParams:
+            searchParams["rows"] = current_app.config["PRODUCTS_PER_PAGE"]
+
         status, response = getSearchResponse(searchParams)
 
         if status != 200:

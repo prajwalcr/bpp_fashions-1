@@ -11,4 +11,4 @@ class CategoryModel(Base):
     level = Column(Integer)
 
     def __repr__(self):
-        return f"Category('{self.product_id}', '{self.catlevel1}', '{self.catlevel2}')"
+        return f"Category('{self.id}', '{self.parent_id}', '{self.name}', '{self.level}')"

@@ -35,3 +35,10 @@ class ProductParameterSchema(PaginationSchema):
 class ProductListSchema(Schema):
     total = fields.Integer(dump_only=True)
     products = fields.List(fields.Nested(PlainProductSchema()), dump_only=True)
+
+
+class CategorySchema(Schema):
+    id = fields.Int(dump_only=True)
+    parent_id = fields.Int(dump_only=True)
+    name = fields.Str(dump_only=True)
+    level = fields.Int(dump_only=True)
