@@ -1,5 +1,5 @@
 import json
-from flaskapp.models import ProductModel, CategoryModel, ColorModel, SizeModel
+from flaskapp.models import ProductModel, CategoryModel, ColorModel, SizeModel, ProductCategoryModel
 from flaskapp.CatalogProcessors.CatalogProcessor import CatalogProcessor
 from flaskapp.database import SessionLocal
 
@@ -56,11 +56,14 @@ class JsonCatalogProcessor(CatalogProcessor):
                 imageURL = dataItem.get("productImage", None) # Replace this maybe
                 price = dataItem["price"]
 
-                catlevel1 = dataItem.get("catlevel1Name", None)
-
-                catlevel2 = None
-                if "catlevel2Name" in dataItem:
-                    catlevel2 = dataItem["catlevel2Name"].strip()
+                catLevelNames = []
+                levelCounter = 1
+                while True:
+                    field = "catlevel"+str(levelCounter)+"Name"
+                    if field not in dataItem:
+                        break
+                    catLevelNames.append(dataItem[field].strip())
+                    levelCounter += 1
 
                 colors = dataItem.get("color", list())
                 sizes = dataItem.get("size", list())
@@ -74,23 +77,42 @@ class JsonCatalogProcessor(CatalogProcessor):
                     price=price
                 )
 
-                category = CategoryModel(
-                    product_id=id,
-                    catlevel1=catlevel1,
-                    catlevel2=catlevel2
-                )
+                product.categories = []
+                product.colors = []
+                product.sizes = []
 
-                colorList = []
+                parentCategory = session.query(CategoryModel).filter(CategoryModel.level == 0).first()
+                for i in range(len(catLevelNames)):
+
+                    currentCategory = session.query(CategoryModel)\
+                        .filter(CategoryModel.parent_id == parentCategory.id)\
+                        .filter(CategoryModel.name == catLevelNames[i])\
+                        .filter(CategoryModel.level == i+1)\
+                        .first()
+
+                    if currentCategory is None:
+                        currentCategory = CategoryModel(
+                            parent_id=parentCategory.id,
+                            name=catLevelNames[i],
+                            level=i+1
+                        )
+
+                        session.add(currentCategory)
+                        session.flush()
+
+                    product_category_association = ProductCategoryModel(
+                        product_id=id,
+                        category_id=currentCategory.id
+                    )
+
+                    product.categories.append(product_category_association)
+                    parentCategory = currentCategory
+
                 for color in colors:
-                    colorList.append(ColorModel(product_id=id, product_color=color))
+                    product.colors.append(ColorModel(product_id=id, product_color=color))
 
-                sizeList = []
                 for size in sizes:
-                    sizeList.append(SizeModel(product_id=id, product_size=size))
-
-                product.category = category
-                product.colors = colorList
-                product.sizes = sizeList
+                    product.sizes.append(SizeModel(product_id=id, product_size=size))
 
                 session.add(product)
                 # time.sleep(0.02)
