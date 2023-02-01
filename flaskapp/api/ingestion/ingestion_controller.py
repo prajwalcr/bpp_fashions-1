@@ -6,8 +6,8 @@ from flask_smorest import Blueprint, abort
 from flaskapp.models import CatalogModel
 from flaskapp.utils import allowed_file, validate_site_key
 from werkzeug.utils import secure_filename
-from flaskapp.CatalogProcessors.CatalogProcessor import CatalogProcessor
-from flaskapp.CatalogProcessors.JsonCatalogProcessor import JsonCatalogProcessor
+from flaskapp.api.ingestion.CatalogProcessors.CatalogProcessor import CatalogProcessor
+from flaskapp.api.ingestion.CatalogProcessors.JsonCatalogProcessor import JsonCatalogProcessor
 from flaskapp.schemas import MultiPartFileSchema
 
 from threading import Thread

@@ -4,9 +4,11 @@ from flask_smorest import Blueprint, abort
 
 from flaskapp import db
 from sqlalchemy import func
+
+from flaskapp.api.products.search import SearchHelper
 from flaskapp.schemas import PlainProductSchema, SearchSchema, ProductListSchema, PaginationSchema, \
     ProductParameterSchema
-from flaskapp.models import ProductModel, CategoryModel
+from flaskapp.models import ProductModel, CategoryModel, ProductCategoryModel
 
 import requests
 
@@ -26,6 +28,9 @@ def fireSearchQuery(searchParams):
 def getSearchResponse(searchParams):
 
     searchData = fireSearchQuery(searchParams)
+
+    if "rows" not in searchParams:
+        searchParams["rows"] = current_app.config["PRODUCTS_PER_PAGE"]
 
     if "response" not in searchData or "products" not in searchData["response"] or "numberOfProducts" not in searchData[
         "response"]:
@@ -65,6 +70,7 @@ def getSearchResponse(searchParams):
 
     return 200, {
         "products": productList,
+        "rows": searchParams["rows"],
         "total": numberOfProducts
     }
 
@@ -96,8 +102,7 @@ class ProductList(MethodView):
     @blp.arguments(ProductParameterSchema, location="query")
     @blp.response(200, ProductListSchema)
     def get(self, productParameters):
-        q = db.query(ProductModel, CategoryModel).filter(ProductModel.id == CategoryModel.product_id)
-
+        q = db.query(ProductModel)
         # if "cat1" in productParameters:
         #     q = q.filter(CategoryModel.catlevel1 == productParameters["cat1"])
         # if "cat2" in productParameters:
@@ -117,12 +122,13 @@ class ProductList(MethodView):
         products = q.limit(rows).offset((page-1)*rows).all()
         total = q.count()
 
-        if page > (total-1)//rows+1:
+        if page > ((total-1)//rows)+1:
             abort(400, message="Page number too high")
 
         response = {
             "total": total,
-            "products": [product["ProductModel"] for product in products]
+            "rows": rows,
+            "products": products
         }
 
         return response
@@ -149,14 +155,17 @@ class ProductList(MethodView):
 class ProductSearch(MethodView):
     @blp.arguments(SearchSchema, location="query")
     @blp.response(200, ProductListSchema)
-    def get(self, searchParams):
-        if "rows" not in searchParams:
-            searchParams["rows"] = current_app.config["PRODUCTS_PER_PAGE"]
+    def get(self, search_params):
+        if "rows" not in search_params:
+            search_params["rows"] = current_app.config["PRODUCTS_PER_PAGE"]
 
-        status, response = getSearchResponse(searchParams)
+        search_data = SearchHelper.fire_search_query(search_params)
+        status, response = SearchHelper.parse_search_results(search_data)
 
         if status != 200:
             abort(status, message=response)
+
+        response["rows"] = search_params["rows"]
 
         return response
 

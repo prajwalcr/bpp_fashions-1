@@ -4,9 +4,9 @@ from flask_smorest import Api
 
 from flaskapp.database import db
 
-from flaskapp.api.product import blp as ProductBlueprint
-from flaskapp.api.category import blp as CategoryBlueprint
-from flaskapp.api.ingestion import blp as IngestionBlueprint
+from flaskapp.api.products.product_controller import blp as ProductBlueprint
+from flaskapp.api.products.category_controller import blp as CategoryBlueprint
+from flaskapp.api.ingestion.ingestion_controller import blp as IngestionBlueprint
 from flaskapp.routes import blp as RoutesBlueprint
 
 def create_app():

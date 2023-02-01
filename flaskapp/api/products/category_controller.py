@@ -33,6 +33,7 @@ class Category(MethodView):
 
         response = {
             "total": total,
+            "rows": rows,
             "products": [product for product in products]
         }
 
@@ -49,5 +50,5 @@ class CategoryTree(MethodView):
         q = db.query(CategoryModel).filter(CategoryModel.parent_id == category_id)
 
         categories = q.all()
-        print(categories)
+
         return categories

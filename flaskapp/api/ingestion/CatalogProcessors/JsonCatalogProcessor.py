@@ -1,9 +1,8 @@
 import json
 from flaskapp.models import ProductModel, CategoryModel, ColorModel, SizeModel, ProductCategoryModel
-from flaskapp.CatalogProcessors.CatalogProcessor import CatalogProcessor
+from flaskapp.api.ingestion.CatalogProcessors.CatalogProcessor import CatalogProcessor
 from flaskapp.database import SessionLocal
 
-import time
 
 class JsonCatalogProcessor(CatalogProcessor):
     def __init__(self, filepath):

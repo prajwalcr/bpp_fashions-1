@@ -34,6 +34,7 @@ class ProductParameterSchema(PaginationSchema):
 
 class ProductListSchema(Schema):
     total = fields.Integer(dump_only=True)
+    rows = fields.Integer(dump_only=True)
     products = fields.List(fields.Nested(PlainProductSchema()), dump_only=True)
 
 
