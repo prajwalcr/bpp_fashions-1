@@ -1,5 +1,5 @@
 from flaskapp.database import Base
-from sqlalchemy import Column, String, Boolean, Text, Float
+from sqlalchemy import Column, String, Boolean, Text, Float, Integer, ForeignKey
 from sqlalchemy.orm import relationship
 
 class ProductModel(Base):
@@ -12,7 +12,9 @@ class ProductModel(Base):
     productDescription = Column(Text)
     imageURL = Column(Text)
     price = Column(Float)
-    category = relationship("CategoryModel", backref="product", uselist=False, lazy=True)
+    categories = relationship("ProductCategoryModel", backref="product", uselist=True)
+    # deepest_category_id = Column(Integer, ForeignKey("category.id"))
+    # category = relationship("CategoryModel", backref="product", uselist=False, lazy=True)
     sizes = relationship("SizeModel", backref="product", lazy=True)
     colors = relationship("ColorModel", backref="product", lazy=True)
 
