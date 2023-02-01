@@ -9,17 +9,18 @@ var lastpart=parts.slice(-1)
 console.log(lastpart)
 $.ajaxSetup({traditional: true});
 $.ajax({
-  url:'/api/product/'+lastpart,
+  url:'/api/products/'+lastpart,
   type:'GET',
   success:function(data){
     console.log(data)
         var html='<div class="col-sm-6>';
-        html +='<div class="card" style="backgorund-color:#FFFFFF">';
+        html +='<div class="card" id="prodi">';
         html +='<div class="row card-body">'
         html+='<img src="'+data.imageURL+'" alt="..." class="col-sm-6">';
         html+='<div class="col-sm-6">';
-        html+='<h4>Name:'+data.title+'</h4>';
-        html+='<h5>Price:'+data.price+'$</h5>';
+        html+='<h3>'+data.title+'</h3>';
+        html+='<hr style=color:lightblue;>'
+        html+='<h4>'+data.price+'$</h4>';
         html+='<p>'+data.productDescription+'</p>';
         html+='</div>';
         html+='</div>';
@@ -33,8 +34,5 @@ $.ajax({
 </script>
 <div class="container-fluid">
 </div>
-  <div id="recommend">
-    <p>Recommended For you</p>
-  </div>  
 
 {% endblock %}

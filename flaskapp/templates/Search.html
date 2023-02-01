@@ -7,36 +7,58 @@
   cat1=currenturl.searchParams.get('cat1')
   cat2=currenturl.searchParams.get('cat2')
   q=currenturl.searchParams.get('q')
-  console.log(cat1,cat2,q)
+  sort=currenturl.searchParams.get('sort')
+  rows=currenturl.searchParams.get('rows')
+  page=currenturl.searchParams.get('page')
+  console.log(cat1,cat2,q,sort,rows,page,currenturl)
   if (cat1!=null && cat2!=null){
-    var newurl=new URL("http://127.0.0.1:5000/products")
+    var newurl=new URL("http://127.0.0.1:5000/api/products")
     newurl.searchParams.append("cat1",cat1)
     newurl.searchParams.append("cat2",cat2)
   }
   else if(cat1!=null && cat2==null){
-    var newurl=new URL("http://127.0.0.1:5000/products")
+    var newurl=new URL("http://127.0.0.1:5000/api/products")
     newurl.searchParams.append("cat1",cat1)
   }
   else if(q!=null){
-    var newurl=new URL("http://127.0.0.1:5000/search")
+    var newurl=new URL("http://127.0.0.1:5000/api/search")
     newurl.searchParams.append("q",q)
   }
   else if(cat1==null && cat2==null && q==null){
-    var newurl=new URL("http://127.0.0.1:5000/products")
+    var newurl=new URL("http://127.0.0.1:5000/api/products")
+  }
+  if(sort!=null){
+    newurl.searchParams.append("sort",sort)
+  }
+  if(rows!=null){
+    newurl.searchParams.append("rows",rows)
+  }
+  if(page!=null){
+    newurl.searchParams.append("page",page)
   }
   console.log(newurl)
   $.ajax({
-    url:/api/newurl.toString(),
+    url:newurl.toString(),
     type:'GET',
     success:function(data){
-      for (var i=0;i<data.length;i++){
+      dataitems=data["products"]
+      datanumber=data["total"]
+      if (rows==null){
+        rows=9
+      }
+      if(page==null || parseInt(page)==1){
+        $('button[id="prev"]').hide();
+      }
+      for (var i=0;i<dataitems.length;i++){
         var html='<div class="col md-4 d-flex">';
-        html+='<div class="card" id="'+data[i].id+'">';
-        html+='<img class="card-img-top" src="'+data[i].imageURL+'" alt="...">';
+        html+='<div class="card" id="'+dataitems[i].id+'">';
+        html+='<img class="card-img-top" src="'+dataitems[i].imageURL+'" alt="...">';
         html+='<div class="card-body">';
-        html+='<h4 class="card-title">'+data[i].title+'       '+data[i].price+'$</h4>';
-        html+='<p class="card-text">'+data[i].productDescription+'</p>';
-        html+='<a href="{{url_for("routes.info",id="val.id")}}" class="align-self-enmd btn btn-info stretched-link">View Product</a>'.replace('val.id',data[i].id);
+        html+='<h4 class="card-title">'+dataitems[i].title+'</h4>';
+        html+='<hr>'
+        html+='<h4 class="card-title">'+dataitems[i].price+'$</h4>';
+        html+='<p class="card-text">'+dataitems[i].productDescription+'</p>';
+        html+='<a href="{{url_for("routes.info",id="val.id")}}" class="align-self-enmd btn btn-info stretched-link">View Product</a>'.replace('val.id',dataitems[i].id);
         html+='</div>';
         html+='</div>';
         html+='</div>';
@@ -46,12 +68,13 @@
   })
 })
 </script>
-    <div>
-      <select class="custom-select" id="sort">
-        <option value="Nons">None</option>
-        <option value="Men">Price-Asc</option>
-        <option value="Women">Price-Desc</option>
-      </select>
+    <div id="sor">
+        <select class="custom-select" id="sort">
+            <option value="">None</option>
+            <option value="price asc">Price-Asc</option>
+            <option value="price desc">Price-Desc</option>
+        </select>
+        <button id="sortf" class="btn btn-info" type="submit">Filter</button>
     </div>
       <div class="row row-cols-1 row-cols-md-3 mx-center" id="forma">
         <!--
@@ -66,6 +89,51 @@
         </div>
       -->
       </div>
-      
+      <div id="pagi">
+        <button id="prev" class="btn btn-info" type="submit">Previous</button>
+        <button id="next" class="btn btn-info" type="submit">Next</button>
+      </div>
+      <script type="text/javascript">
+        $('button[id="sortf"]').click(function(){
+           console.log('hello')
+           facurl=new URL(window.location.href)
+           let params=new URLSearchParams(facurl)
+           facurl.searchParams.delete('sort')
+           sortv=document.getElementById('sort').value
+           if (sortv!=""){
+           facurl.searchParams.delete('page')        
+           facurl.searchParams.append("sort",sortv)}
+           window.location.href=facurl
+        })
+        $('button[id="prev"]').click(function(){
+          pagurl=new URL(window.location.href)
+          pag = pagurl.searchParams.get('page')
+          pagurl.searchParams.delete('page')
+          if (pag!=null){
+            pagurl.searchParams.delete('page')
+            var pagval = parseInt(pag) - 1
+            pagurl.searchParams.append('page',pagval.toString())
+            window.location.href=pagurl
+          }
+        })
+        $('button[id="next"]').click(function(){
+          pagurl=new URL(window.location.href)
+          pag = pagurl.searchParams.get('page')
+          console.log(pag)
+          if (pag!=null){
+            pagurl.searchParams.delete('page')
+            var pagval = parseInt(pag) + 1
+            pagurl.searchParams.append('page',pagval.toString())
+            console.log(pagval,pagurl)
+            window.location.href=pagurl
+          }
+          else if(pag==null){
+          pagval=2  
+          pagurl.searchParams.append('page',pagval.toString())
+          console.log(pagurl,pagval)
+          window.location.href=pagurl
+          }
+        })
+      </script>
       
 {% endblock %}

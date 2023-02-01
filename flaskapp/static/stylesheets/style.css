@@ -15,10 +15,11 @@ body{
     height:30px;
     font-size:15px;
 }
-
-#sort{
+#sor{
     float:right;
-    width:200px;
+}
+#sort{
+    width:100px;
 }
 
 #logo{
@@ -48,8 +49,21 @@ body{
     margin-bottom: 2rem;
     margin-left: 2rem;
     margin-right: 2rem;
-    border: 2px solid #000000
+    border: 5px solid #000000
 }
 #prodi{
     margin: 5rem 10rem 10rem 10rem;
+    border: 2px solid #000000;
+    background-color: white;
+}
+#pagi{
+    justify-content: center;
+    align-items: center;
+    display:flex;
+}
+#prev{
+    margin-right: 2rem;
+}
+#next{
+    margin-left: 2rem;
 }

@@ -13,6 +13,8 @@ $.ajax({
     var curl=new URL(window.location.href)
     cat1=curl.searchParams.get('cat1')
     cat2=curl.searchParams.get('cat2')
+    sort=curl.searchParams.get('sort')
+    $('select[id="sort"]').val(sort).change();
     if (cat1!=null){
       $('select[id="category1"]').val(cat1).change();
       $.each(data[cat1],function(key,val){
