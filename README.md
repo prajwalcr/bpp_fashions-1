@@ -61,6 +61,19 @@ python3 run.py
     print(response.text)
    ```
 
+## Directory Structure
+```
+📦bpp_fashions
+┣ 📂flaskapp
+┃ ┣ 📂api
+┃ ┣ ┣ 📂ingestion
+┃ ┣ ┣ ┣ 📂CatalogProcessors
+┃ ┣ ┣ 📂products
+┃ ┣ 📂models
+┃ ┣ 📂static
+┃ ┣ 📂templates
+```
+
 ## Note
 
 1. Frontend is still being integrated. The UI might not work.
