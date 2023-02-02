@@ -32,9 +32,9 @@ python3 run.py
     API Specification can be found at ```localhost:5000/swagger-ui```
 
 2. Pre-requisites
-    - ```.env```
-    - ```out.json``` 
-    - ```SITE_KEY```
+    - ```.env```: Contains environment variables.
+    - ```out.json```: Contains catalog data.
+    - ```SITE_KEY```: Authentication token for site owners. Replace {{SITE_KEY}} with the actual string in API endpoints.
 
 3. Data Ingestion
     - Download ```out.json``` containing the data.
