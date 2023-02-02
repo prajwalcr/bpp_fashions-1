@@ -1,7 +1,6 @@
 from marshmallow import Schema, fields
 from marshmallow.validate import Range
 from flask_smorest.fields import Upload
-from flask import current_app
 
 
 class PlainProductSchema(Schema):
@@ -27,13 +26,9 @@ class SearchSchema(PaginationSchema):
     q = fields.Str(load_only=True, required=True)
 
 
-class ProductParameterSchema(PaginationSchema):
-    cat1 = fields.Str(load_only=True)
-    cat2 = fields.Str(load_only=True)
-
-
 class ProductListSchema(Schema):
     total = fields.Integer(dump_only=True)
+    rows = fields.Integer(dump_only=True)
     products = fields.List(fields.Nested(PlainProductSchema()), dump_only=True)
 
 

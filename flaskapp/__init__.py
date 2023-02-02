@@ -4,10 +4,11 @@ from flask_smorest import Api
 
 from flaskapp.database import db
 
-from flaskapp.api.product import blp as ProductBlueprint
-from flaskapp.api.category import blp as CategoryBlueprint
-from flaskapp.api.ingestion import blp as IngestionBlueprint
+from flaskapp.api.products.product_controller import blp as ProductBlueprint
+from flaskapp.api.products.category_controller import blp as CategoryBlueprint
+from flaskapp.api.ingestion.ingestion_controller import blp as IngestionBlueprint
 from flaskapp.routes import blp as RoutesBlueprint
+
 
 def create_app():
     app = Flask(__name__)
@@ -28,7 +29,7 @@ def create_app():
     app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
     app.config['MAX_CONTENT_LENGTH'] = 4 * 1024 * 1024 * 1024
 
-    #Change to env variables
+    # Change to env variables
     app.config['SITE_KEY'] = 'demo-unbxd700181503576558'
     app.config['UNBXD_API_KEY'] = 'fb853e3332f2645fac9d71dc63e09ec1'
     app.config['UNBXD_SEARCH_URL'] = 'https://search.unbxd.io/'
