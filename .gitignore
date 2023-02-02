@@ -4,4 +4,4 @@ out.json
 .DS_Store
 instance
 site.db
-.env
+flaskapp/.env

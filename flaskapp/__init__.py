@@ -12,8 +12,7 @@ from flask_caching import Cache
 from flaskapp.cache import cache
 from dotenv import load_dotenv
 
-load_dotenv('.env')
-
+load_dotenv()
 
 def create_app():
     app = Flask(__name__)
