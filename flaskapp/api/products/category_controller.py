@@ -2,34 +2,33 @@ from flask import current_app
 from flask.views import MethodView
 from flask_smorest import Blueprint, abort
 
-from flaskapp import db
-from flaskapp.models import ProductCategoryModel, ProductModel, CategoryModel
+from flaskapp.database import db
+from flaskapp.models import ProductModel, CategoryModel
 from flaskapp.schemas import ProductListSchema, PaginationSchema, CategorySchema
 
 blp = Blueprint("category", __name__, description="Operations on product categories")
+
 
 @blp.route("/api/products/categories/<int:category_id>")
 class Category(MethodView):
     @blp.arguments(PaginationSchema, location="query")
     @blp.response(200, ProductListSchema)
-    def get(self, paginationParams, category_id):
-        q = db.query(ProductModel) \
-            .join(ProductCategoryModel) \
-            .filter(ProductCategoryModel.category_id == category_id)
+    def get(self, pagination_params, category_id):
+        q = ProductModel.find_by_category_id_query(db, category_id)
 
+        if "sort" in pagination_params and pagination_params["sort"].lower().split()[0] == "price":
+            sort_order = pagination_params["sort"].lower().split()[-1]
 
-        if "sort" in paginationParams and paginationParams["sort"].lower().split()[0] == "price":
-            sortOrder = paginationParams["sort"].lower().split()[-1]
-
-            if sortOrder == "desc":
-                q = q.order_by(ProductModel.price.desc())
+            if sort_order == "desc":
+                q = ProductModel.order_by_price_query(q, reverse=True)
             else:
-                q = q.order_by(ProductModel.price.asc())
+                q = ProductModel.order_by_price_query(q)
 
-        rows = paginationParams.get("rows", current_app.config["PRODUCTS_PER_PAGE"])
-        products = q.limit(rows).offset((paginationParams.get("page", 1)-1)*rows).all()
+        rows = pagination_params.get("rows", current_app.config["PRODUCTS_PER_PAGE"])
+        page = pagination_params.get("page", 1)
 
-        total = q.count()
+        products = ProductModel.paginate(q, rows, page)
+        total = ProductModel.count(q)
 
         response = {
             "total": total,
@@ -47,8 +46,6 @@ class CategoryTree(MethodView):
         if category_id <= 0:
             abort(400, message="Invalid category ID")
 
-        q = db.query(CategoryModel).filter(CategoryModel.parent_id == category_id)
-
-        categories = q.all()
+        categories = CategoryModel.find_all_children_query(db, category_id)
 
         return categories

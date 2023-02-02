@@ -5,6 +5,9 @@ from flaskapp.database import SessionLocal
 
 
 class JsonCatalogProcessor(CatalogProcessor):
+
+    SUPPORTED_EXTENSION = "json"
+
     def __init__(self, filepath):
         super().__init__(filepath)
         self.data = None
@@ -27,12 +30,12 @@ class JsonCatalogProcessor(CatalogProcessor):
         if type(self.data) != list:
             return False
 
-        for dataItem in self.data:
-            if type(dataItem) != dict:
+        for data_item in self.data:
+            if type(data_item) != dict:
                 return False
-            if "uniqueId" not in dataItem:
+            if "uniqueId" not in data_item:
                 return False
-            if "price" not in dataItem:
+            if "price" not in data_item:
                 return False
 
         return True
@@ -43,36 +46,35 @@ class JsonCatalogProcessor(CatalogProcessor):
 
         # Session = db.sessionmaker()
         with SessionLocal() as session:
-
-            for dataItem in self.data:
-                id = dataItem["uniqueId"]
-                title = dataItem.get("title", None)
-                if "availability" in dataItem:
-                    availability = dataItem["availability"].lower() == "true"
+            for data_item in self.data:
+                id = data_item["uniqueId"]
+                title = data_item.get("title", None)
+                if "availability" in data_item:
+                    availability = data_item["availability"].lower() == "true"
                 else:
                     availability = False
-                productDescription = dataItem.get("productDescription", None)
-                imageURL = dataItem.get("productImage", None) # Replace this maybe
-                price = dataItem["price"]
+                product_description = data_item.get("productDescription", None)
+                image_url = data_item.get("productImage", None)  # Replace this maybe
+                price = data_item["price"]
 
-                catLevelNames = []
-                levelCounter = 1
+                cat_level_names = []
+                level_counter = 1
                 while True:
-                    field = "catlevel"+str(levelCounter)+"Name"
-                    if field not in dataItem:
+                    field = "catlevel"+str(level_counter)+"Name"
+                    if field not in data_item:
                         break
-                    catLevelNames.append(dataItem[field].strip())
-                    levelCounter += 1
+                    cat_level_names.append(data_item[field].strip())
+                    level_counter += 1
 
-                colors = dataItem.get("color", list())
-                sizes = dataItem.get("size", list())
+                colors = data_item.get("color", list())
+                sizes = data_item.get("size", list())
 
                 product = ProductModel(
                     id=id,
                     title=title,
                     availability=availability,
-                    productDescription=productDescription,
-                    imageURL=imageURL,
+                    productDescription=product_description,
+                    imageURL=image_url,
                     price=price
                 )
 
@@ -80,32 +82,28 @@ class JsonCatalogProcessor(CatalogProcessor):
                 product.colors = []
                 product.sizes = []
 
-                parentCategory = session.query(CategoryModel).filter(CategoryModel.level == 0).first()
-                for i in range(len(catLevelNames)):
+                parent_category = CategoryModel.find_by_level(session, 0)[0]
+                for i in range(len(cat_level_names)):
 
-                    currentCategory = session.query(CategoryModel)\
-                        .filter(CategoryModel.parent_id == parentCategory.id)\
-                        .filter(CategoryModel.name == catLevelNames[i])\
-                        .filter(CategoryModel.level == i+1)\
-                        .first()
+                    current_category = CategoryModel.find_if_exists(session, parent_category.id, cat_level_names[i], i+1)
 
-                    if currentCategory is None:
-                        currentCategory = CategoryModel(
-                            parent_id=parentCategory.id,
-                            name=catLevelNames[i],
+                    if current_category is None:
+                        current_category = CategoryModel(
+                            parent_id=parent_category.id,
+                            name=cat_level_names[i],
                             level=i+1
                         )
 
-                        session.add(currentCategory)
+                        current_category.save(session)
                         session.flush()
 
                     product_category_association = ProductCategoryModel(
                         product_id=id,
-                        category_id=currentCategory.id
+                        category_id=current_category.id
                     )
 
                     product.categories.append(product_category_association)
-                    parentCategory = currentCategory
+                    parent_category = current_category
 
                 for color in colors:
                     product.colors.append(ColorModel(product_id=id, product_color=color))
@@ -113,11 +111,12 @@ class JsonCatalogProcessor(CatalogProcessor):
                 for size in sizes:
                     product.sizes.append(SizeModel(product_id=id, product_size=size))
 
-                session.add(product)
+                product.save(session)
                 # time.sleep(0.02)
             try:
                 session.commit()
             except Exception as error:
+                print(error)
                 session.flush()
                 session.rollback()
                 return False

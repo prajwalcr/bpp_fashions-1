@@ -1,9 +1,14 @@
 from flask import current_app
-def allowed_file(filename, allowedExtensions=None):
-    # if allowedExtensions is None:
-    #     return '.' in filename
-    return '.' in filename and (allowedExtensions is None or filename.rsplit('.', 1)[1].lower() in allowedExtensions)
 
-def validate_site_key(siteKey):
-    return siteKey == current_app.config['SITE_KEY']
 
+def get_file_extension(filename):
+    if '.' in filename:
+        return filename.rsplit('.', 1)[1]
+
+
+def validate_site_key(site_key):
+    return site_key == current_app.config['SITE_KEY']
+
+
+def pagination_page_limit(rows, total):
+    return ((total - 1) // rows) + 1

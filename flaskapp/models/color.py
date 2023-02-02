@@ -1,6 +1,7 @@
 from flaskapp.database import Base
 from sqlalchemy import Column, String, Text, ForeignKey
 
+
 class ColorModel(Base):
     __tablename__ = "color"
     # __table_args__ = {'extend_existing': True}

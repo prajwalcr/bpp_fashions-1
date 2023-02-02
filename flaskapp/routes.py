@@ -1,8 +1,8 @@
-from flask import render_template, request, jsonify
+from flask import render_template
 from flask_smorest import Blueprint
-import requests
 
 blp = Blueprint("routes", __name__, description="Routes for HTML pages")
+
 
 @blp.route('/')
 def index():
@@ -17,5 +17,3 @@ def info(id):
 @blp.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
-
-

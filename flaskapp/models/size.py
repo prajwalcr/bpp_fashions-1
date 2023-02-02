@@ -1,6 +1,7 @@
 from flaskapp.database import Base
 from sqlalchemy import Column, String, Text, ForeignKey
 
+
 class SizeModel(Base):
     __tablename__ = "size"
     # __table_args__ = {'extend_existing': True}
