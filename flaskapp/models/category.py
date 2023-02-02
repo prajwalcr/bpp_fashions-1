@@ -41,12 +41,6 @@ class CategoryModel(Base):
             q = q.filter(cls.level == level)
         return q
 
-        return db.query(CategoryModel) \
-            .filter(CategoryModel.parent_id == self.parent_id) \
-            .filter(CategoryModel.name == self.name) \
-            .filter(CategoryModel.level == self.level) \
-            .first() is not None
-
     @classmethod
     def find_by_id(cls, db, id):
         return cls.find_by_id_query(db, id).first()
@@ -66,12 +60,6 @@ class CategoryModel(Base):
     @classmethod
     def find_if_exists(cls, db, parent_id=None, name=None, level=None):
         return cls.find_if_exists_query(db, parent_id, name, level).first()
-
-        return db.query(CategoryModel)\
-            .filter(CategoryModel.parent_id == self.parent_id)\
-            .filter(CategoryModel.name == self.name)\
-            .filter(CategoryModel.level == self.level)\
-            .first() is not None
 
     def save(self, db):
         db.add(self)
