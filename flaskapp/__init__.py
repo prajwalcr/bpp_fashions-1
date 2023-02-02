@@ -8,6 +8,11 @@ from flaskapp.api.products.product_controller import blp as ProductBlueprint
 from flaskapp.api.products.category_controller import blp as CategoryBlueprint
 from flaskapp.api.ingestion.ingestion_controller import blp as IngestionBlueprint
 from flaskapp.routes import blp as RoutesBlueprint
+from flask_caching import Cache
+from flaskapp.cache import cache
+from dotenv import load_dotenv
+
+load_dotenv('.env')
 
 
 def create_app():
@@ -35,7 +40,13 @@ def create_app():
     app.config['UNBXD_SEARCH_URL'] = 'https://search.unbxd.io/'
 
     app.config['PRODUCTS_PER_PAGE'] = 9
-
+    app.config['CACHE_TYPE'] = os.environ['CACHE_TYPE']
+    app.config['CACHE_REDIS_HOST'] = os.environ['CACHE_REDIS_HOST']
+    app.config['CACHE_REDIS_PORT'] = os.environ['CACHE_REDIS_PORT']
+    app.config['CACHE_REDIS_DB'] = os.environ['CACHE_REDIS_DB']
+    app.config['CACHE_REDIS_URL'] = os.environ['CACHE_REDIS_URL']
+    app.config['CACHE_DEFAULT_TIMEOUT'] = os.environ['CACHE_DEFAULT_TIMEOUT']
+    cache.init_app(app)
     api = Api(app)
 
     api.register_blueprint(ProductBlueprint)
