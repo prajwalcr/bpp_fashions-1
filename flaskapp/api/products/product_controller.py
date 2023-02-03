@@ -2,14 +2,17 @@ from flask import current_app
 from flask.views import MethodView
 from flask_smorest import Blueprint, abort
 
+from flaskapp.cache import cache
 from flaskapp.database import db
 from flaskapp.api.products.search import SearchHelper
 from flaskapp.schemas import PlainProductSchema, SearchSchema, ProductListSchema, PaginationSchema
 from flaskapp.models import ProductModel
+from flaskapp.utils import pagination_page_limit
 
 blp = Blueprint("product", __name__, description="Operations on products")
 
 
+@cache.cached(query_string=True)
 @blp.route("/api/products/<string:product_id>")
 class Product(MethodView):
     @blp.response(200, PlainProductSchema)
@@ -37,6 +40,7 @@ class Product(MethodView):
         return product
 
 
+@cache.cached(query_string=True)
 @blp.route("/api/products")
 class ProductList(MethodView):
     @blp.arguments(PaginationSchema, location="query")
@@ -58,8 +62,8 @@ class ProductList(MethodView):
         products = ProductModel.paginate(q, rows, page)
         total = ProductModel.count(q)
 
-        # if total != 0 and page > pagination_page_limit(rows, total):
-        #     abort(400, message="Page number too high")
+        if total != 0 and page > pagination_page_limit(rows, total):
+            abort(400, message="Page number too high")
 
         response = {
             "total": total,
@@ -70,6 +74,7 @@ class ProductList(MethodView):
         return response
 
 
+@cache.cached(query_string=True)
 @blp.route("/api/search")
 class ProductSearch(MethodView):
     @blp.arguments(SearchSchema, location="query")
@@ -85,5 +90,39 @@ class ProductSearch(MethodView):
             abort(status, message=response)
 
         response["rows"] = search_params["rows"]
+
+        return response
+
+
+@cache.cached(query_string=True)
+@blp.route("/api/products/categories/<int:category_id>")
+class ProductCategory(MethodView):
+    @blp.arguments(PaginationSchema, location="query")
+    @blp.response(200, ProductListSchema)
+    def get(self, pagination_params, category_id):
+        q = ProductModel.find_by_category_id_query(db, category_id)
+
+        if "sort" in pagination_params and pagination_params["sort"].lower().split()[0] == "price":
+            sort_order = pagination_params["sort"].lower().split()[-1]
+
+            if sort_order == "desc":
+                q = ProductModel.order_by_price_query(q, reverse=True)
+            else:
+                q = ProductModel.order_by_price_query(q)
+
+        rows = pagination_params.get("rows", current_app.config["PRODUCTS_PER_PAGE"])
+        page = pagination_params.get("page", 1)
+
+        products = ProductModel.paginate(q, rows, page)
+        total = ProductModel.count(q)
+
+        if total != 0 and page > pagination_page_limit(rows, total):
+            abort(400, message="Page number too high")
+
+        response = {
+            "total": total,
+            "rows": rows,
+            "products": [product for product in products]
+        }
 
         return response
