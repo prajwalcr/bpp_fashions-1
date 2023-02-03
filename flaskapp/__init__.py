@@ -28,17 +28,18 @@ def create_app():
     app.config['OPENAPI_SWAGGER_UI_PATH'] = "/swagger-ui"
     app.config['OPENAPI_SWAGGER_UI_URL'] = "https://cdn.jsdelivr.net/npm/swagger-ui-dist/"
 
-    app.config['SECRET_KEY'] = '5791628bb0b13ce0c676dfde280ba245'
+    # app.config['SECRET_KEY'] = ''
     # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
     app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
     app.config['MAX_CONTENT_LENGTH'] = 4 * 1024 * 1024 * 1024
 
     # Change to env variables
-    app.config['SITE_KEY'] = 'demo-unbxd700181503576558'
-    app.config['UNBXD_API_KEY'] = 'fb853e3332f2645fac9d71dc63e09ec1'
+    app.config['SITE_KEY'] = os.environ['SITE_KEY']
+    app.config['UNBXD_API_KEY'] = os.environ['UNBXD_API_KEY']
     app.config['UNBXD_SEARCH_URL'] = 'https://search.unbxd.io/'
 
     app.config['PRODUCTS_PER_PAGE'] = 9
+
     app.config['CACHE_TYPE'] = os.environ['CACHE_TYPE']
     app.config['CACHE_REDIS_HOST'] = os.environ['CACHE_REDIS_HOST']
     app.config['CACHE_REDIS_PORT'] = os.environ['CACHE_REDIS_PORT']
