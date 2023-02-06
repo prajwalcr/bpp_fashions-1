@@ -1,13 +1,15 @@
 from flask import request, jsonify, current_app
 from flask.views import MethodView
+
+from flaskapp.DAL.catalog import CatalogDAL
 from flaskapp.database import SessionLocal
 from flask_smorest import Blueprint, abort
 
 from flaskapp.models import CatalogModel
 from flaskapp.utils import validate_site_key, get_file_extension
 from werkzeug.utils import secure_filename
-from flaskapp.api.ingestion.CatalogProcessors.CatalogProcessor import CatalogProcessor
-from flaskapp.api.ingestion.CatalogProcessors.JsonCatalogProcessor import JsonCatalogProcessor  # Important import, don't remove
+from flaskapp.service.CatalogProcessors.CatalogProcessor import CatalogProcessor
+from flaskapp.service.CatalogProcessors.JsonCatalogProcessor import JsonCatalogProcessor # Don't remove this import
 from flaskapp.schemas import MultiPartFileSchema
 
 from threading import Thread
@@ -92,7 +94,7 @@ class IngestCatalog(MethodView):
             except Exception as e:
                 print(f"Exception in {func.__name__}:", e)
 
-                catalog = CatalogModel.find_by_id(db, id)
+                catalog = CatalogDAL.find_by_id(db, id)
                 catalog.status = CatalogProcessor.STATUS_CODES.get("INGESTION_FAILURE", "Unavailable")
                 catalog.save(db)
                 db.commit()
@@ -101,7 +103,7 @@ class IngestCatalog(MethodView):
 
     @exception_handler
     def ingest_catalog(self, id, catalog_processor):
-        catalog = CatalogModel.find_by_id(db, id)
+        catalog = CatalogDAL.find_by_id(db, id)
 
         catalog_processor.load()
         if not catalog_processor.validate():

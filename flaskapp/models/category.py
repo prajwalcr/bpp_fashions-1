@@ -41,25 +41,5 @@ class CategoryModel(Base):
             q = q.filter(cls.level == level)
         return q
 
-    @classmethod
-    def find_by_id(cls, db, id):
-        return cls.find_by_id_query(db, id).first()
-
-    @classmethod
-    def find_all(cls, db):
-        return cls.find_all_query(db).all()
-
-    @classmethod
-    def find_by_level(cls, db, level):
-        return cls.find_by_level_query(db, level).all()
-
-    @classmethod
-    def find_all_parents(cls, db, category_id):
-        return cls.find_all_children_query(db, category_id)
-
-    @classmethod
-    def find_if_exists(cls, db, parent_id=None, name=None, level=None):
-        return cls.find_if_exists_query(db, parent_id, name, level).first()
-
     def save(self, db):
         db.add(self)

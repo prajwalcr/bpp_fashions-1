@@ -1,6 +1,8 @@
 import json
+
+from flaskapp.DAL.category import CategoryDAL
 from flaskapp.models import ProductModel, CategoryModel, ColorModel, SizeModel, ProductCategoryModel
-from flaskapp.api.ingestion.CatalogProcessors.CatalogProcessor import CatalogProcessor
+from flaskapp.service.CatalogProcessors.CatalogProcessor import CatalogProcessor
 from flaskapp.database import SessionLocal
 
 
@@ -82,10 +84,10 @@ class JsonCatalogProcessor(CatalogProcessor):
                 product.colors = []
                 product.sizes = []
 
-                parent_category = CategoryModel.find_by_level(session, 0)[0]
+                parent_category = CategoryDAL.find_by_level(session, 0)[0]
                 for i in range(len(cat_level_names)):
 
-                    current_category = CategoryModel.find_if_exists(session, parent_category.id, cat_level_names[i], i+1)
+                    current_category = CategoryDAL.find_if_exists(session, parent_category.id, cat_level_names[i], i+1)
 
                     if current_category is None:
                         current_category = CategoryModel(

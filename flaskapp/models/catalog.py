@@ -20,13 +20,5 @@ class CatalogModel(Base):
     def find_all_query(cls, db):
         return db.query(cls)
 
-    @classmethod
-    def find_by_id(cls, db, id):
-        return cls.find_by_id_query(db, id).first()
-
-    @classmethod
-    def find_all(cls, db):
-        return cls.find_all_query(db).all()
-
     def save(self, db):
         db.add(self)

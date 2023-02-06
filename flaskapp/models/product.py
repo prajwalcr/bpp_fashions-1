@@ -51,25 +51,5 @@ class ProductModel(Base):
     def count(cls, q):
         return q.count()
 
-    @classmethod
-    def find_by_id(cls, db, id):
-        return cls.find_by_id_query(db, id).first()
-
-    @classmethod
-    def find_all(cls, db):
-        return cls.find_all_query(db).all()
-
-    @classmethod
-    def find_by_category_id(cls, db, category_id):
-        return cls.find_by_category_id_query(db, category_id)
-
-    @classmethod
-    def order_by_price(cls, q, reverse=False):
-        return cls.order_by_price_query(q, reverse).all()
-
-    @classmethod
-    def paginate(cls, q, rows, page):
-        return cls.paginate_query(q, rows, page).all()
-
     def save(self, db):
         db.add(self)
