@@ -1,10 +1,9 @@
 from flask.views import MethodView
 from flask_smorest import Blueprint, abort
 
-from flaskapp.DAL.category import CategoryDAL
 from flaskapp.cache import cache
-from flaskapp.database import db
 from flaskapp.schemas import CategorySchema
+from flaskapp.service.category import CategoryService
 
 blp = Blueprint("category", __name__, description="Operations on product categories")
 
@@ -14,7 +13,7 @@ blp = Blueprint("category", __name__, description="Operations on product categor
 class Category(MethodView):
     @blp.response(200, CategorySchema)
     def get(self, category_id):
-        category = CategoryDAL.find_by_id(db, category_id)
+        category = CategoryService.find_by_id(category_id)
 
         if category is None:
             abort(404, message="Resource not found")
@@ -30,6 +29,6 @@ class CategoryTree(MethodView):
         if category_id <= 0:
             abort(400, message="Invalid category ID")
 
-        categories = CategoryDAL.find_all_children(db, category_id)
+        categories = CategoryService.find_all_children(category_id)
 
         return categories

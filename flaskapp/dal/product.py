@@ -9,22 +9,26 @@ class ProductDAL:
     @classmethod
     def find_all(cls, db, sort_field=None, reverse=False, page=None, rows=None):
         q = ProductModel.find_all_query(db)
-        total = ProductModel.count(q)
-
         q = cls.__sort_by(q, sort_field, reverse)
         q = cls.__paginate(q, page, rows)
-
-        return q.all(), total
+        return q.all()
 
     @classmethod
     def find_by_category_id(cls, db, category_id, sort_field=None, reverse=False, page=None, rows=None):
         q = ProductModel.find_by_category_id_query(db, category_id)
-        total = ProductModel.count(q)
-
         q = cls.__sort_by(q, sort_field, reverse)
         q = cls.__paginate(q, page, rows)
+        return q.all()
 
-        return q.all(), total
+    @classmethod
+    def count_all(cls, db):
+        q = ProductModel.find_all_query(db)
+        return ProductModel.count(q)
+
+    @classmethod
+    def count_by_category_id(cls, db, category_id):
+        q = ProductModel.find_by_category_id_query(db, category_id)
+        return ProductModel.count(q)
 
     @classmethod
     def __sort_by(cls, q, sort_field, reverse):
@@ -40,5 +44,20 @@ class ProductDAL:
         return q
 
     @classmethod
+    def create(cls, id, title=None, availability=None, product_description=None, image_url=None, price=None, product_category_associations=[], colors=[], sizes=[]):
+        product = ProductModel(
+            id=id,
+            title=title,
+            availability=availability,
+            productDescription=product_description,
+            imageURL=image_url,
+            price=price
+        )
+        product.categories = product_category_associations
+        product.colors = colors
+        product.sizes = sizes
+        return product
+
+    @classmethod
     def save(cls, db, product):
-        product.save(db)
+        return product.save(db)

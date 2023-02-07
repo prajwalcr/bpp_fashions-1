@@ -23,5 +23,14 @@ class CategoryDAL:
         return CategoryModel.find_if_exists_query(db, parent_id, name, level).first()
 
     @classmethod
+    def create(cls, parent_id=None, name=None, level=None):
+        category = CategoryModel(
+            parent_id=parent_id,
+            name=name,
+            level=level
+        )
+        return category
+
+    @classmethod
     def save(cls, db, category):
-        category.save(db)
+        return category.save(db)

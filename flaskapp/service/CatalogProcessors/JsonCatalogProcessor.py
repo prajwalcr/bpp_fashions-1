@@ -1,7 +1,10 @@
 import json
 
-from flaskapp.DAL.category import CategoryDAL
-from flaskapp.models import ProductModel, CategoryModel, ColorModel, SizeModel, ProductCategoryModel
+from flaskapp.dal.category import CategoryDAL
+from flaskapp.dal.color import ColorDAL
+from flaskapp.dal.product import ProductDAL
+from flaskapp.dal.product_category import ProductCategoryDAL
+from flaskapp.dal.size import SizeDAL
 from flaskapp.service.CatalogProcessors.CatalogProcessor import CatalogProcessor
 from flaskapp.database import SessionLocal
 
@@ -46,7 +49,6 @@ class JsonCatalogProcessor(CatalogProcessor):
         if self.data is None:
             return False
 
-        # Session = db.sessionmaker()
         with SessionLocal() as session:
             for data_item in self.data:
                 id = data_item["uniqueId"]
@@ -71,18 +73,9 @@ class JsonCatalogProcessor(CatalogProcessor):
                 colors = data_item.get("color", list())
                 sizes = data_item.get("size", list())
 
-                product = ProductModel(
-                    id=id,
-                    title=title,
-                    availability=availability,
-                    productDescription=product_description,
-                    imageURL=image_url,
-                    price=price
-                )
-
-                product.categories = []
-                product.colors = []
-                product.sizes = []
+                category_list = []
+                color_list = []
+                size_list = []
 
                 parent_category = CategoryDAL.find_by_level(session, 0)[0]
                 for i in range(len(cat_level_names)):
@@ -90,30 +83,34 @@ class JsonCatalogProcessor(CatalogProcessor):
                     current_category = CategoryDAL.find_if_exists(session, parent_category.id, cat_level_names[i], i+1)
 
                     if current_category is None:
-                        current_category = CategoryModel(
-                            parent_id=parent_category.id,
-                            name=cat_level_names[i],
-                            level=i+1
-                        )
-
-                        current_category.save(session)
+                        current_category = CategoryDAL.create(parent_category.id, cat_level_names[i], i+1)
+                        CategoryDAL.save(session, current_category)
                         session.flush()
 
-                    product_category_association = ProductCategoryModel(
-                        product_id=id,
-                        category_id=current_category.id
-                    )
+                    product_category_association = ProductCategoryDAL.create(id, current_category.id)
 
-                    product.categories.append(product_category_association)
+                    category_list.append(product_category_association)
                     parent_category = current_category
 
                 for color in colors:
-                    product.colors.append(ColorModel(product_id=id, product_color=color))
+                    color_list.append(ColorDAL.create(id, color))
 
                 for size in sizes:
-                    product.sizes.append(SizeModel(product_id=id, product_size=size))
+                    size_list.append(SizeDAL.create(id, size))
 
-                product.save(session)
+                product = ProductDAL.create(
+                    id=id,
+                    title=title,
+                    availability=availability,
+                    product_description=product_description,
+                    image_url=image_url,
+                    price=price,
+                    product_category_associations=category_list,
+                    colors=color_list,
+                    sizes=size_list
+                )
+
+                ProductDAL.save(session, product)
                 # time.sleep(0.02)
             try:
                 session.commit()

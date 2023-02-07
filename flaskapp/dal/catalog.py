@@ -11,5 +11,14 @@ class CatalogDAL:
         return CatalogModel.find_all_query(db).all()
 
     @classmethod
+    def create(cls, id, filepath=None, status=None):
+        catalog = CatalogModel(
+            id=id,
+            status=status,
+            filepath=filepath
+        )
+        return catalog
+
+    @classmethod
     def save(cls, db, catalog):
-        catalog.save(db)
+        return catalog.save(db)

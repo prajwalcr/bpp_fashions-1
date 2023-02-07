@@ -2,14 +2,10 @@ from flask import current_app
 from flask.views import MethodView
 from flask_smorest import Blueprint, abort
 
-from flaskapp.DAL.product import ProductDAL
 from flaskapp.cache import cache
-from flaskapp.database import db
-from flaskapp.service.pagination import PaginationService
+from flaskapp.service.product import ProductService
 from flaskapp.service.search import SearchService
 from flaskapp.schemas import PlainProductSchema, SearchSchema, ProductListSchema, PaginationSchema
-from flaskapp.models import ProductModel
-from flaskapp.service.sort import SortService
 
 blp = Blueprint("product", __name__, description="Operations on products")
 
@@ -20,9 +16,9 @@ class Product(MethodView):
     @blp.response(200, PlainProductSchema)
     def get(self, product_id):
 
-        q = ProductModel.find_by_id_query(db, product_id)
+        product = ProductService.find_by_id(product_id)
 
-        if q.first() is None:
+        if product is None:
             search_params = {
                 "q": product_id
             }
@@ -38,8 +34,6 @@ class Product(MethodView):
 
             return response["products"][0]
 
-        product = q.first()
-
         return product
 
 
@@ -49,14 +43,11 @@ class ProductList(MethodView):
     @blp.arguments(PaginationSchema, location="query")
     @blp.response(200, ProductListSchema)
     def get(self, pagination_params):
+        rows = current_app.config['PRODUCTS_PER_PAGE']
+        if "rows" not in pagination_params:
+            pagination_params["rows"] = rows
 
-        sort_field, reverse = SortService.parse_parameters(pagination_params)
-
-        page, rows = PaginationService.parse_parameters(pagination_params)
-        if rows is None:
-            rows = current_app.config['PRODUCTS_PER_PAGE']
-
-        products, total = ProductDAL.find_all(db, sort_field, reverse, page, rows)
+        products, total = ProductService.find_all(pagination_params)
 
         if total == 0:
             abort(400, message="No match found")
@@ -96,13 +87,11 @@ class ProductCategory(MethodView):
     @blp.arguments(PaginationSchema, location="query")
     @blp.response(200, ProductListSchema)
     def get(self, pagination_params, category_id):
-        sort_field, reverse = SortService.parse_parameters(pagination_params)
+        rows = current_app.config['PRODUCTS_PER_PAGE']
+        if "rows" not in pagination_params:
+            pagination_params["rows"] = rows
 
-        page, rows = PaginationService.parse_parameters(pagination_params)
-        if rows is None:
-            rows = current_app.config['PRODUCTS_PER_PAGE']
-
-        products, total = ProductDAL.find_by_category_id(db, category_id, sort_field, reverse, page, rows)
+        products, total = ProductService.find_by_category(category_id, pagination_params)
 
         if total == 0:
             abort(400, message="No match found")
@@ -110,7 +99,7 @@ class ProductCategory(MethodView):
         response = {
             "total": total,
             "rows": rows,
-            "products": [product for product in products]
+            "products": products
         }
 
         return response
