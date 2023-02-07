@@ -33,7 +33,7 @@ jQuery.ajaxSetup({async:false});
 
 })*/
 $.ajax({
-  url:'/api/products/categories/children/1',
+  url:'/api/categories/children/1',
   type:'GET',
   datatype:'JSON',
   success:function(data){
@@ -61,9 +61,8 @@ $.ajax({
   }
   function subcat(subcatid){
     var html =''
-    $.get('/api/products/categories/children/'+subcatid,function(subdata){
+    $.get('/api/categories/children/'+subcatid,function(subdata){
       if (subdata.length==0){
-        console.log(html1)
       }
       else{
         html += '<ul class="dropdown-menu dropdown-submenu">'

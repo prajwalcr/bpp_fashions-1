@@ -4,7 +4,7 @@ from flask import current_app
 from flaskapp.models import ProductModel
 
 
-class SearchHelper:
+class SearchService:
     required_fields = ["uniqueId", "title", "availability", "productDescription", "productImage", "price"]
 
     @classmethod
@@ -12,7 +12,7 @@ class SearchHelper:
         search_url = current_app.config['UNBXD_SEARCH_URL'] + current_app.config['UNBXD_API_KEY'] \
                      + "/" + current_app.config['SITE_KEY'] + "/search/"
 
-        search_params["fields"] = ",".join(SearchHelper.required_fields)
+        search_params["fields"] = ",".join(SearchService.required_fields)
 
         search_data = requests.get(search_url, params=search_params).json()
 
