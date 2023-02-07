@@ -1,6 +1,6 @@
 from flaskapp import db
 from flaskapp.dal.product import ProductDAL
-
+from flask import current_app
 
 class ProductService:
     @classmethod
@@ -19,8 +19,9 @@ class ProductService:
 
     @classmethod
     def parse_pagination_parameters(cls, parameters):
+        app = current_app._get_current_object()
         page = parameters.get("page", 1)
-        rows = parameters.get("rows", None)
+        rows = parameters.get("rows", app.config['PRODUCTS_PER_PAGE'])
         return page, rows
 
     @classmethod

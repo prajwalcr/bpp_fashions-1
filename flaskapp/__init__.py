@@ -1,4 +1,5 @@
 import os
+
 from flask import Flask
 from flask_smorest import Api
 
@@ -8,7 +9,6 @@ from flaskapp.api.products.product_controller import blp as ProductBlueprint
 from flaskapp.api.products.category_controller import blp as CategoryBlueprint
 from flaskapp.api.ingestion.ingestion_controller import blp as IngestionBlueprint
 from flaskapp.routes import blp as RoutesBlueprint
-from flask_caching import Cache
 from flaskapp.cache import cache
 from dotenv import load_dotenv
 
@@ -46,13 +46,26 @@ def create_app():
     app.config['CACHE_REDIS_DB'] = os.environ['CACHE_REDIS_DB']
     app.config['CACHE_REDIS_URL'] = os.environ['CACHE_REDIS_URL']
     app.config['CACHE_DEFAULT_TIMEOUT'] = os.environ['CACHE_DEFAULT_TIMEOUT']
-    cache.init_app(app)
+    # cache.init_app(app)
+
     api = Api(app)
 
+    register_blueprints(api)
+
+    # api.register_blueprint(ProductBlueprint)
+    # api.register_blueprint(CategoryBlueprint)
+    # api.register_blueprint(IngestionBlueprint)
+    # api.register_blueprint(RoutesBlueprint)
+
+    return app
+
+
+def initialize_extensions(app):
+    cache.init_app(app)
+
+
+def register_blueprints(api):
     api.register_blueprint(ProductBlueprint)
     api.register_blueprint(CategoryBlueprint)
     api.register_blueprint(IngestionBlueprint)
     api.register_blueprint(RoutesBlueprint)
-
-    return app
-

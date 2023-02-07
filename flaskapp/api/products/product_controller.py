@@ -15,7 +15,6 @@ blp = Blueprint("product", __name__, description="Operations on products")
 class Product(MethodView):
     @blp.response(200, PlainProductSchema)
     def get(self, product_id):
-
         product = ProductService.find_by_id(product_id)
 
         if product is None:
@@ -43,10 +42,6 @@ class ProductList(MethodView):
     @blp.arguments(PaginationSchema, location="query")
     @blp.response(200, ProductListSchema)
     def get(self, pagination_params):
-        rows = current_app.config['PRODUCTS_PER_PAGE']
-        if "rows" not in pagination_params:
-            pagination_params["rows"] = rows
-
         products, total = ProductService.find_all(pagination_params)
 
         if total == 0:
@@ -54,7 +49,7 @@ class ProductList(MethodView):
 
         response = {
             "total": total,
-            "rows": rows,
+            "rows": pagination_params.get("rows", current_app.config['PRODUCTS_PER_PAGE']),
             "products": products
         }
 
@@ -87,10 +82,6 @@ class ProductCategory(MethodView):
     @blp.arguments(PaginationSchema, location="query")
     @blp.response(200, ProductListSchema)
     def get(self, pagination_params, category_id):
-        rows = current_app.config['PRODUCTS_PER_PAGE']
-        if "rows" not in pagination_params:
-            pagination_params["rows"] = rows
-
         products, total = ProductService.find_by_category(category_id, pagination_params)
 
         if total == 0:
@@ -98,7 +89,7 @@ class ProductCategory(MethodView):
 
         response = {
             "total": total,
-            "rows": rows,
+            "rows": pagination_params.get("rows", current_app.config['PRODUCTS_PER_PAGE']),
             "products": products
         }
 

@@ -1,5 +1,7 @@
 import json
 
+from flask import current_app
+
 from flaskapp.dal.category import CategoryDAL
 from flaskapp.dal.color import ColorDAL
 from flaskapp.dal.product import ProductDAL
@@ -115,7 +117,7 @@ class JsonCatalogProcessor(CatalogProcessor):
             try:
                 session.commit()
             except Exception as error:
-                print(error)
+                print("Exception in ingestion", error)
                 session.flush()
                 session.rollback()
                 return False

@@ -1,3 +1,5 @@
+from flask import current_app
+
 from flaskapp import db
 from flaskapp.dal.catalog import CatalogDAL
 from flaskapp.service.CatalogProcessors.CatalogProcessor import CatalogProcessor
