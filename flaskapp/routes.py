@@ -6,7 +6,7 @@ blp = Blueprint("routes", __name__, description="Routes for HTML pages")
 
 @blp.route('/')
 def index():
-    return render_template('search.html')
+    return render_template('index.html')
 
 
 @blp.route('/productinfo/<string:id>')
