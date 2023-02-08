@@ -5,19 +5,18 @@
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script type="text/javascript" src="{{ url_for('static', filename='/js/script.js') }}"></script>
-  <link rel="stylesheet" href="{{ url_for('static',filename='stylesheets/style.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static',filename='stylesheets/stylesrc.css') }}">
+  <script type="text/javascript" src="static/js/script.js"></script>
+  <link rel="stylesheet" href="static/stylesheets/style.css">
 </head>
 <body>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark d-flex justify-content-between">
-   <a class="navbar-brand" href="{{ url_for('routes.index') }}">
-    <img src="{{ url_for('static',filename='img/Logo.png') }}" alt="Logo" style="width:100px;">
+   <a class="navbar-brand" href="/">
+    <img src="static/img/Logo.png" alt="Logo" style="width:100px;">
   </a>
   <p class="navbar-text">bpp_fashions</p>
   <form class="form-inline" methods="GET" action='/'>
     <input id="srcq" class="form-control mr-sm-2" type="text" placeholder="Search" name="q">
-    <button id="srcb" class="btn btn-info" type="submit">Go</button>
+    <button id="srcb" class="btn btn-light" type="submit">Go</button>
   </form>
 </nav>
 <div id="facets">
@@ -31,14 +30,14 @@
   rows=currenturl.searchParams.get('rows')
   page=currenturl.searchParams.get('page')
   console.log(catid,q,sort,rows,page,currenturl)
-  if (catid!=null){
+  if (catid!=null && catid!=0){
     var newurl=new URL("http://127.0.0.1:5000/api/products/categories/"+catid)
   }
   else if(q!=null){
     var newurl=new URL("http://127.0.0.1:5000/api/search")
     newurl.searchParams.append("q",q)
   }
-  else if(catid==null && q==null){
+  else if((catid==0 || catid==null) && q==null){
     var newurl=new URL("http://127.0.0.1:5000/api/products")
   }
   if(sort!=null){
@@ -57,30 +56,34 @@
     success:function(data){
       dataitems=data["products"]
       datanumber=data["total"]
-      rows=9
+      datarows=data["rows"]
       console.log(Number.isInteger(datanumber/rows))
-      if(Number.isInteger(datanumber/rows)==true){
-        datapages=Math.trunc((datanumber/rows))
+      if(Number.isInteger(datanumber/datarows)==true){
+        datapages=Math.trunc((datanumber/datarows))
       }
       else{
-        datapages=Math.trunc((datanumber/rows))+1
+        datapages=Math.trunc((datanumber/datarows))+1
       }
       console.log(datanumber,rows,datapages)
       const pagn=parseInt(page)
       if(pagn!=1 && pagn!=datapages && page!=null){
-        var pagc='<button id="'+pagn+'" class="btn btn-info" type="submit">'+pagn+'</button>';
+        var pagc='<button id="'+pagn+'" class="btn btn-dark" type="submit">'+pagn+'</button>';
         $('#pagn').append(pagc)
       }
-      var pagl='<button id="lastpg" class="btn btn-info" type="submit">'+datapages+'</button>';
+      var pagl='<button id="lastpg" class="btn btn-dark" type="submit">'+datapages+'</button>';
       $('#pagn').append(pagl)
-      if(page==null || parseInt(page)==1){
+      if(page==null || parseInt(pagn)==1){
         $('button[id="prev"]').attr("disabled",true);
       }
       if(datapages==1 || parseInt(page)==datapages){
         $('button[id="next"]').attr("disabled",true);
       }
-      if(datanumber<=rows){
+      if(datanumber<=datarows){
         $('button[id="lastpg"]').hide()
+      }
+      if(dataitems.length==0){
+        $('button[id="prev"]').attr("disabled",true);
+        $('button[id="next"]').attr("disabled",true);
       }
       for (var i=0;i<dataitems.length;i++){
         var html='<div class="col md-4 d-flex">';
@@ -91,7 +94,7 @@
         html+='<hr>'
         html+='<h4 class="card-title">'+dataitems[i].price+'$</h4>';
         html+='<p class="card-text">'+dataitems[i].productDescription+'</p>';
-        html+='<a href="{{url_for("routes.info",id="val.id")}}" class="align-self-enmd btn btn-info stretched-link">View Product</a>'.replace('val.id',dataitems[i].id);
+        html+='<a href="/productinfo/'+dataitems[i].id+'" class="align-self-end btn btn-dark stretched-link">View Product</a>'
         html+='</div>';
         html+='</div>';
         html+='</div>';
@@ -104,17 +107,21 @@
           pagurl.searchParams.append('page',pagval.toString())
           window.location.href=pagurl
         })
+    },
+    error:function(data,status){
+      window.location.href='/error'
     }
   })
 })
 </script>
+    <div id="logogif"><img src="static/img/WebsiteLogo2.gif"></div>
     <div id="sor">
         <select class="custom-select" id="sort">
             <option value="">None</option>
             <option value="price asc">Price-Asc</option>
             <option value="price desc">Price-Desc</option>
         </select>
-        <button id="sortf" class="btn btn-info" type="submit">Filter</button>
+        <button id="sortf" class="btn btn-dark" type="submit">Filter</button>
     </div>
       <div class="row row-cols-1 row-cols-md-3 mx-center" id="forma">
         <!--
@@ -130,11 +137,11 @@
       -->
       </div>
       <div id="pagi">
-        <button id="prev" class="btn btn-info" type="submit">Previous</button>
+        <button id="prev" class="btn btn-dark" type="submit">Previous</button>
         <div id="pagn">
-          <button id="firstpg" class="btn btn-info" type="submit">1</button>
+          <button id="firstpg" class="btn btn-dark" type="submit">1</button>
         </div>
-        <button id="next" class="btn btn-info" type="submit">Next</button>
+        <button id="next" class="btn btn-dark" type="submit">Next</button>
       </div>
       <script type="text/javascript">
         $('button[id="sortf"]').click(function(){

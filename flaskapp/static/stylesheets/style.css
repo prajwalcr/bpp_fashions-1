@@ -1,7 +1,10 @@
 body{
-    background-color:lightblue}
+    background-color:EEE2DC}
 
-
+#logogif:hover{
+    transform: translate3d(0,-1px,0) scale(1.2);
+    transition: all .4s ease; 
+}
 .search{
     float:right;
 }
@@ -17,6 +20,7 @@ body{
 }
 #sor{
     float:right;
+    margin-right: 5px;
 }
 #sort{
     width:100px;
@@ -26,35 +30,61 @@ body{
     width:150px;
     height:50px;
 }
-
-#recommend{
-    margin-top : 50px;
-    margin-left: 20px;
+#loader{
+        justify-content: center;
+        align-items: center;
+        display:flex;
 }
-
+#logogif{
+        justify-content: center;
+        align-items: center;
+        display:flex;
+        transition: all .5s ease;
+}
+#err{
+        justify-content: center;
+        align-items: center;
+        display:flex;
+}
 #navlist{
     margin-bottom: 30px;
 }
-#category1{
-    width:100px
-}
-#category2{
-    width:100px
-}
 #facets{
     margin-top: 20px;
+    margin-left: 5px;
+}
+button:hover{
+    opacity:0.5;
+    box-shadow: 0 0 11px rgba(33,33,33,1);
+    transform: translate3d(0,-1px,0) scale(1.07);
+    transition: all .4s ease; 
+}
+#facets:hover #forma{
+    opacity:0.5;
 }
 .card{
     margin-top: 2rem;
-    margin-bottom: 2rem;
-    margin-left: 2rem;
-    margin-right: 2rem;
-    border: 5px solid #000000
+    margin-bottom: 5rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    border: 5px solid #BAB2B5;
+    transition: all .5s ease;
+}
+.card:hover{
+    transform: translate3d(0,-1px,0) scale(1.07);
+    transition: all .4s ease;
+    box-shadow: 0 0 11px rgba(33,33,33,1);
 }
 #prodi{
-    margin: 5rem 10rem 10rem 10rem;
-    border: 2px solid #000000;
+    margin: 4rem 10rem 10rem 10rem;
     background-color: white;
+    transition: all .5s ease;
+    border: 2px solid black;
+}
+#prodi:hover{
+    transform: translate3d(0,-1px,0) scale(1.07);
+    transition: all .4s ease; 
+    box-shadow: 0 0 11px rgba(33,33,33,1);
 }
 #pagi{
     justify-content: center;
@@ -78,6 +108,13 @@ body{
 }
 .dropdown-menu li {
     position: relative;
+    transition: all .5s ease;
+}
+
+.dropdown-menu li:hover{
+    transform: translate3d(0,-1px,0) scale(1.03);
+    transition: all .4s ease; 
+    box-shadow: 0 0 11px rgba(33,33,33,1);
 }
 .dropdown-menu .dropdown-submenu {
     display: none;

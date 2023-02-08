@@ -43,8 +43,7 @@ class ProductList(MethodView):
     @blp.response(200, ProductListSchema)
     def get(self, pagination_params):
         products, total = ProductService.find_all(pagination_params)
-
-        if total == 0:
+        if len(products) == 0:
             abort(400, message="No match found")
 
         response = {
@@ -84,7 +83,7 @@ class ProductCategory(MethodView):
     def get(self, pagination_params, category_id):
         products, total = ProductService.find_by_category(category_id, pagination_params)
 
-        if total == 0:
+        if len(products) == 0:
             abort(400, message="No match found")
 
         response = {
