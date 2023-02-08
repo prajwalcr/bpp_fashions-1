@@ -11,6 +11,6 @@ Base.metadata.create_all(engine)
 
 session = SessionLocal()
 if session.query(CategoryModel).first() is None:
-    root_category = CategoryModel(id=1, level=0)
+    root_category = CategoryModel(id=0, level=0)
     session.add(root_category)
     session.commit()

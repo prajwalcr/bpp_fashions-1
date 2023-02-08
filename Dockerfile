@@ -6,6 +6,7 @@ COPY requirements.txt /app
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
+
 RUN pip install --upgrade pip
 
 # Install the dependencies in the docker image

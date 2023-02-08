@@ -35,7 +35,6 @@ def create_app():
     app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
     app.config['MAX_CONTENT_LENGTH'] = 4 * 1024 * 1024 * 1024
 
-    # Change to env variables
     app.config['SITE_KEY'] = os.environ['SITE_KEY']
     app.config['UNBXD_API_KEY'] = os.environ['UNBXD_API_KEY']
     app.config['UNBXD_SEARCH_URL'] = 'https://search.unbxd.io/'
@@ -48,16 +47,12 @@ def create_app():
     app.config['CACHE_REDIS_DB'] = os.environ['CACHE_REDIS_DB']
     app.config['CACHE_REDIS_URL'] = os.environ['CACHE_REDIS_URL']
     app.config['CACHE_DEFAULT_TIMEOUT'] = os.environ['CACHE_DEFAULT_TIMEOUT']
-    # cache.init_app(app)
+
+    initialize_extensions(app)
 
     api = Api(app)
 
     register_blueprints(api)
-
-    # api.register_blueprint(ProductBlueprint)
-    # api.register_blueprint(CategoryBlueprint)
-    # api.register_blueprint(IngestionBlueprint)
-    # api.register_blueprint(RoutesBlueprint)
 
     return app
 

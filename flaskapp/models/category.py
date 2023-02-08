@@ -1,12 +1,12 @@
 from flaskapp.database import Base
-from sqlalchemy import Column, String, ForeignKey, Integer
+from sqlalchemy import Column, String, ForeignKey, Integer, Sequence
 
 
 class CategoryModel(Base):
     __tablename__ = "category"
     # __table_args__ = {'extend_existing': True}
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, Sequence("my_sequence"), primary_key=True)
     parent_id = Column(Integer, ForeignKey("category.id"))
     name = Column(String(50))
     level = Column(Integer)
