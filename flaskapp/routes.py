@@ -14,6 +14,10 @@ def info(id):
     return render_template('product.html')
 
 
-@blp.errorhandler(404)
+@blp.app_errorhandler(404)
 def page_not_found(e):
-    return render_template('404.html'), 404
+    return render_template('404.html')
+
+@blp.route('/error')
+def pagenotfoumd():
+    return render_template('404.html')

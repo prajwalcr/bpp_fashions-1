@@ -107,6 +107,9 @@
           pagurl.searchParams.append('page',pagval.toString())
           window.location.href=pagurl
         })
+    },
+    error:function(data,status){
+      window.location.href='/error'
     }
   })
 })

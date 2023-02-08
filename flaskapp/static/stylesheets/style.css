@@ -41,6 +41,11 @@ body{
         display:flex;
         transition: all .5s ease;
 }
+#err{
+        justify-content: center;
+        align-items: center;
+        display:flex;
+}
 #navlist{
     margin-bottom: 30px;
 }
