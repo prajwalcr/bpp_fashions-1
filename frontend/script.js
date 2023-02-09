@@ -1,7 +1,13 @@
 $(document).ready(function(){
 jQuery.ajaxSetup({async:false});
+$.ajaxSetup({
+  headers: {
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET" }
+})
 $.ajax({
-  url:'/api/categories/children/1',
+  url:'http://127.0.0.1:5000/api/categories/children/1',
   type:'GET',
   datatype:'JSON',
   success:function(data){
@@ -22,7 +28,7 @@ $.ajax({
     $('select[id="sort"]').val(sort).change();
 
   function category(val){
-    ceurl=new URL("http://127.0.0.1:5000/")
+    ceurl=new URL("http://127.0.0.1:8080/")
     if (val==0){
       window.location.href=ceurl
     }
@@ -32,9 +38,9 @@ $.ajax({
   }
   function subcat(subcatid){
     var html =''
-    $.get('/api/categories/children/'+subcatid,function(subdata){
+    $.get('http://127.0.0.1:5000/api/categories/children/'+subcatid,function(subdata){
       if (subdata.length==0){
-        console.log('hi')
+        
       }
       else{
         html += '<ul class="dropdown-menu dropdown-submenu">'

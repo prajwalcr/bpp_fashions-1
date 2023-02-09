@@ -5,13 +5,13 @@
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script type="text/javascript" src="static/js/script.js"></script>
-  <link rel="stylesheet" href="static/stylesheets/style.css">
+  <script type="text/javascript" src="script.js"></script>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark d-flex justify-content-between">
    <a class="navbar-brand" href="/">
-    <img src="static/img/Logo.png" alt="Logo" style="width:100px;">
+    <img src="Logo.png" alt="Logo" style="width:100px;">
   </a>
   <p class="navbar-text">bpp_fashions</p>
   <form class="form-inline" methods="GET" action='/'>
@@ -23,6 +23,9 @@
 </div>
 <script type='text/javascript'>
   $(document).ready(function(){
+  $.ajaxSetup({
+    headers: {"Access-Control-Allow-Origin": '*' }
+  })
   var currenturl=new URL(window.location.href)
   catid=currenturl.searchParams.get('id')
   q=currenturl.searchParams.get('q')
@@ -94,7 +97,7 @@
         html+='<hr>'
         html+='<h4 class="card-title">'+dataitems[i].price+'$</h4>';
         html+='<p class="card-text">'+dataitems[i].productDescription+'</p>';
-        html+='<a href="/productinfo/'+dataitems[i].id+'" class="align-self-end btn btn-dark stretched-link">View Product</a>'
+        html+='<a href="/product.html?product_id='+dataitems[i].id+'" class="align-self-end btn btn-dark stretched-link">View Product</a>'
         html+='</div>';
         html+='</div>';
         html+='</div>';
@@ -109,12 +112,12 @@
         })
     },
     error:function(data,status){
-      window.location.href='/error'
+      window.location.href="/404.html"
     }
   })
 })
 </script>
-    <div id="logogif"><img src="static/img/WebsiteLogo2.gif"></div>
+    <div id="logogif"><img src="WebsiteLogo2.gif"></div>
     <div id="sor">
         <select class="custom-select" id="sort">
             <option value="">None</option>
@@ -196,7 +199,8 @@
           window.location.href=pagurl
         })
         function category(val){
-          ceurl=new URL("http://127.0.0.1:5000/")
+          ceurl=new URL(window.location.href)
+          ceurl.search='';
           ceurl.searchParams.append('id',val)
           console.log(ceurl)
           window.location.href=ceurl

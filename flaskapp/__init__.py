@@ -8,7 +8,7 @@ from flaskapp.database import db
 from flaskapp.api.products.product_controller import blp as ProductBlueprint
 from flaskapp.api.products.category_controller import blp as CategoryBlueprint
 from flaskapp.api.ingestion.ingestion_controller import blp as IngestionBlueprint
-from flaskapp.routes import blp as RoutesBlueprint
+#from flaskapp.routes import blp as RoutesBlueprint
 from flaskapp.cache import cache
 from dotenv import load_dotenv
 
@@ -68,4 +68,4 @@ def register_blueprints(api):
     api.register_blueprint(ProductBlueprint)
     api.register_blueprint(CategoryBlueprint)
     api.register_blueprint(IngestionBlueprint)
-    api.register_blueprint(RoutesBlueprint)
+    #api.register_blueprint(RoutesBlueprint)
