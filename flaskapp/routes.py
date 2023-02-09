@@ -1,4 +1,4 @@
-from flask import render_template
+f'''rom flask import render_template
 from flask_smorest import Blueprint
 
 blp = Blueprint("routes", __name__, description="Routes for HTML pages")
@@ -20,4 +20,4 @@ def page_not_found(e):
 
 @blp.route('/error')
 def pagenotfoumd():
-    return render_template('404.html')
+    return render_template('404.html')'''

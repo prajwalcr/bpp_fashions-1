@@ -55,6 +55,9 @@ class SearchService:
 
             product_list.append(product)
 
+        if len(product_list) == 0:
+            return 400, "No match found"
+
         return 200, {
             "products": product_list,
             "total": number_of_products

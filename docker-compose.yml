@@ -1,15 +1,39 @@
 version: '3'
 services:
+  web:
+    container_name: frontend-container
+    build: ./frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - api
+    expose:
+      - 8080
   api:
     container_name: flask-container
     build: .
     entrypoint: python run.py
     env_file:
-      - .env
+      - ./flaskapp/.env
     ports:
-      - '5001:5000'
+      - '5000:5000'
   redis:
     image: redis
     container_name: redis-container
     ports:
       - "6379:6379"
+  db:
+    image: postgres
+    volumes:
+      - ./instance/postgress_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=unbxd
+      - POSTGRES_PASSWORD=postgress
+      - POSTGRES_DB=bpp
+    ports:
+      - "5432:5432"
+    restart: always
+
+volumes:
+  postgres_data:
+
