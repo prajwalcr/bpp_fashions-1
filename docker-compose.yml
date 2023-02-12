@@ -11,15 +11,14 @@ services:
       - 8000
   api:
     container_name: flask-container
-    build: .
+    build: ./backend
     entrypoint: python run.py
     env_file:
-      - ./flaskapp/.env
+      - ./backend/flaskapp/.env
     ports:
       - '5000:5000'
     depends_on:
       - db
-    restart: always
 
   redis:
     image: redis
@@ -29,10 +28,10 @@ services:
   db:
     image: postgres
     volumes:
-      - ./instance/postgress_data:/var/lib/postgresql/data/
+      - ./instance/postgres_data:/var/lib/postgresql/data/
     environment:
       - POSTGRES_USER=unbxd
-      - POSTGRES_PASSWORD=postgress
+      - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=bpp
     ports:
       - "5432:5432"
