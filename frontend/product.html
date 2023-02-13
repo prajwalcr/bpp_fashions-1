@@ -5,28 +5,31 @@
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script type="text/javascript" src="script.js"></script>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark d-flex justify-content-between">
    <a class="navbar-brand" href="/">
-    <img src="Logo.png" alt="Logo" style="width:100px;">
+    <img src="Logo.png" alt="Logo" style="width:120px;">
   </a>
-  <p class="navbar-text">bpp_fashions</p>
+  <p class="navbar-text"><img src="img.png" height="60"></p>
   <form class="form-inline" methods="GET" action='/'>
     <input id="srcq" class="form-control mr-sm-2" type="text" placeholder="Search" name="q">
     <button id="srcb" class="btn btn-light" type="submit">Go</button>
   </form>
 </nav>
+<div id="wrapper">
 <div id="facets">
 </div>
-<div id="logogif"><img src="WebsiteLogo2.gif"></div>
+</div>
+<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
 <script type="text/javascript" >
 $(document).ready(function(){
 $.ajaxSetup({
   headers: {"Access-Control-Allow-Origin": '*' }
 })
+$('.lds-ellipsis').show();
+$('#wrapper').hide();
 var currenturl=new URL(window.location.href)
 prodid=currenturl.searchParams.get('product_id')
 $.ajaxSetup({traditional: true});
@@ -49,7 +52,13 @@ $.ajax({
         html+='</div>';
         html+='</div>';
         $('.container-fluid').append(html)
-
+        },
+  complete:function(){
+    $('.lds-ellipsis').hide();
+    $('#wrapper').show();
+  },
+  error:function(){
+    window.location.href="/404.html"
   }
 })
 })
@@ -57,11 +66,11 @@ function category(val){
           ceurl=new URL("http://127.0.0.1:8080")
           ceurl.search='';
           ceurl.searchParams.append('id',val)
-          console.log(ceurl)
           window.location.href=ceurl
         }
 </script>
 <div class="container-fluid">
 </div>
+<script type="text/javascript" src="script.js"></script>
 </body>
 </html>

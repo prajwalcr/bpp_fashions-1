@@ -8,14 +8,16 @@ from flaskapp.database import db
 from flaskapp.api.products.product_controller import blp as ProductBlueprint
 from flaskapp.api.products.category_controller import blp as CategoryBlueprint
 from flaskapp.api.ingestion.ingestion_controller import blp as IngestionBlueprint
-#from flaskapp.routes import blp as RoutesBlueprint
+#from flaskapp.routes import blp as RoutesBlueprintx
+from flask_cors import CORS,cross_origin
 from flaskapp.cache import cache
 from dotenv import load_dotenv
-
 load_dotenv()
-
+cors = CORS()
 def create_app():
     app = Flask(__name__)
+
+    cors.init_app(app)
 
     UPLOAD_FOLDER = os.path.join(app.instance_path, "catalog_dir")
     if not os.path.exists(UPLOAD_FOLDER):
