@@ -4,6 +4,7 @@ metadata:
   name: ingress
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/proxy-body-size: 100m
 spec:
   rules:
   - host: bpp.fashions.com
@@ -15,4 +16,11 @@ spec:
           service:
             name: frontend
             port:
-              number: 8080
+              number: 80
+      - path: /backend(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: flask
+            port:
+              number: 5000
