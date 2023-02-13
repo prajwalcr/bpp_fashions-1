@@ -6,6 +6,7 @@ $.ajaxSetup({
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Methods": "GET" }
 })
+$('.lds-ellipsis').show();
 $.ajax({
   url:'http://127.0.0.1:5000/api/categories/children/1',
   type:'GET',
@@ -21,6 +22,9 @@ $.ajax({
     }
     html += '</ul>'
     $('#facets').append(html)
+  },
+  complete: function(){
+    $('.lds-ellipsis').hide();
   }
 })
     var curl=new URL(window.location.href)
@@ -29,11 +33,8 @@ $.ajax({
 
   function category(val){
     ceurl=new URL("http://127.0.0.1:8080/")
-    if (val==0){
-      window.location.href=ceurl
-    }
+    ceurl.search='';
     ceurl.searchParams.append('id',val)
-    console.log(ceurl)
     window.location.href=ceurl
   }
   function subcat(subcatid){
@@ -46,7 +47,6 @@ $.ajax({
         html += '<ul class="dropdown-menu dropdown-submenu">'
         for (var j=0;j<subdata.length;j++){
           html += '<li><a class="dropdown-item" id="'+subdata[j]['id']+'"onclick="category('+subdata[j]['id']+')">'+subdata[j]['name']+'</a>';
-          html +=subcat(subdata[j]['id'])
           html += '</li>'
       }
       html += '</ul>'

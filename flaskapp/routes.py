@@ -1,4 +1,4 @@
-f'''rom flask import render_template
+'''from flask import render_template
 from flask_smorest import Blueprint
 
 blp = Blueprint("routes", __name__, description="Routes for HTML pages")
