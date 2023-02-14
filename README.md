@@ -117,7 +117,7 @@ In case of <i>503 Internal Server Error</i>, wait a few minutes for the pods to 
    Perform data ingestion to view the products in the site.
    Accessing the app before performing data ingestion can cause 404 errors to show up.
 
-    - Download ```out.json``` containing the data.
+    - Download ```out.json``` containing the data. Link to the file: https://drive.google.com/file/d/1HDOOlNVdZmgiuliwc-a2vstJvMj2xV77/view?usp=sharing
     - Upload the data to the app.
    ```
    curl --location -g --request POST 'localhost:5000/api/upload-catalog/{{SITE_KEY}}' \--form 'file=@"out.json"'
@@ -144,13 +144,13 @@ In case of <i>503 Internal Server Error</i>, wait a few minutes for the pods to 
 ## Website Screenshots
 
 1.Homepage(Search,Category Dropdown,Sort)
-![Alt text](Homepage.png "Optional Title")
+![Alt text](readme-assets/Homepage.png "Optional Title")
 
 2.Homepage(Pagination)
-![Alt text](Pagination.png "Optional Title")
+![Alt text](readme-assets/Pagination.png "Optional Title")
 
 3.Product Page
-![Alt text](Product.png "Optional Title")
+![Alt text](readme-assets/Product.png "Optional Title")
 
 ## Links
    - Design Document: https://docs.google.com/document/d/1GcN1fuT-dOzTP50YqLmw67EiM83t6ywPmb8KJRbf54M/edit?usp=sharing
