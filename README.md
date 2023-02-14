@@ -4,18 +4,38 @@ It is powered by Unbxd Search while also having additional features such as Cate
 
 ## Installation
 
+Setup the environment by adding a .env file in the /backend/flaskapp directory containing the variables mentioned in .env.sample.
+A sample .env file to get a working app is provided below for convenience.
+
+```bash
+CACHE_TYPE=redis
+CACHE_REDIS_HOST=redis
+CACHE_REDIS_PORT=6379
+CACHE_REDIS_DB=0
+CACHE_REDIS_URL=redis://redis:6379/0
+CACHE_DEFAULT_TIMEOUT=500
+SITE_KEY=demo-unbxd700181503576558
+UNBXD_API_KEY=fb853e3332f2645fac9d71dc63e09ec1
+POSTGRES_USER=unbxd
+POSTGRES_PASSWORD=postgres
+```
+
+You can setup the app using either docker or kubernetes.
+You can follow either one.
+Do note that frontend is not yet supported through docker setup.
+
 ### Docker Setup (Backend Only)
 
 1. Build Docker Images and Start Containers
 
 ```bash
-docker-compose build --no-cache
-docker-compose up --build -d
+docker-compose --env-file backend/flaskapp/.env up --build -d
 ```
 
 2. Accessing the App
 
 You can access the backend/api at localhost:5000
+
 API specification can be accessed at localhost:5000/api/swagger-ui
 
 ### Kubernetes Setup (MacOS)
@@ -51,17 +71,25 @@ minikube start
 sh minikube-deploy.sh
 ```
 
-4. Database Setup
+4. Update /etc/hosts
+
+Add clusterIP to /etc/hosts file for DNS resolution
+
+```bash
+echo "$(minikube ip) bpp.fashions.com" | sudo tee -a /etc/hosts
+```
+
+5. Accessing the App
+
+You can access the app now at http://bpp.fashions.com
+In case of <i>503 Internal Server Error</i>, wait a few minutes for the pods to spin up.
+
+6. Accessing the PSQL Database
 
    - Get the postgres database pod name
       ```bash
       kubectl get pod -l service=postgres -o jsonpath="{.items[0].metadata.name}"
       ````
-   
-   - Create a database within the pod
-      ```bash
-      kubectl exec $POD_NAME --stdin --tty -- createdb -U $POSTGRES_USER bpp
-      ```
 
    - Accessing database
       ```bash
@@ -70,19 +98,6 @@ sh minikube-deploy.sh
      
    In the above commands, replace $POD_NAME with the pod name obtained in the first step.
    Replace $POSTGRES_USER with your postgres username (the one specified in .env file).
-
-5. Update /etc/hosts
-
-Add clusterIP to /etc/hosts file for DNS resolution
-
-```bash
-echo "$(minikube ip) bpp.fashions.com" | sudo tee -a /etc/hosts
-```
-
-6. Accessing the App
-
-You can access the app now at http://bpp.fashions.com
-In case of <i>503 Internal Server Error</i>, wait a few minutes for the pods to spin up.
 
 ## Usage
 
