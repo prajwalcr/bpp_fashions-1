@@ -20,7 +20,7 @@ class Category(MethodView):
         return category
 
 
-@blp.route("/api/categories/children/<int:category_id>")
+@blp.route("/api/categories/<int:category_id>/children")
 class CategoryTree(MethodView):
     @blp.response(200, CategorySchema(many=True))
     @cache.cached(query_string=True)

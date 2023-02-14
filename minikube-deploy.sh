@@ -21,9 +21,9 @@ echo "Creating the postgres deployment and service..."
 
 kubectl create -f ./kubernetes/postgres-deployment.yml
 kubectl create -f ./kubernetes/postgres-service.yml
-sleep 45
-POD_NAME=$(kubectl get pod -l service=postgres -o jsonpath="{.items[0].metadata.name}")
-kubectl exec $POD_NAME --stdin --tty -- createdb -U unbxd bpp
+#sleep 45
+#POD_NAME=$(kubectl get pod -l service=postgres -o jsonpath="{.items[0].metadata.name}")
+#kubectl exec $POD_NAME --stdin --tty -- createdb -U unbxd bpp
 
 
 echo "Creating the redis deployment and service"
@@ -47,3 +47,5 @@ echo "Creating the frontend deployment and service..."
 
 kubectl create -f ./kubernetes/frontend-deployment.yml
 kubectl create -f ./kubernetes/frontend-service.yml
+
+echo "Done"

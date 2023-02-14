@@ -27,6 +27,7 @@ services:
       - "6379:6379"
   db:
     image: postgres
+    hostname: postgres
     volumes:
       - ./instance/postgres_data:/var/lib/postgresql/data/
     environment:
