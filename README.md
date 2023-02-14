@@ -1,5 +1,6 @@
 # BPP Fashions
-An E-commerce website for a small business selling apparels powered by Unbxd search.
+An E-commerce website for a small business selling apparels.
+It is powered by Unbxd Search while also having additional features such as Category Dropdowns,Pagination as well as Product Sort.The backend is developed on flask and the frontend is developed using html,css and javascript.
 
 ## Set Up
 
@@ -73,6 +74,17 @@ python3 run.py
 ┃ ┣ 📂static
 ┃ ┣ 📂templates
 ```
+
+## Website Screenshots
+
+1.Homepage(Search,Category Dropdown,Sort)
+![Alt text](/bpp_fashions/Homepage.png "Optional Title")
+
+2.Homepage(Pagination)
+![Alt text](/bpp_fashions/Pagination.png "Optional Title")
+
+3.Product Page
+![Alt text](/bpp_fashions/Product.png "Optional Title")
 
 ## Note
 
