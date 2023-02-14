@@ -8,7 +8,7 @@ $.ajaxSetup({
 })
 $('.lds-ellipsis').show();
 $.ajax({
-  url:'http://127.0.0.1:5000/api/categories/children/1',
+  url:'http://bpp.fashions.com/api/categories/0/children',
   type:'GET',
   datatype:'JSON',
   success:function(data){
@@ -32,14 +32,15 @@ $.ajax({
     $('select[id="sort"]').val(sort).change();
 
   function category(val){
-    ceurl=new URL("http://127.0.0.1:8080/")
+
+    ceurl=new URL("http://bpp.fashions.com/")
     ceurl.search='';
     ceurl.searchParams.append('id',val)
     window.location.href=ceurl
   }
   function subcat(subcatid){
     var html =''
-    $.get('http://127.0.0.1:5000/api/categories/children/'+subcatid,function(subdata){
+    $.get('http://bpp.fashions.com/api/categories/'+subcatid+'/children',function(subdata){
       if (subdata.length==0){
         
       }

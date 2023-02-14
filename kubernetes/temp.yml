@@ -1,0 +1,71 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask
+  labels:
+    name: flask
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flask
+  template:
+    metadata:
+      labels:
+        app: flask
+    spec:
+      containers:
+      - name: flask
+        image: prajwalcr/flaskapp:latest
+        env:
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: credentials
+              key: user
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: credentials
+              key: password
+        - name: SITE_KEY
+          valueFrom:
+            secretKeyRef:
+              name: credentials
+              key: site-key
+        - name: UNBXD_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: credentials
+              key: unbxd-api-key
+        - name: CACHE_TYPE
+          valueFrom:
+            configMapKeyRef:
+              name: env
+              key: CACHE_TYPE
+        - name: CACHE_REDIS_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: env
+              key: CACHE_REDIS_HOST
+        - name: CACHE_REDIS_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: env
+              key: CACHE_REDIS_PORT
+        - name: CACHE_REDIS_DB
+          valueFrom:
+            configMapKeyRef:
+              name: env
+              key: CACHE_REDIS_DB
+        - name: CACHE_REDIS_URL
+          valueFrom:
+            configMapKeyRef:
+              name: env
+              key: CACHE_REDIS_URL
+        - name: CACHE_DEFAULT_TIMEOUT
+          valueFrom:
+            configMapKeyRef:
+              name: env
+              key: CACHE_DEFAULT_TIMEOUT
+      restartPolicy: Always

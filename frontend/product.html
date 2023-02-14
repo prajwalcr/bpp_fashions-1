@@ -5,7 +5,7 @@
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="./style.css">
 </head>
 <body>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark d-flex justify-content-between">
@@ -34,7 +34,7 @@ var currenturl=new URL(window.location.href)
 prodid=currenturl.searchParams.get('product_id')
 $.ajaxSetup({traditional: true});
 $.ajax({
-  url:'http://127.0.0.1:5000/api/products/'+prodid,
+  url:'http://bpp.fashions.com/api/products/'+prodid,
   type:'GET',
   success:function(data){
     console.log(data)
@@ -63,7 +63,7 @@ $.ajax({
 })
 })
 function category(val){
-          ceurl=new URL("http://127.0.0.1:8080")
+          ceurl=new URL("http://bpp.fashions.com")
           ceurl.search='';
           ceurl.searchParams.append('id',val)
           window.location.href=ceurl
@@ -71,6 +71,6 @@ function category(val){
 </script>
 <div class="container-fluid">
 </div>
-<script type="text/javascript" src="script.js"></script>
+<script type="text/javascript" src="./script.js"></script>
 </body>
 </html>

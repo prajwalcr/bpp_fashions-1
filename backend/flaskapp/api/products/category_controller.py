@@ -8,7 +8,6 @@ from flaskapp.service.category import CategoryService
 blp = Blueprint("category", __name__, description="Operations on product categories")
 
 
-@cache.cached(query_string=True)
 @blp.route("/api/categories/<int:category_id>")
 class Category(MethodView):
     @blp.response(200, CategorySchema)
@@ -21,12 +20,12 @@ class Category(MethodView):
         return category
 
 
-@cache.cached(query_string=True)
-@blp.route("/api/categories/children/<int:category_id>")
+@blp.route("/api/categories/<int:category_id>/children")
 class CategoryTree(MethodView):
     @blp.response(200, CategorySchema(many=True))
+    @cache.cached(query_string=True)
     def get(self, category_id):
-        if category_id <= 0:
+        if category_id < 0:
             abort(400, message="Invalid category ID")
 
         categories = CategoryService.find_all_children(category_id)

@@ -10,7 +10,6 @@ from flaskapp.schemas import PlainProductSchema, SearchSchema, ProductListSchema
 blp = Blueprint("product", __name__, description="Operations on products")
 
 
-@cache.cached(query_string=True)
 @blp.route("/api/products/<string:product_id>")
 class Product(MethodView):
     @blp.response(200, PlainProductSchema)
@@ -36,11 +35,11 @@ class Product(MethodView):
         return product
 
 
-@cache.cached(query_string=True)
 @blp.route("/api/products")
 class ProductList(MethodView):
     @blp.arguments(PaginationSchema, location="query")
     @blp.response(200, ProductListSchema)
+    @cache.cached(query_string=True)
     def get(self, pagination_params):
         products, total = ProductService.find_all(pagination_params)
         if len(products) == 0:
@@ -55,11 +54,11 @@ class ProductList(MethodView):
         return response
 
 
-@cache.cached(query_string=True)
 @blp.route("/api/search")
 class ProductSearch(MethodView):
     @blp.arguments(SearchSchema, location="query")
     @blp.response(200, ProductListSchema)
+    @cache.cached(query_string=True)
     def get(self, search_params):
         if "rows" not in search_params:
             search_params["rows"] = current_app.config["PRODUCTS_PER_PAGE"]
@@ -75,11 +74,11 @@ class ProductSearch(MethodView):
         return response
 
 
-@cache.cached(query_string=True)
 @blp.route("/api/products/categories/<int:category_id>")
 class ProductCategory(MethodView):
     @blp.arguments(PaginationSchema, location="query")
     @blp.response(200, ProductListSchema)
+    @cache.cached(query_string=True)
     def get(self, pagination_params, category_id):
         products, total = ProductService.find_by_category(category_id, pagination_params)
 
