@@ -78,13 +78,13 @@ python3 run.py
 ## Website Screenshots
 
 1.Homepage(Search,Category Dropdown,Sort)
-![Alt text](/bpp_fashions/Homepage.png "Optional Title")
+![Alt text](Homepage.png "Optional Title")
 
 2.Homepage(Pagination)
-![Alt text](/bpp_fashions/Pagination.png "Optional Title")
+![Alt text](Pagination.png "Optional Title")
 
 3.Product Page
-![Alt text](/bpp_fashions/Product.png "Optional Title")
+![Alt text](Product.png "Optional Title")
 
 ## Note
 
