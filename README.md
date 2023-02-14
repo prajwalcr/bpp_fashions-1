@@ -26,13 +26,11 @@ API specification can be accessed at localhost:5000/api/swagger-ui
 brew update
 brew install kubectl
 brew install minikube
-brew install hyperkit
 ```
 
 2. Start a cluster
 
 ```bash
-minikube config set vm-driver hyperkit
 minikube start
 minikube dashboard
 ```
@@ -143,3 +141,13 @@ In case of <i>503 Internal Server Error</i>, wait a few minutes for the pods to 
    - Design Document: https://docs.google.com/document/d/1GcN1fuT-dOzTP50YqLmw67EiM83t6ywPmb8KJRbf54M/edit?usp=sharing
    - Trello Board: https://trello.com/invite/b/My7LhTIB/ATTI52a9c5374f98b6e19bcc6511d61c6f018F82C4EC/task-tracker
    - Postman Documentation: https://documenter.getpostman.com/view/25395677/2s935hR7YR#01e8c7b0-1bfc-4265-b890-0cea11b53ffa
+
+## Note
+
+   - In case you get the following error when running brew install hyperkit "A full installation of Xcode.app 9.0 is required to compile this software", go to the App Store on your Mac and install Xcode.
+   In case you get an error stating you need a higher version of macOS, try updating your OS. 
+   - For Mac Intel chip users, you might have to setup hyperkit. Run the following commands:
+      ```bash
+      brew install hyperkit
+      minikube config set vm-driver hyperkit 
+      ```
