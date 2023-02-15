@@ -1,5 +1,5 @@
-from flaskapp import db
-from flaskapp.dal.product import ProductDAL
+from flaskapp.database import db
+from flaskapp.api.products.dal.product import ProductDAL
 from flask import current_app
 
 class ProductService:

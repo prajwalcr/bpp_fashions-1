@@ -1,9 +1,7 @@
-from flask import current_app
-
-from flaskapp import db
-from flaskapp.dal.catalog import CatalogDAL
-from flaskapp.service.CatalogProcessors.CatalogProcessor import CatalogProcessor
-from flaskapp.service.CatalogProcessors.JsonCatalogProcessor import JsonCatalogProcessor # Don't remove this import
+from flaskapp.database import db
+from flaskapp.api.catalog.dal.catalog import CatalogDAL
+from flaskapp.api.ingestion.CatalogProcessors.CatalogProcessor import CatalogProcessor
+from flaskapp.api.ingestion.CatalogProcessors.JsonCatalogProcessor import JsonCatalogProcessor # Do not remove this import
 
 
 class IngestionService:

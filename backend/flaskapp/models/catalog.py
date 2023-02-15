@@ -13,7 +13,7 @@ class CatalogModel(Base):
         return f"Catalog('{self.id}, '{self.status}')"
 
     @classmethod
-    def find_by_id_query(cls, db, id):
+    def find_by_id_query(cls, db, id: str):
         return db.query(cls).filter(cls.id == id)
 
     @classmethod

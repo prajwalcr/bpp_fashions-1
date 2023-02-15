@@ -4,9 +4,9 @@ from flask.views import MethodView
 from flaskapp.database import SessionLocal
 from flask_smorest import Blueprint, abort
 
-from flaskapp.service.catalog import CatalogService
-from flaskapp.service.file import FileService
-from flaskapp.service.ingestion import IngestionService
+from flaskapp.api.catalog.services.catalog import CatalogService
+from flaskapp.api.ingestion.services.file import FileService
+from flaskapp.api.ingestion.services.ingestion import IngestionService
 from flaskapp.schemas import MultiPartFileSchema
 
 from threading import Thread

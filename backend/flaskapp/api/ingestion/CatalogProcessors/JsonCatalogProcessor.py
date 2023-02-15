@@ -1,13 +1,11 @@
 import json
 
-from flask import current_app
-
-from flaskapp.dal.category import CategoryDAL
-from flaskapp.dal.color import ColorDAL
-from flaskapp.dal.product import ProductDAL
-from flaskapp.dal.product_category import ProductCategoryDAL
-from flaskapp.dal.size import SizeDAL
-from flaskapp.service.CatalogProcessors.CatalogProcessor import CatalogProcessor
+from flaskapp.api.categories.dal.category import CategoryDAL
+from flaskapp.api.products.dal.color import ColorDAL
+from flaskapp.api.products.dal.product import ProductDAL
+from flaskapp.api.products.dal.product_category import ProductCategoryDAL
+from flaskapp.api.products.dal.size import SizeDAL
+from flaskapp.api.ingestion.CatalogProcessors.CatalogProcessor import CatalogProcessor
 from flaskapp.database import SessionLocal
 
 

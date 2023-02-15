@@ -1,5 +1,5 @@
-from flaskapp import db
-from flaskapp.dal.category import CategoryDAL
+from flaskapp.database import db
+from flaskapp.api.categories.dal.category import CategoryDAL
 
 
 class CategoryService:

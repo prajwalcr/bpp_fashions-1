@@ -3,8 +3,8 @@ from flask.views import MethodView
 from flask_smorest import Blueprint, abort
 
 from flaskapp.cache import cache
-from flaskapp.service.product import ProductService
-from flaskapp.service.search import SearchService
+from flaskapp.api.products.services.product import ProductService
+from flaskapp.api.products.services.search import SearchService
 from flaskapp.schemas import PlainProductSchema, SearchSchema, ProductListSchema, PaginationSchema
 
 blp = Blueprint("product", __name__, description="Operations on products")

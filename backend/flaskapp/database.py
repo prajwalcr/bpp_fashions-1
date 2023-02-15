@@ -1,5 +1,5 @@
 import os
-
+print("IN DB")
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
@@ -16,3 +16,4 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 db = SessionLocal()
 
 Base = declarative_base()
+print("Create base")

@@ -1,7 +1,7 @@
 import requests
 from flask import current_app
 
-from flaskapp.models import ProductModel
+from flaskapp.api.products.dal.product import ProductDAL
 
 
 class SearchService:
@@ -44,12 +44,12 @@ class SearchService:
             image_url = dataItem.get("productImage", None)  # Replace this maybe
             price = dataItem["price"]
 
-            product = ProductModel(
-                id=product_id,
+            product = ProductDAL.create(
+                id=id,
                 title=title,
                 availability=availability,
-                productDescription=product_description,
-                imageURL=image_url,
+                product_description=product_description,
+                image_url=image_url,
                 price=price
             )
 

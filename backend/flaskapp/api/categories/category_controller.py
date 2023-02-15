@@ -3,7 +3,7 @@ from flask_smorest import Blueprint, abort
 
 from flaskapp.cache import cache
 from flaskapp.schemas import CategorySchema
-from flaskapp.service.category import CategoryService
+from flaskapp.api.categories.services.category import CategoryService
 
 blp = Blueprint("category", __name__, description="Operations on product categories")
 

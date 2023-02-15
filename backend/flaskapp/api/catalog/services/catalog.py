@@ -1,5 +1,5 @@
-from flaskapp import db
-from flaskapp.dal.catalog import CatalogDAL
+from flaskapp.database import db
+from flaskapp.api.catalog.dal.catalog import CatalogDAL
 
 
 class CatalogService:
