@@ -6,14 +6,19 @@ from flask_smorest import Api
 from flaskapp.api.products.product_controller import blp as ProductBlueprint
 from flaskapp.api.categories.category_controller import blp as CategoryBlueprint
 from flaskapp.api.ingestion.ingestion_controller import blp as IngestionBlueprint
+from flaskapp.api.catalog.catalog_controller import blp as CatalogBlueprint
 from flaskapp.cache import cache
 from dotenv import load_dotenv
+
+
 load_dotenv()
 
 
 def create_app():
+    """Factory pattern for creating flask app."""
     app = Flask(__name__)
 
+    # Path where product catalogs will be uploaded.
     UPLOAD_FOLDER = os.path.join(app.instance_path, "catalog_dir")
     if not os.path.exists(UPLOAD_FOLDER):
         os.makedirs(UPLOAD_FOLDER)
@@ -51,10 +56,13 @@ def create_app():
 
 
 def initialize_extensions(app):
+    """Initialize flask app extensions"""
     cache.init_app(app)
 
 
 def register_blueprints(api):
+    """Register created blueprints to the app"""
     api.register_blueprint(ProductBlueprint)
     api.register_blueprint(CategoryBlueprint)
     api.register_blueprint(IngestionBlueprint)
+    api.register_blueprint(CatalogBlueprint)

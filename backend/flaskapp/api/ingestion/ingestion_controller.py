@@ -18,6 +18,7 @@ blp = Blueprint("ingestion", __name__, description="Ingest catalog into system")
 
 @blp.route("/api/upload-catalog/<string:site_key>")
 class IngestCatalog(MethodView):
+    """Controller class for handling catalog ingestion requests."""
     @blp.arguments(MultiPartFileSchema, location="files")
     @blp.response(201)
     def post(self, files, site_key):
@@ -49,12 +50,12 @@ class IngestCatalog(MethodView):
                                  catalog_processor_class.STATUS_CODES.get("VALIDATING", "Unavailable"),
                                  filepath)
 
-
             response = {
                 "message": "File Uploaded Successfully",
                 "tracking ID": tracking_id
             }
 
+            # Start catalog ingestion in a new thread.
             try:
                 Thread(target=IngestionService.ingest_catalog, args=("_", tracking_id, catalog_processor)).start()
             except Exception as e:

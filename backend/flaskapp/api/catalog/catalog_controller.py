@@ -8,9 +8,10 @@ blp = Blueprint("catalog", __name__, description="Operations on ingestion catalo
 
 
 @blp.route("/api/catalog/<string:catalog_id>")
-class Product(MethodView):
+class Catalog(MethodView):
+    """Controller class for handling requests on catalog."""
     @blp.response(200, CatalogSchema)
-    def get(self, catalog_id):
+    def get(self, catalog_id: str):
         catalog = CatalogService.find_by_id(catalog_id)
 
         if catalog is None:

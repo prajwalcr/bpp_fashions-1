@@ -12,6 +12,7 @@ blp = Blueprint("product", __name__, description="Operations on products")
 
 @blp.route("/api/products/<string:product_id>")
 class Product(MethodView):
+    """Controller class for handling requests on products."""
     @blp.response(200, PlainProductSchema)
     def get(self, product_id):
         product = ProductService.find_by_id(product_id)
@@ -37,6 +38,7 @@ class Product(MethodView):
 
 @blp.route("/api/products")
 class ProductList(MethodView):
+    """Controller class for handling requests on list of products."""
     @blp.arguments(PaginationSchema, location="query")
     @blp.response(200, ProductListSchema)
     @cache.cached(query_string=True)
@@ -56,6 +58,7 @@ class ProductList(MethodView):
 
 @blp.route("/api/search")
 class ProductSearch(MethodView):
+    """Controller class for handling search requests on products."""
     @blp.arguments(SearchSchema, location="query")
     @blp.response(200, ProductListSchema)
     @cache.cached(query_string=True)
@@ -76,6 +79,7 @@ class ProductSearch(MethodView):
 
 @blp.route("/api/products/categories/<int:category_id>")
 class ProductCategory(MethodView):
+    """Controller class for handling requests on products based on category type."""
     @blp.arguments(PaginationSchema, location="query")
     @blp.response(200, ProductListSchema)
     @cache.cached(query_string=True)

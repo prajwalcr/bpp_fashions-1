@@ -7,7 +7,7 @@ from flaskapp.models.product_category import ProductCategoryModel
 
 from flaskapp.database import Base, engine, SessionLocal
 
-# Create all the SQL tables in database if they don't exist
+# Create all the SQL tables in database if they don't exist.
 Base.metadata.create_all(engine)
 
 session = SessionLocal()
