@@ -21,10 +21,8 @@ POSTGRES_PASSWORD=postgres
 ```
 
 You can setup the app using either docker or kubernetes.
-You can follow either one.
-Do note that frontend is not yet supported through docker setup.
 
-### Docker Setup (Backend Only)
+### Docker Setup
 
 1. Build Docker Images and Start Containers
 
@@ -32,10 +30,32 @@ Do note that frontend is not yet supported through docker setup.
 docker-compose --env-file backend/flaskapp/.env up --build -d
 ```
 
-2. Accessing the App
+2. Update /etc/hosts
+
+Add clusterIP to /etc/hosts file for DNS resolution
+
+```bash
+echo "127.0.0.1 bpp.fashions.com" | sudo tee -a /etc/hosts
+```
+
+If using zsh terminal and above command does not work, try:
+
+```bash
+sudo  /bin/bash -c 'echo "127.0.0.1 bpp.fashions.com" | sudo tee -a /etc/hosts'
+```
+
+Run the following command to check if a new line is appended to /etc/hosts
+
+```bash
+cat /etc/hosts
+```
+
+
+3. Accessing the App
+
+You can access the app at http://bpp.fashions.com
 
 You can access the backend/api at localhost:5000
-
 API specification can be accessed at localhost:5000/api/swagger-ui
 
 ### Kubernetes Setup (MacOS)
@@ -55,7 +75,10 @@ minikube start
 minikube dashboard
 ```
 
-If you run into any problems, it is often better to completely remove it and restart.
+If you get an error stating "Unable to pick a default driver", make sure docker desktop is up and running.
+Alternatively, you could install drivers such as hyperkit, parallels , qemu2, etc.
+
+If you run into any problems, it is often better to completely remove minikube and restart.
 
 ```bash
 minikube stop; minikube delete
@@ -71,12 +94,32 @@ minikube start
 sh minikube-deploy.sh
 ```
 
+Make sure running the deploy script does not give any errors.
+
+If you see 'Internal error occurred: failed calling webhook "validate.nginx.ingress.kubernetes.io"' error, try removing the ValidatingWebhookConfiguration:
+
+```bash
+kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
+```
+
 4. Update /etc/hosts
 
 Add clusterIP to /etc/hosts file for DNS resolution
 
 ```bash
 echo "$(minikube ip) bpp.fashions.com" | sudo tee -a /etc/hosts
+```
+
+If using zsh terminal and above command does not work, try:
+
+```bash
+sudo  /bin/bash -c 'echo "$(minikube ip) bpp.fashions.com" | sudo tee -a /etc/hosts'
+```
+
+Run the following command to check if a new line is appended to /etc/hosts
+
+```bash
+cat /etc/hosts
 ```
 
 5. Accessing the App
@@ -140,6 +183,8 @@ In case of <i>503 Internal Server Error</i>, wait a few minutes for the pods to 
 
     print(response.text)
    ```
+   
+   For kubernetes builds, change the url above to ```bpp.fashions.com/api/upload-catalog/{{SITE_KEY}}```
 
 ## Website Screenshots
 
@@ -152,7 +197,11 @@ In case of <i>503 Internal Server Error</i>, wait a few minutes for the pods to 
 3.Product Page
 ![Alt text](readme-assets/Product.png "Optional Title")
 
+4 Swagger-UI API specification
+![Alt text](readme-assets/API.png "Optional Title")
+
 ## Links
+   - Code Documentation: Readthedocs link to be updated soon.
    - Design Document: https://docs.google.com/document/d/1GcN1fuT-dOzTP50YqLmw67EiM83t6ywPmb8KJRbf54M/edit?usp=sharing
    - Trello Board: https://trello.com/invite/b/My7LhTIB/ATTI52a9c5374f98b6e19bcc6511d61c6f018F82C4EC/task-tracker
    - Postman Documentation: https://documenter.getpostman.com/view/25395677/2s935hR7YR#01e8c7b0-1bfc-4265-b890-0cea11b53ffa
@@ -166,3 +215,4 @@ In case of <i>503 Internal Server Error</i>, wait a few minutes for the pods to 
       brew install hyperkit
       minikube config set vm-driver hyperkit 
       ```
+   - Kubernetes setup might give issues on Mac M1 chip.
