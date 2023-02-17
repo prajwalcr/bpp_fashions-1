@@ -4,9 +4,9 @@ from flask.views import MethodView
 from flaskapp.database import SessionLocal
 from flask_smorest import Blueprint, abort
 
-from flaskapp.service.catalog import CatalogService
-from flaskapp.service.file import FileService
-from flaskapp.service.ingestion import IngestionService
+from flaskapp.api.catalog.services.catalog import CatalogService
+from flaskapp.api.ingestion.services.file import FileService
+from flaskapp.api.ingestion.services.ingestion import IngestionService
 from flaskapp.schemas import MultiPartFileSchema
 
 from threading import Thread
@@ -18,6 +18,7 @@ blp = Blueprint("ingestion", __name__, description="Ingest catalog into system")
 
 @blp.route("/api/upload-catalog/<string:site_key>")
 class IngestCatalog(MethodView):
+    """Controller class for handling catalog ingestion requests."""
     @blp.arguments(MultiPartFileSchema, location="files")
     @blp.response(201)
     def post(self, files, site_key):
@@ -49,12 +50,12 @@ class IngestCatalog(MethodView):
                                  catalog_processor_class.STATUS_CODES.get("VALIDATING", "Unavailable"),
                                  filepath)
 
-
             response = {
                 "message": "File Uploaded Successfully",
                 "tracking ID": tracking_id
             }
 
+            # Start catalog ingestion in a new thread.
             try:
                 Thread(target=IngestionService.ingest_catalog, args=("_", tracking_id, catalog_processor)).start()
             except Exception as e:

@@ -1,17 +1,16 @@
 import json
 
-from flask import current_app
-
-from flaskapp.dal.category import CategoryDAL
-from flaskapp.dal.color import ColorDAL
-from flaskapp.dal.product import ProductDAL
-from flaskapp.dal.product_category import ProductCategoryDAL
-from flaskapp.dal.size import SizeDAL
-from flaskapp.service.CatalogProcessors.CatalogProcessor import CatalogProcessor
+from flaskapp.api.categories.dal.category import CategoryDAL
+from flaskapp.api.products.dal.color import ColorDAL
+from flaskapp.api.products.dal.product import ProductDAL
+from flaskapp.api.products.dal.product_category import ProductCategoryDAL
+from flaskapp.api.products.dal.size import SizeDAL
+from flaskapp.api.ingestion.CatalogProcessors.CatalogProcessor import CatalogProcessor
 from flaskapp.database import SessionLocal
 
 
 class JsonCatalogProcessor(CatalogProcessor):
+    """Catalog processor for processing json catalogs."""
 
     SUPPORTED_EXTENSION = "json"
 
@@ -19,7 +18,16 @@ class JsonCatalogProcessor(CatalogProcessor):
         super().__init__(filepath)
         self.data = None
 
-    def load(self):
+    def load(self) -> bool:
+        """
+        Load catalog into memory.
+
+        Returns
+        -------
+        bool
+            Returns True if load succeeded, else False.
+        """
+
         try:
             f = open(self.filepath)
         except IOError:
@@ -30,7 +38,16 @@ class JsonCatalogProcessor(CatalogProcessor):
             return False
         return True
 
-    def validate(self):
+    def validate(self) -> bool:
+        """
+        Validate uploaded catalog.
+
+        Returns
+        -------
+        bool
+            Returns True if validation succeeded, else False.
+        """
+
         if self.data is None:
             return False
 
@@ -47,10 +64,19 @@ class JsonCatalogProcessor(CatalogProcessor):
 
         return True
 
-    def ingest(self):
+    def ingest(self) -> bool:
+        """
+        Ingest a valid catalog into database.
+
+        Returns
+        -------
+        Returns True if ingestion succeeded, else False.
+        """
+
         if self.data is None:
             return False
 
+        # Ingesting all products in a single transaction for consistency.
         with SessionLocal() as session:
             for data_item in self.data:
                 id = data_item["uniqueId"]
@@ -60,11 +86,12 @@ class JsonCatalogProcessor(CatalogProcessor):
                 else:
                     availability = False
                 product_description = data_item.get("productDescription", None)
-                image_url = data_item.get("productImage", None)  # Replace this maybe
+                image_url = data_item.get("productImage", None)
                 price = data_item["price"]
 
                 cat_level_names = []
                 level_counter = 1
+                # Get category level names of the product for each consecutive level starting from 1.
                 while True:
                     field = "catlevel"+str(level_counter)+"Name"
                     if field not in data_item:
@@ -79,6 +106,7 @@ class JsonCatalogProcessor(CatalogProcessor):
                 color_list = []
                 size_list = []
 
+                # Populating category tree in database
                 parent_category = CategoryDAL.find_by_level(session, 0)[0]
                 for i in range(len(cat_level_names)):
 
@@ -92,6 +120,8 @@ class JsonCatalogProcessor(CatalogProcessor):
                     product_category_association = ProductCategoryDAL.create(id, current_category.id)
 
                     category_list.append(product_category_association)
+
+                    # Current category becomes parent category for its lower level categories.
                     parent_category = current_category
 
                 for color in colors:

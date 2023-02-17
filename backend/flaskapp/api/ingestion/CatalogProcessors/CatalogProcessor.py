@@ -1,4 +1,5 @@
 class CatalogProcessor:
+    """Base class for processing catalogs."""
     STATUS_CODES = {
         "VALIDATING": "Validating Catalog",
         "INGESTING": "Ingesting Catalog",

@@ -3,20 +3,22 @@ import os
 from flask import Flask
 from flask_smorest import Api
 
-from flaskapp.database import db
-
 from flaskapp.api.products.product_controller import blp as ProductBlueprint
-from flaskapp.api.products.category_controller import blp as CategoryBlueprint
+from flaskapp.api.categories.category_controller import blp as CategoryBlueprint
 from flaskapp.api.ingestion.ingestion_controller import blp as IngestionBlueprint
-#from flaskapp.routes import blp as RoutesBlueprintx
-from flask_cors import CORS,cross_origin
+from flaskapp.api.catalog.catalog_controller import blp as CatalogBlueprint
 from flaskapp.cache import cache
 from dotenv import load_dotenv
+
+
 load_dotenv()
-cors = CORS()
+
+
 def create_app():
+    """Factory pattern for creating flask app."""
     app = Flask(__name__)
 
+    # Path where product catalogs will be uploaded.
     UPLOAD_FOLDER = os.path.join(app.instance_path, "catalog_dir")
     if not os.path.exists(UPLOAD_FOLDER):
         os.makedirs(UPLOAD_FOLDER)
@@ -28,8 +30,6 @@ def create_app():
     app.config['OPENAPI_SWAGGER_UI_PATH'] = "/api/swagger-ui"
     app.config['OPENAPI_SWAGGER_UI_URL'] = "https://cdn.jsdelivr.net/npm/swagger-ui-dist/"
 
-    # app.config['SECRET_KEY'] = ''
-    # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
     app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
     app.config['MAX_CONTENT_LENGTH'] = 4 * 1024 * 1024 * 1024
 
@@ -56,12 +56,13 @@ def create_app():
 
 
 def initialize_extensions(app):
+    """Initialize flask app extensions"""
     cache.init_app(app)
-    cors.init_app(app)
 
 
 def register_blueprints(api):
+    """Register created blueprints to the app"""
     api.register_blueprint(ProductBlueprint)
     api.register_blueprint(CategoryBlueprint)
     api.register_blueprint(IngestionBlueprint)
-    #api.register_blueprint(RoutesBlueprint)
+    api.register_blueprint(CatalogBlueprint)

@@ -18,8 +18,8 @@ kubectl apply -f ./kubernetes/env-configmap.yml
 
 echo "Creating the postgres deployment and service..."
 
-kubectl create -f ./kubernetes/postgres-deployment.yml
-kubectl create -f ./kubernetes/postgres-service.yml
+kubectl apply -f ./kubernetes/postgres-deployment.yml
+kubectl apply -f ./kubernetes/postgres-service.yml
 kubectl wait pod --for=condition=Ready -l service=postgres
 POD_NAME=$(kubectl get pod -l service=postgres -o jsonpath="{.items[0].metadata.name}")
 kubectl exec $POD_NAME --stdin --tty -- createdb -U unbxd bpp
@@ -27,20 +27,20 @@ kubectl exec $POD_NAME --stdin --tty -- createdb -U unbxd bpp
 
 echo "Creating the redis deployment and service"
 
-kubectl create -f ./kubernetes/redis-deployment.yml
-kubectl create -f ./kubernetes/redis-service.yml
+kubectl apply -f ./kubernetes/redis-deployment.yml
+kubectl apply -f ./kubernetes/redis-service.yml
 
 
 echo "Creating the flask deployment and service..."
 
-kubectl create -f ./kubernetes/flaskapp-deployment.yml
-kubectl create -f ./kubernetes/flaskapp-service.yml
+kubectl apply -f ./kubernetes/flaskapp-deployment.yml
+kubectl apply -f ./kubernetes/flaskapp-service.yml
 
 
 echo "Creating the frontend deployment and service..."
 
-kubectl create -f ./kubernetes/frontend-deployment.yml
-kubectl create -f ./kubernetes/frontend-service.yml
+kubectl apply -f ./kubernetes/frontend-deployment.yml
+kubectl apply -f ./kubernetes/frontend-service.yml
 
 
 echo "Adding the ingress..."
