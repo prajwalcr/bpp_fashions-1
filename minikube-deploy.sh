@@ -18,6 +18,7 @@ kubectl apply -f ./kubernetes/env-configmap.yml
 
 echo "Creating the postgres deployment and service..."
 
+
 kubectl apply -f ./kubernetes/postgres-deployment.yml
 kubectl apply -f ./kubernetes/postgres-service.yml
 kubectl wait pod --for=condition=Ready -l service=postgres
@@ -46,6 +47,12 @@ kubectl apply -f ./kubernetes/frontend-service.yml
 echo "Adding the ingress..."
 
 minikube addons enable ingress
+kubectl apply -f ./kubernetes/ingress.yml
+
+
+
+echo "Adding the ingress..."
+
 kubectl apply -f ./kubernetes/ingress.yml
 
 
