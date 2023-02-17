@@ -3,7 +3,7 @@
 
 echo "Building docker images..."
 
-docker build -t prajwalcr/frontend-flaskapp ./frontend
+docker build -t prajwalcr/frontend-flaskapp -f ./frontend/Dockerfile-minikube ./frontend
 docker build -t prajwalcr/flaskapp ./backend
 
 
