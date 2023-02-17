@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>flaskapp.service package &mdash; bppFashions 1.0.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            bppFashions
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">flaskapp.service package</a><ul>
+<li><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-flaskapp.service.catalog">flaskapp.service.catalog module</a><ul>
+<li><a class="reference internal" href="#flaskapp.service.catalog.CatalogService"><code class="docutils literal notranslate"><span class="pre">CatalogService</span></code></a><ul>
+<li><a class="reference internal" href="#flaskapp.service.catalog.CatalogService.create_and_save"><code class="docutils literal notranslate"><span class="pre">CatalogService.create_and_save()</span></code></a></li>
+<li><a class="reference internal" href="#flaskapp.service.catalog.CatalogService.find_all"><code class="docutils literal notranslate"><span class="pre">CatalogService.find_all()</span></code></a></li>
+<li><a class="reference internal" href="#flaskapp.service.catalog.CatalogService.find_by_id"><code class="docutils literal notranslate"><span class="pre">CatalogService.find_by_id()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-flaskapp.service.category">flaskapp.service.category module</a><ul>
+<li><a class="reference internal" href="#flaskapp.service.category.CategoryService"><code class="docutils literal notranslate"><span class="pre">CategoryService</span></code></a><ul>
+<li><a class="reference internal" href="#flaskapp.service.category.CategoryService.find_all_children"><code class="docutils literal notranslate"><span class="pre">CategoryService.find_all_children()</span></code></a></li>
+<li><a class="reference internal" href="#flaskapp.service.category.CategoryService.find_by_id"><code class="docutils literal notranslate"><span class="pre">CategoryService.find_by_id()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-flaskapp.service.file">flaskapp.service.file module</a><ul>
+<li><a class="reference internal" href="#flaskapp.service.file.FileService"><code class="docutils literal notranslate"><span class="pre">FileService</span></code></a><ul>
+<li><a class="reference internal" href="#flaskapp.service.file.FileService.get_file_extension"><code class="docutils literal notranslate"><span class="pre">FileService.get_file_extension()</span></code></a></li>
+<li><a class="reference internal" href="#flaskapp.service.file.FileService.save_file"><code class="docutils literal notranslate"><span class="pre">FileService.save_file()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-flaskapp.service.ingestion">flaskapp.service.ingestion module</a><ul>
+<li><a class="reference internal" href="#flaskapp.service.ingestion.IngestionService"><code class="docutils literal notranslate"><span class="pre">IngestionService</span></code></a><ul>
+<li><a class="reference internal" href="#flaskapp.service.ingestion.IngestionService.exception_handler"><code class="docutils literal notranslate"><span class="pre">IngestionService.exception_handler()</span></code></a></li>
+<li><a class="reference internal" href="#flaskapp.service.ingestion.IngestionService.get_catalog_processor"><code class="docutils literal notranslate"><span class="pre">IngestionService.get_catalog_processor()</span></code></a></li>
+<li><a class="reference internal" href="#flaskapp.service.ingestion.IngestionService.ingest_catalog"><code class="docutils literal notranslate"><span class="pre">IngestionService.ingest_catalog()</span></code></a></li>
+<li><a class="reference internal" href="#flaskapp.service.ingestion.IngestionService.validate_site_key"><code class="docutils literal notranslate"><span class="pre">IngestionService.validate_site_key()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-flaskapp.service.product">flaskapp.service.product module</a><ul>
+<li><a class="reference internal" href="#flaskapp.service.product.ProductService"><code class="docutils literal notranslate"><span class="pre">ProductService</span></code></a><ul>
+<li><a class="reference internal" href="#flaskapp.service.product.ProductService.find_all"><code class="docutils literal notranslate"><span class="pre">ProductService.find_all()</span></code></a></li>
+<li><a class="reference internal" href="#flaskapp.service.product.ProductService.find_by_category"><code class="docutils literal notranslate"><span class="pre">ProductService.find_by_category()</span></code></a></li>
+<li><a class="reference internal" href="#flaskapp.service.product.ProductService.find_by_id"><code class="docutils literal notranslate"><span class="pre">ProductService.find_by_id()</span></code></a></li>
+<li><a class="reference internal" href="#flaskapp.service.product.ProductService.parse_pagination_parameters"><code class="docutils literal notranslate"><span class="pre">ProductService.parse_pagination_parameters()</span></code></a></li>
+<li><a class="reference internal" href="#flaskapp.service.product.ProductService.parse_sort_parameters"><code class="docutils literal notranslate"><span class="pre">ProductService.parse_sort_parameters()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-flaskapp.service.search">flaskapp.service.search module</a><ul>
+<li><a class="reference internal" href="#flaskapp.service.search.SearchService"><code class="docutils literal notranslate"><span class="pre">SearchService</span></code></a><ul>
+<li><a class="reference internal" href="#flaskapp.service.search.SearchService.fire_search_query"><code class="docutils literal notranslate"><span class="pre">SearchService.fire_search_query()</span></code></a></li>
+<li><a class="reference internal" href="#flaskapp.service.search.SearchService.parse_search_results"><code class="docutils literal notranslate"><span class="pre">SearchService.parse_search_results()</span></code></a></li>
+<li><a class="reference internal" href="#flaskapp.service.search.SearchService.required_fields"><code class="docutils literal notranslate"><span class="pre">SearchService.required_fields</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-flaskapp.service">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">bppFashions</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">flaskapp.service package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/flaskapp.service.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="flaskapp-service-package">
+<h1>flaskapp.service package<a class="headerlink" href="#flaskapp-service-package" title="Permalink to this heading"></a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="flaskapp.service.CatalogProcessors.html">flaskapp.service.CatalogProcessors package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="flaskapp.service.CatalogProcessors.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flaskapp.service.CatalogProcessors.html#module-flaskapp.service.CatalogProcessors.CatalogProcessor">flaskapp.service.CatalogProcessors.CatalogProcessor module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="flaskapp.service.CatalogProcessors.html#flaskapp.service.CatalogProcessors.CatalogProcessor.CatalogProcessor"><code class="docutils literal notranslate"><span class="pre">CatalogProcessor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.service.CatalogProcessors.html#flaskapp.service.CatalogProcessors.CatalogProcessor.CatalogProcessor.STATUS_CODES"><code class="docutils literal notranslate"><span class="pre">CatalogProcessor.STATUS_CODES</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="flaskapp.service.CatalogProcessors.html#module-flaskapp.service.CatalogProcessors.JsonCatalogProcessor">flaskapp.service.CatalogProcessors.JsonCatalogProcessor module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="flaskapp.service.CatalogProcessors.html#flaskapp.service.CatalogProcessors.JsonCatalogProcessor.JsonCatalogProcessor"><code class="docutils literal notranslate"><span class="pre">JsonCatalogProcessor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.service.CatalogProcessors.html#flaskapp.service.CatalogProcessors.JsonCatalogProcessor.JsonCatalogProcessor.SUPPORTED_EXTENSION"><code class="docutils literal notranslate"><span class="pre">JsonCatalogProcessor.SUPPORTED_EXTENSION</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.service.CatalogProcessors.html#flaskapp.service.CatalogProcessors.JsonCatalogProcessor.JsonCatalogProcessor.ingest"><code class="docutils literal notranslate"><span class="pre">JsonCatalogProcessor.ingest()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.service.CatalogProcessors.html#flaskapp.service.CatalogProcessors.JsonCatalogProcessor.JsonCatalogProcessor.load"><code class="docutils literal notranslate"><span class="pre">JsonCatalogProcessor.load()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.service.CatalogProcessors.html#flaskapp.service.CatalogProcessors.JsonCatalogProcessor.JsonCatalogProcessor.validate"><code class="docutils literal notranslate"><span class="pre">JsonCatalogProcessor.validate()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="flaskapp.service.CatalogProcessors.html#module-flaskapp.service.CatalogProcessors">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-flaskapp.service.catalog">
+<span id="flaskapp-service-catalog-module"></span><h2>flaskapp.service.catalog module<a class="headerlink" href="#module-flaskapp.service.catalog" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="flaskapp.service.catalog.CatalogService">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flaskapp.service.catalog.</span></span><span class="sig-name descname"><span class="pre">CatalogService</span></span><a class="reference internal" href="_modules/flaskapp/service/catalog.html#CatalogService"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.service.catalog.CatalogService" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="flaskapp.service.catalog.CatalogService.create_and_save">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_and_save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filepath</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flaskapp/service/catalog.html#CatalogService.create_and_save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.service.catalog.CatalogService.create_and_save" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flaskapp.service.catalog.CatalogService.find_all">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">find_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/flaskapp/service/catalog.html#CatalogService.find_all"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.service.catalog.CatalogService.find_all" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flaskapp.service.catalog.CatalogService.find_by_id">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">find_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flaskapp/service/catalog.html#CatalogService.find_by_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.service.catalog.CatalogService.find_by_id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-flaskapp.service.category">
+<span id="flaskapp-service-category-module"></span><h2>flaskapp.service.category module<a class="headerlink" href="#module-flaskapp.service.category" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="flaskapp.service.category.CategoryService">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flaskapp.service.category.</span></span><span class="sig-name descname"><span class="pre">CategoryService</span></span><a class="reference internal" href="_modules/flaskapp/service/category.html#CategoryService"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.service.category.CategoryService" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="flaskapp.service.category.CategoryService.find_all_children">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">find_all_children</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flaskapp/service/category.html#CategoryService.find_all_children"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.service.category.CategoryService.find_all_children" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flaskapp.service.category.CategoryService.find_by_id">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">find_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flaskapp/service/category.html#CategoryService.find_by_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.service.category.CategoryService.find_by_id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-flaskapp.service.file">
+<span id="flaskapp-service-file-module"></span><h2>flaskapp.service.file module<a class="headerlink" href="#module-flaskapp.service.file" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="flaskapp.service.file.FileService">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flaskapp.service.file.</span></span><span class="sig-name descname"><span class="pre">FileService</span></span><a class="reference internal" href="_modules/flaskapp/service/file.html#FileService"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.service.file.FileService" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="flaskapp.service.file.FileService.get_file_extension">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_file_extension</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flaskapp/service/file.html#FileService.get_file_extension"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.service.file.FileService.get_file_extension" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flaskapp.service.file.FileService.save_file">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">save_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">save_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flaskapp/service/file.html#FileService.save_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.service.file.FileService.save_file" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-flaskapp.service.ingestion">
+<span id="flaskapp-service-ingestion-module"></span><h2>flaskapp.service.ingestion module<a class="headerlink" href="#module-flaskapp.service.ingestion" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="flaskapp.service.ingestion.IngestionService">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flaskapp.service.ingestion.</span></span><span class="sig-name descname"><span class="pre">IngestionService</span></span><a class="reference internal" href="_modules/flaskapp/service/ingestion.html#IngestionService"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.service.ingestion.IngestionService" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="flaskapp.service.ingestion.IngestionService.exception_handler">
+<span class="sig-name descname"><span class="pre">exception_handler</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/flaskapp/service/ingestion.html#IngestionService.exception_handler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.service.ingestion.IngestionService.exception_handler" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flaskapp.service.ingestion.IngestionService.get_catalog_processor">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_catalog_processor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">extension</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flaskapp/service/ingestion.html#IngestionService.get_catalog_processor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.service.ingestion.IngestionService.get_catalog_processor" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flaskapp.service.ingestion.IngestionService.ingest_catalog">
+<span class="sig-name descname"><span class="pre">ingest_catalog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">catalog_processor</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flaskapp/service/ingestion.html#IngestionService.ingest_catalog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.service.ingestion.IngestionService.ingest_catalog" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flaskapp.service.ingestion.IngestionService.validate_site_key">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validate_site_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">site_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flaskapp/service/ingestion.html#IngestionService.validate_site_key"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.service.ingestion.IngestionService.validate_site_key" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-flaskapp.service.product">
+<span id="flaskapp-service-product-module"></span><h2>flaskapp.service.product module<a class="headerlink" href="#module-flaskapp.service.product" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="flaskapp.service.product.ProductService">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flaskapp.service.product.</span></span><span class="sig-name descname"><span class="pre">ProductService</span></span><a class="reference internal" href="_modules/flaskapp/service/product.html#ProductService"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.service.product.ProductService" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="flaskapp.service.product.ProductService.find_all">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">find_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flaskapp/service/product.html#ProductService.find_all"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.service.product.ProductService.find_all" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flaskapp.service.product.ProductService.find_by_category">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">find_by_category</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">category_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flaskapp/service/product.html#ProductService.find_by_category"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.service.product.ProductService.find_by_category" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flaskapp.service.product.ProductService.find_by_id">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">find_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flaskapp/service/product.html#ProductService.find_by_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.service.product.ProductService.find_by_id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flaskapp.service.product.ProductService.parse_pagination_parameters">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parse_pagination_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flaskapp/service/product.html#ProductService.parse_pagination_parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.service.product.ProductService.parse_pagination_parameters" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flaskapp.service.product.ProductService.parse_sort_parameters">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parse_sort_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flaskapp/service/product.html#ProductService.parse_sort_parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.service.product.ProductService.parse_sort_parameters" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-flaskapp.service.search">
+<span id="flaskapp-service-search-module"></span><h2>flaskapp.service.search module<a class="headerlink" href="#module-flaskapp.service.search" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="flaskapp.service.search.SearchService">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flaskapp.service.search.</span></span><span class="sig-name descname"><span class="pre">SearchService</span></span><a class="reference internal" href="_modules/flaskapp/service/search.html#SearchService"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.service.search.SearchService" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="flaskapp.service.search.SearchService.fire_search_query">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fire_search_query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">search_params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flaskapp/service/search.html#SearchService.fire_search_query"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.service.search.SearchService.fire_search_query" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flaskapp.service.search.SearchService.parse_search_results">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parse_search_results</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">search_data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flaskapp/service/search.html#SearchService.parse_search_results"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.service.search.SearchService.parse_search_results" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flaskapp.service.search.SearchService.required_fields">
+<span class="sig-name descname"><span class="pre">required_fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['uniqueId',</span> <span class="pre">'title',</span> <span class="pre">'availability',</span> <span class="pre">'productDescription',</span> <span class="pre">'productImage',</span> <span class="pre">'price']</span></em><a class="headerlink" href="#flaskapp.service.search.SearchService.required_fields" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-flaskapp.service">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-flaskapp.service" title="Permalink to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Prajwal Santosh.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
