@@ -2,6 +2,50 @@
 An E-commerce website for a small business selling apparels.
 It is powered by Unbxd Search while also having additional features such as Category Dropdowns,Pagination as well as Product Sort.The backend is developed on flask and the frontend is developed using html,css and javascript.
 
+## Usage
+
+1. Documentation
+
+   - API documentation can be found at https://documenter.getpostman.com/view/25395677/2s935hR7YR#01e8c7b0-1bfc-4265-b890-0cea11b53ffa
+   - In docker builds, API specification by Swagger-UI is accessible as mentioned below.
+
+2. Pre-requisites
+    - ```.env```: Contains environment variables.
+    - ```out.json```: Contains catalog data.
+    - ```SITE_KEY```: Authentication token for site owners. Replace {{SITE_KEY}} with the actual string in API endpoints.
+    - ```UNBXD_API_KEY```: Accessing Unbxd's search API.
+
+3. Data Ingestion
+
+   After installation (procedure specified below), data ingestion should be performed to view the products in the site.
+   Accessing the app before performing data ingestion can cause 404 errors to show up.
+
+    - Download ```out.json``` containing the data. Link to the file: https://drive.google.com/file/d/1HDOOlNVdZmgiuliwc-a2vstJvMj2xV77/view?usp=sharing
+    - Upload the data to the app.
+   ```
+   curl --location -g --request POST 'localhost:5000/api/upload-catalog/{{SITE_KEY}}' \--form 'file=@"out.json"'
+   ```
+   Alternative to curl using python:
+    ```
+    import requests
+    
+   url = "localhost:5000/api/upload-catalog/{{SITE_KEY}}"
+   
+    payload={}
+   
+    files=[
+    ('file',('out.json',open('out.json','rb'),'application/json'))
+    ]
+    
+   headers = {}
+
+    response = requests.request("POST", url, headers=headers, data=payload, files=files)
+
+    print(response.text)
+   ```
+   
+   For kubernetes builds, change the url above to ```bpp.fashions.com/api/upload-catalog/{{SITE_KEY}}```
+
 ## Installation
 
 Setup the environment by adding a .env file in the /backend/flaskapp directory containing the variables mentioned in .env.sample.
@@ -142,50 +186,6 @@ In case of <i>503 Internal Server Error</i>, wait a few minutes for the pods to 
    In the above commands, replace $POD_NAME with the pod name obtained in the first step.
    Replace $POSTGRES_USER with your postgres username (the one specified in .env file).
 
-## Usage
-
-1. Documentation
-
-   - API documentation can be found at https://documenter.getpostman.com/view/25395677/2s935hR7YR#01e8c7b0-1bfc-4265-b890-0cea11b53ffa
-   - In docker builds, API specification by Swagger-UI is accessible as mentioned above.
-
-2. Pre-requisites
-    - ```.env```: Contains environment variables.
-    - ```out.json```: Contains catalog data.
-    - ```SITE_KEY```: Authentication token for site owners. Replace {{SITE_KEY}} with the actual string in API endpoints.
-    - ```UNBXD_API_KEY```: Accessing Unbxd's search API.
-
-3. Data Ingestion
-
-   Perform data ingestion to view the products in the site.
-   Accessing the app before performing data ingestion can cause 404 errors to show up.
-
-    - Download ```out.json``` containing the data. Link to the file: https://drive.google.com/file/d/1HDOOlNVdZmgiuliwc-a2vstJvMj2xV77/view?usp=sharing
-    - Upload the data to the app.
-   ```
-   curl --location -g --request POST 'localhost:5000/api/upload-catalog/{{SITE_KEY}}' \--form 'file=@"out.json"'
-   ```
-   Alternative to curl using python:
-    ```
-    import requests
-    
-   url = "localhost:5000/api/upload-catalog/{{SITE_KEY}}"
-   
-    payload={}
-   
-    files=[
-    ('file',('out.json',open('out.json','rb'),'application/json'))
-    ]
-    
-   headers = {}
-
-    response = requests.request("POST", url, headers=headers, data=payload, files=files)
-
-    print(response.text)
-   ```
-   
-   For kubernetes builds, change the url above to ```bpp.fashions.com/api/upload-catalog/{{SITE_KEY}}```
-
 ## Website Screenshots
 
 1.Homepage(Search,Category Dropdown,Sort)
@@ -206,10 +206,26 @@ In case of <i>503 Internal Server Error</i>, wait a few minutes for the pods to 
    - Trello Board: https://trello.com/invite/b/My7LhTIB/ATTI52a9c5374f98b6e19bcc6511d61c6f018F82C4EC/task-tracker
    - Postman Documentation: https://documenter.getpostman.com/view/25395677/2s935hR7YR#01e8c7b0-1bfc-4265-b890-0cea11b53ffa
 
+
+## Salient Features
+   - Client side rendering for better user experience.
+   - Asynchronous catalog ingestion supported.
+   - Customers can view their catalog ingestion status at any time through an API call.
+   - Caching implemented using redis.
+   - Application supports arbitrary number of category levels.
+   - MVC architecture is used.
+   - REST principles followed for developing API.
+   - Flask blueprints used to simplify migration to microservice architecture in the future, if required.
+   - Packaging is done by feature to decrease coupling and increase cohesion.
+   - Since python is a dynamically typed language, type hinting is used for type checking and simplifying static code analysis.
+   - Unit testing done through pytest.
+   - Integration tests written on postman. These are used for regression testing.
+   - Sphinx used for generating out-of-the-box beautiful code documentation.
+   - API documentation done through Swagger-UI as well as postman.
+   - Application can be deployed through docker or kubernetes.
+
 ## Note
 
-   - In case you get the following error when running brew install hyperkit "A full installation of Xcode.app 9.0 is required to compile this software", go to the App Store on your Mac and install Xcode.
-   In case you get an error stating you need a higher version of macOS, try updating your OS. 
    - For Mac Intel chip users, you might have to setup hyperkit. Run the following commands:
       ```bash
       brew install hyperkit
