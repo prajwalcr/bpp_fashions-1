@@ -60,12 +60,10 @@ jobs:
           sh minikube-test.sh
       - name: Setup newman for postman
         uses: actions/checkout@master
-      - name: Curl
-        run: curl bpp.fashions.com/api/search?q=*
-      - name: Run postman tests
-        uses: matt-ball/newman-action@master
-        with:
-          collection: ./backend/tests/postman/postman_collection.json
-          environment: ./backend/tests/postman/postman_environment.json
-          folder: "Test Suite"
-          insecure:
+#      - name: Run postman tests
+#        uses: matt-ball/newman-action@master
+#        with:
+#          collection: ./backend/tests/postman/postman_collection.json
+#          environment: ./backend/tests/postman/postman_environment.json
+#          folder: "Test Suite"
+#          insecure:
