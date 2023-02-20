@@ -60,6 +60,8 @@ jobs:
           sh minikube-test.sh
       - name: Setup newman for postman
         uses: actions/checkout@master
+      - name: Curl
+        run: curl bpp.fashions.com/api/search?q=*
       - name: Run postman tests
         uses: matt-ball/newman-action@master
         with:
