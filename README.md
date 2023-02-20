@@ -201,7 +201,7 @@ In case of <i>503 Internal Server Error</i>, wait a few minutes for the pods to 
 ![Alt text](readme-assets/API.png "Optional Title")
 
 ## Links
-   - Code Documentation: Readthedocs link to be updated soon.
+   - Code Documentation: https://prajwal-santosh-bpp-fashions.readthedocs.io/en/latest/
    - Design Document: https://docs.google.com/document/d/1GcN1fuT-dOzTP50YqLmw67EiM83t6ywPmb8KJRbf54M/edit?usp=sharing
    - Trello Board: https://trello.com/invite/b/My7LhTIB/ATTI52a9c5374f98b6e19bcc6511d61c6f018F82C4EC/task-tracker
    - Postman Documentation: https://documenter.getpostman.com/view/25395677/2s935hR7YR#01e8c7b0-1bfc-4265-b890-0cea11b53ffa
@@ -223,6 +223,8 @@ In case of <i>503 Internal Server Error</i>, wait a few minutes for the pods to 
    - Sphinx used for generating out-of-the-box beautiful code documentation.
    - API documentation done through Swagger-UI as well as postman.
    - Application can be deployed through docker or kubernetes.
+   - Flake8 used as linter.
+   - CI/CD pipeline runs linter and performs unit tests.
 
 ## Note
 
@@ -232,3 +234,4 @@ In case of <i>503 Internal Server Error</i>, wait a few minutes for the pods to 
       minikube config set vm-driver hyperkit 
       ```
    - Kubernetes setup might give issues on Mac M1 chip.
+   - Postman API testing not included in CI/CD pipeline.
