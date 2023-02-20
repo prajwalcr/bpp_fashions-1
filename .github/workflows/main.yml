@@ -62,7 +62,7 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
-        pytest
+        sh minikube-test.sh
     - name: Setup newman for postman
       uses: actions/checkout@master
     - name: Run postman tests
