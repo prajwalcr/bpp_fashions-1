@@ -37,7 +37,7 @@ jobs:
           kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
       - name: Add hosts to /etc/hosts
         run: |
-          sudo echo "127.0.0.1 postgres.dolphin.com" | sudo tee -a /etc/hosts     
+          sudo echo "127.0.0.1 bpp.fashions.com" | sudo tee -a /etc/hosts     
 
       - uses: actions/checkout@v3
       - name: Set up Python 3.9
