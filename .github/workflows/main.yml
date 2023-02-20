@@ -68,3 +68,4 @@ jobs:
           collection: ./backend/tests/postman/postman_collection.json
           environment: ./backend/tests/postman/postman_environment.json
           folder: "Test Suite"
+          insecure:
