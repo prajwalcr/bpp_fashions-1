@@ -1,7 +1,14 @@
 venv
+env
+venv2
 .idea
 out.json
 .DS_Store
 instance
 site.db
 flaskapp/.env
+lib
+bin
+.env
+*__pycache__*
+*.pyc

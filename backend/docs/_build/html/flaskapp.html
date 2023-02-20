@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>flaskapp package &mdash; bppFashions 1.0.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            bppFashions
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">flaskapp package</a><ul>
+<li><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-flaskapp.cache">flaskapp.cache module</a></li>
+<li><a class="reference internal" href="#module-flaskapp.database">flaskapp.database module</a></li>
+<li><a class="reference internal" href="#module-flaskapp.routes">flaskapp.routes module</a></li>
+<li><a class="reference internal" href="#module-flaskapp.schemas">flaskapp.schemas module</a><ul>
+<li><a class="reference internal" href="#flaskapp.schemas.CategorySchema"><code class="docutils literal notranslate"><span class="pre">CategorySchema</span></code></a><ul>
+<li><a class="reference internal" href="#flaskapp.schemas.CategorySchema.opts"><code class="docutils literal notranslate"><span class="pre">CategorySchema.opts</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#flaskapp.schemas.MultiPartFileSchema"><code class="docutils literal notranslate"><span class="pre">MultiPartFileSchema</span></code></a><ul>
+<li><a class="reference internal" href="#flaskapp.schemas.MultiPartFileSchema.opts"><code class="docutils literal notranslate"><span class="pre">MultiPartFileSchema.opts</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#flaskapp.schemas.PaginationSchema"><code class="docutils literal notranslate"><span class="pre">PaginationSchema</span></code></a><ul>
+<li><a class="reference internal" href="#flaskapp.schemas.PaginationSchema.opts"><code class="docutils literal notranslate"><span class="pre">PaginationSchema.opts</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#flaskapp.schemas.PlainProductSchema"><code class="docutils literal notranslate"><span class="pre">PlainProductSchema</span></code></a><ul>
+<li><a class="reference internal" href="#flaskapp.schemas.PlainProductSchema.opts"><code class="docutils literal notranslate"><span class="pre">PlainProductSchema.opts</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#flaskapp.schemas.ProductListSchema"><code class="docutils literal notranslate"><span class="pre">ProductListSchema</span></code></a><ul>
+<li><a class="reference internal" href="#flaskapp.schemas.ProductListSchema.opts"><code class="docutils literal notranslate"><span class="pre">ProductListSchema.opts</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#flaskapp.schemas.SearchSchema"><code class="docutils literal notranslate"><span class="pre">SearchSchema</span></code></a><ul>
+<li><a class="reference internal" href="#flaskapp.schemas.SearchSchema.dump_fields"><code class="docutils literal notranslate"><span class="pre">SearchSchema.dump_fields</span></code></a></li>
+<li><a class="reference internal" href="#flaskapp.schemas.SearchSchema.fields"><code class="docutils literal notranslate"><span class="pre">SearchSchema.fields</span></code></a></li>
+<li><a class="reference internal" href="#flaskapp.schemas.SearchSchema.load_fields"><code class="docutils literal notranslate"><span class="pre">SearchSchema.load_fields</span></code></a></li>
+<li><a class="reference internal" href="#flaskapp.schemas.SearchSchema.opts"><code class="docutils literal notranslate"><span class="pre">SearchSchema.opts</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-flaskapp">Module contents</a><ul>
+<li><a class="reference internal" href="#flaskapp.create_app"><code class="docutils literal notranslate"><span class="pre">create_app()</span></code></a></li>
+<li><a class="reference internal" href="#flaskapp.initialize_extensions"><code class="docutils literal notranslate"><span class="pre">initialize_extensions()</span></code></a></li>
+<li><a class="reference internal" href="#flaskapp.register_blueprints"><code class="docutils literal notranslate"><span class="pre">register_blueprints()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">bppFashions</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">flaskapp package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/flaskapp.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="flaskapp-package">
+<h1>flaskapp package<a class="headerlink" href="#flaskapp-package" title="Permalink to this heading"></a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="flaskapp.api.html">flaskapp.api package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="flaskapp.api.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="flaskapp.api.ingestion.html">flaskapp.api.ingestion package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.api.ingestion.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.api.ingestion.html#module-flaskapp.api.ingestion.ingestion_controller">flaskapp.api.ingestion.ingestion_controller module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.api.ingestion.html#module-flaskapp.api.ingestion">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="flaskapp.api.products.html">flaskapp.api.products package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.api.products.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.api.products.html#module-flaskapp.api.products.category_controller">flaskapp.api.products.category_controller module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.api.products.html#module-flaskapp.api.products.product_controller">flaskapp.api.products.product_controller module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.api.products.html#module-flaskapp.api.products">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="flaskapp.api.html#module-flaskapp.api">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="flaskapp.dal.html">flaskapp.dal package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="flaskapp.dal.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flaskapp.dal.html#module-flaskapp.dal.catalog">flaskapp.dal.catalog module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="flaskapp.dal.html#flaskapp.dal.catalog.CatalogDAL"><code class="docutils literal notranslate"><span class="pre">CatalogDAL</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.dal.html#flaskapp.dal.catalog.CatalogDAL.create"><code class="docutils literal notranslate"><span class="pre">CatalogDAL.create()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.dal.html#flaskapp.dal.catalog.CatalogDAL.find_all"><code class="docutils literal notranslate"><span class="pre">CatalogDAL.find_all()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.dal.html#flaskapp.dal.catalog.CatalogDAL.find_by_id"><code class="docutils literal notranslate"><span class="pre">CatalogDAL.find_by_id()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.dal.html#flaskapp.dal.catalog.CatalogDAL.save"><code class="docutils literal notranslate"><span class="pre">CatalogDAL.save()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="flaskapp.dal.html#module-flaskapp.dal.category">flaskapp.dal.category module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="flaskapp.dal.html#flaskapp.dal.category.CategoryDAL"><code class="docutils literal notranslate"><span class="pre">CategoryDAL</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.dal.html#flaskapp.dal.category.CategoryDAL.create"><code class="docutils literal notranslate"><span class="pre">CategoryDAL.create()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.dal.html#flaskapp.dal.category.CategoryDAL.find_all"><code class="docutils literal notranslate"><span class="pre">CategoryDAL.find_all()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.dal.html#flaskapp.dal.category.CategoryDAL.find_all_children"><code class="docutils literal notranslate"><span class="pre">CategoryDAL.find_all_children()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.dal.html#flaskapp.dal.category.CategoryDAL.find_by_id"><code class="docutils literal notranslate"><span class="pre">CategoryDAL.find_by_id()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.dal.html#flaskapp.dal.category.CategoryDAL.find_by_level"><code class="docutils literal notranslate"><span class="pre">CategoryDAL.find_by_level()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.dal.html#flaskapp.dal.category.CategoryDAL.find_if_exists"><code class="docutils literal notranslate"><span class="pre">CategoryDAL.find_if_exists()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.dal.html#flaskapp.dal.category.CategoryDAL.save"><code class="docutils literal notranslate"><span class="pre">CategoryDAL.save()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="flaskapp.dal.html#module-flaskapp.dal.color">flaskapp.dal.color module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="flaskapp.dal.html#flaskapp.dal.color.ColorDAL"><code class="docutils literal notranslate"><span class="pre">ColorDAL</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.dal.html#flaskapp.dal.color.ColorDAL.create"><code class="docutils literal notranslate"><span class="pre">ColorDAL.create()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="flaskapp.dal.html#module-flaskapp.dal.product">flaskapp.dal.product module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="flaskapp.dal.html#flaskapp.dal.product.ProductDAL"><code class="docutils literal notranslate"><span class="pre">ProductDAL</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.dal.html#flaskapp.dal.product.ProductDAL.count_all"><code class="docutils literal notranslate"><span class="pre">ProductDAL.count_all()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.dal.html#flaskapp.dal.product.ProductDAL.count_by_category_id"><code class="docutils literal notranslate"><span class="pre">ProductDAL.count_by_category_id()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.dal.html#flaskapp.dal.product.ProductDAL.create"><code class="docutils literal notranslate"><span class="pre">ProductDAL.create()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.dal.html#flaskapp.dal.product.ProductDAL.find_all"><code class="docutils literal notranslate"><span class="pre">ProductDAL.find_all()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.dal.html#flaskapp.dal.product.ProductDAL.find_by_category_id"><code class="docutils literal notranslate"><span class="pre">ProductDAL.find_by_category_id()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.dal.html#flaskapp.dal.product.ProductDAL.find_by_id"><code class="docutils literal notranslate"><span class="pre">ProductDAL.find_by_id()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.dal.html#flaskapp.dal.product.ProductDAL.save"><code class="docutils literal notranslate"><span class="pre">ProductDAL.save()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="flaskapp.dal.html#module-flaskapp.dal.product_category">flaskapp.dal.product_category module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="flaskapp.dal.html#flaskapp.dal.product_category.ProductCategoryDAL"><code class="docutils literal notranslate"><span class="pre">ProductCategoryDAL</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.dal.html#flaskapp.dal.product_category.ProductCategoryDAL.create"><code class="docutils literal notranslate"><span class="pre">ProductCategoryDAL.create()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="flaskapp.dal.html#module-flaskapp.dal.size">flaskapp.dal.size module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="flaskapp.dal.html#flaskapp.dal.size.SizeDAL"><code class="docutils literal notranslate"><span class="pre">SizeDAL</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.dal.html#flaskapp.dal.size.SizeDAL.create"><code class="docutils literal notranslate"><span class="pre">SizeDAL.create()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="flaskapp.dal.html#module-flaskapp.dal">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="flaskapp.models.html">flaskapp.models package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="flaskapp.models.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flaskapp.models.html#module-flaskapp.models.catalog">flaskapp.models.catalog module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="flaskapp.models.html#flaskapp.models.catalog.CatalogModel"><code class="docutils literal notranslate"><span class="pre">CatalogModel</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.models.html#flaskapp.models.catalog.CatalogModel.filepath"><code class="docutils literal notranslate"><span class="pre">CatalogModel.filepath</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.models.html#flaskapp.models.catalog.CatalogModel.find_all_query"><code class="docutils literal notranslate"><span class="pre">CatalogModel.find_all_query()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.models.html#flaskapp.models.catalog.CatalogModel.find_by_id_query"><code class="docutils literal notranslate"><span class="pre">CatalogModel.find_by_id_query()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.models.html#flaskapp.models.catalog.CatalogModel.id"><code class="docutils literal notranslate"><span class="pre">CatalogModel.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.models.html#flaskapp.models.catalog.CatalogModel.save"><code class="docutils literal notranslate"><span class="pre">CatalogModel.save()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.models.html#flaskapp.models.catalog.CatalogModel.status"><code class="docutils literal notranslate"><span class="pre">CatalogModel.status</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="flaskapp.models.html#module-flaskapp.models.category">flaskapp.models.category module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="flaskapp.models.html#flaskapp.models.category.CategoryModel"><code class="docutils literal notranslate"><span class="pre">CategoryModel</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.models.html#flaskapp.models.category.CategoryModel.find_all_children_query"><code class="docutils literal notranslate"><span class="pre">CategoryModel.find_all_children_query()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.models.html#flaskapp.models.category.CategoryModel.find_all_query"><code class="docutils literal notranslate"><span class="pre">CategoryModel.find_all_query()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.models.html#flaskapp.models.category.CategoryModel.find_by_id_query"><code class="docutils literal notranslate"><span class="pre">CategoryModel.find_by_id_query()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.models.html#flaskapp.models.category.CategoryModel.find_by_level_query"><code class="docutils literal notranslate"><span class="pre">CategoryModel.find_by_level_query()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.models.html#flaskapp.models.category.CategoryModel.find_if_exists_query"><code class="docutils literal notranslate"><span class="pre">CategoryModel.find_if_exists_query()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.models.html#flaskapp.models.category.CategoryModel.id"><code class="docutils literal notranslate"><span class="pre">CategoryModel.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.models.html#flaskapp.models.category.CategoryModel.level"><code class="docutils literal notranslate"><span class="pre">CategoryModel.level</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.models.html#flaskapp.models.category.CategoryModel.name"><code class="docutils literal notranslate"><span class="pre">CategoryModel.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.models.html#flaskapp.models.category.CategoryModel.parent_id"><code class="docutils literal notranslate"><span class="pre">CategoryModel.parent_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.models.html#flaskapp.models.category.CategoryModel.product_category"><code class="docutils literal notranslate"><span class="pre">CategoryModel.product_category</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.models.html#flaskapp.models.category.CategoryModel.save"><code class="docutils literal notranslate"><span class="pre">CategoryModel.save()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="flaskapp.models.html#module-flaskapp.models.color">flaskapp.models.color module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="flaskapp.models.html#flaskapp.models.color.ColorModel"><code class="docutils literal notranslate"><span class="pre">ColorModel</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.models.html#flaskapp.models.color.ColorModel.product"><code class="docutils literal notranslate"><span class="pre">ColorModel.product</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.models.html#flaskapp.models.color.ColorModel.product_color"><code class="docutils literal notranslate"><span class="pre">ColorModel.product_color</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.models.html#flaskapp.models.color.ColorModel.product_id"><code class="docutils literal notranslate"><span class="pre">ColorModel.product_id</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="flaskapp.models.html#module-flaskapp.models.product">flaskapp.models.product module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="flaskapp.models.html#flaskapp.models.product.ProductModel"><code class="docutils literal notranslate"><span class="pre">ProductModel</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.models.html#flaskapp.models.product.ProductModel.availability"><code class="docutils literal notranslate"><span class="pre">ProductModel.availability</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.models.html#flaskapp.models.product.ProductModel.categories"><code class="docutils literal notranslate"><span class="pre">ProductModel.categories</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.models.html#flaskapp.models.product.ProductModel.colors"><code class="docutils literal notranslate"><span class="pre">ProductModel.colors</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.models.html#flaskapp.models.product.ProductModel.count"><code class="docutils literal notranslate"><span class="pre">ProductModel.count()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.models.html#flaskapp.models.product.ProductModel.find_all_query"><code class="docutils literal notranslate"><span class="pre">ProductModel.find_all_query()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.models.html#flaskapp.models.product.ProductModel.find_by_category_id_query"><code class="docutils literal notranslate"><span class="pre">ProductModel.find_by_category_id_query()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.models.html#flaskapp.models.product.ProductModel.find_by_id_query"><code class="docutils literal notranslate"><span class="pre">ProductModel.find_by_id_query()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.models.html#flaskapp.models.product.ProductModel.id"><code class="docutils literal notranslate"><span class="pre">ProductModel.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.models.html#flaskapp.models.product.ProductModel.imageURL"><code class="docutils literal notranslate"><span class="pre">ProductModel.imageURL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.models.html#flaskapp.models.product.ProductModel.order_by_price_query"><code class="docutils literal notranslate"><span class="pre">ProductModel.order_by_price_query()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.models.html#flaskapp.models.product.ProductModel.paginate_query"><code class="docutils literal notranslate"><span class="pre">ProductModel.paginate_query()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.models.html#flaskapp.models.product.ProductModel.price"><code class="docutils literal notranslate"><span class="pre">ProductModel.price</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.models.html#flaskapp.models.product.ProductModel.productDescription"><code class="docutils literal notranslate"><span class="pre">ProductModel.productDescription</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.models.html#flaskapp.models.product.ProductModel.save"><code class="docutils literal notranslate"><span class="pre">ProductModel.save()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.models.html#flaskapp.models.product.ProductModel.sizes"><code class="docutils literal notranslate"><span class="pre">ProductModel.sizes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.models.html#flaskapp.models.product.ProductModel.title"><code class="docutils literal notranslate"><span class="pre">ProductModel.title</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="flaskapp.models.html#module-flaskapp.models.product_category">flaskapp.models.product_category module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="flaskapp.models.html#flaskapp.models.product_category.ProductCategoryModel"><code class="docutils literal notranslate"><span class="pre">ProductCategoryModel</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.models.html#flaskapp.models.product_category.ProductCategoryModel.category"><code class="docutils literal notranslate"><span class="pre">ProductCategoryModel.category</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.models.html#flaskapp.models.product_category.ProductCategoryModel.category_id"><code class="docutils literal notranslate"><span class="pre">ProductCategoryModel.category_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.models.html#flaskapp.models.product_category.ProductCategoryModel.product"><code class="docutils literal notranslate"><span class="pre">ProductCategoryModel.product</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.models.html#flaskapp.models.product_category.ProductCategoryModel.product_id"><code class="docutils literal notranslate"><span class="pre">ProductCategoryModel.product_id</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="flaskapp.models.html#module-flaskapp.models.size">flaskapp.models.size module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="flaskapp.models.html#flaskapp.models.size.SizeModel"><code class="docutils literal notranslate"><span class="pre">SizeModel</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.models.html#flaskapp.models.size.SizeModel.product"><code class="docutils literal notranslate"><span class="pre">SizeModel.product</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.models.html#flaskapp.models.size.SizeModel.product_id"><code class="docutils literal notranslate"><span class="pre">SizeModel.product_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.models.html#flaskapp.models.size.SizeModel.product_size"><code class="docutils literal notranslate"><span class="pre">SizeModel.product_size</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="flaskapp.models.html#module-flaskapp.models">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="flaskapp.service.html">flaskapp.service package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="flaskapp.service.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="flaskapp.service.CatalogProcessors.html">flaskapp.service.CatalogProcessors package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.service.CatalogProcessors.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.service.CatalogProcessors.html#module-flaskapp.service.CatalogProcessors.CatalogProcessor">flaskapp.service.CatalogProcessors.CatalogProcessor module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.service.CatalogProcessors.html#module-flaskapp.service.CatalogProcessors.JsonCatalogProcessor">flaskapp.service.CatalogProcessors.JsonCatalogProcessor module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.service.CatalogProcessors.html#module-flaskapp.service.CatalogProcessors">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="flaskapp.service.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flaskapp.service.html#module-flaskapp.service.catalog">flaskapp.service.catalog module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="flaskapp.service.html#flaskapp.service.catalog.CatalogService"><code class="docutils literal notranslate"><span class="pre">CatalogService</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.service.html#flaskapp.service.catalog.CatalogService.create_and_save"><code class="docutils literal notranslate"><span class="pre">CatalogService.create_and_save()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.service.html#flaskapp.service.catalog.CatalogService.find_all"><code class="docutils literal notranslate"><span class="pre">CatalogService.find_all()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.service.html#flaskapp.service.catalog.CatalogService.find_by_id"><code class="docutils literal notranslate"><span class="pre">CatalogService.find_by_id()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="flaskapp.service.html#module-flaskapp.service.category">flaskapp.service.category module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="flaskapp.service.html#flaskapp.service.category.CategoryService"><code class="docutils literal notranslate"><span class="pre">CategoryService</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.service.html#flaskapp.service.category.CategoryService.find_all_children"><code class="docutils literal notranslate"><span class="pre">CategoryService.find_all_children()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.service.html#flaskapp.service.category.CategoryService.find_by_id"><code class="docutils literal notranslate"><span class="pre">CategoryService.find_by_id()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="flaskapp.service.html#module-flaskapp.service.file">flaskapp.service.file module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="flaskapp.service.html#flaskapp.service.file.FileService"><code class="docutils literal notranslate"><span class="pre">FileService</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.service.html#flaskapp.service.file.FileService.get_file_extension"><code class="docutils literal notranslate"><span class="pre">FileService.get_file_extension()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.service.html#flaskapp.service.file.FileService.save_file"><code class="docutils literal notranslate"><span class="pre">FileService.save_file()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="flaskapp.service.html#module-flaskapp.service.ingestion">flaskapp.service.ingestion module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="flaskapp.service.html#flaskapp.service.ingestion.IngestionService"><code class="docutils literal notranslate"><span class="pre">IngestionService</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.service.html#flaskapp.service.ingestion.IngestionService.exception_handler"><code class="docutils literal notranslate"><span class="pre">IngestionService.exception_handler()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.service.html#flaskapp.service.ingestion.IngestionService.get_catalog_processor"><code class="docutils literal notranslate"><span class="pre">IngestionService.get_catalog_processor()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.service.html#flaskapp.service.ingestion.IngestionService.ingest_catalog"><code class="docutils literal notranslate"><span class="pre">IngestionService.ingest_catalog()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.service.html#flaskapp.service.ingestion.IngestionService.validate_site_key"><code class="docutils literal notranslate"><span class="pre">IngestionService.validate_site_key()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="flaskapp.service.html#module-flaskapp.service.product">flaskapp.service.product module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="flaskapp.service.html#flaskapp.service.product.ProductService"><code class="docutils literal notranslate"><span class="pre">ProductService</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.service.html#flaskapp.service.product.ProductService.find_all"><code class="docutils literal notranslate"><span class="pre">ProductService.find_all()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.service.html#flaskapp.service.product.ProductService.find_by_category"><code class="docutils literal notranslate"><span class="pre">ProductService.find_by_category()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.service.html#flaskapp.service.product.ProductService.find_by_id"><code class="docutils literal notranslate"><span class="pre">ProductService.find_by_id()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.service.html#flaskapp.service.product.ProductService.parse_pagination_parameters"><code class="docutils literal notranslate"><span class="pre">ProductService.parse_pagination_parameters()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.service.html#flaskapp.service.product.ProductService.parse_sort_parameters"><code class="docutils literal notranslate"><span class="pre">ProductService.parse_sort_parameters()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="flaskapp.service.html#module-flaskapp.service.search">flaskapp.service.search module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="flaskapp.service.html#flaskapp.service.search.SearchService"><code class="docutils literal notranslate"><span class="pre">SearchService</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.service.html#flaskapp.service.search.SearchService.fire_search_query"><code class="docutils literal notranslate"><span class="pre">SearchService.fire_search_query()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.service.html#flaskapp.service.search.SearchService.parse_search_results"><code class="docutils literal notranslate"><span class="pre">SearchService.parse_search_results()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskapp.service.html#flaskapp.service.search.SearchService.required_fields"><code class="docutils literal notranslate"><span class="pre">SearchService.required_fields</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="flaskapp.service.html#module-flaskapp.service">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-flaskapp.cache">
+<span id="flaskapp-cache-module"></span><h2>flaskapp.cache module<a class="headerlink" href="#module-flaskapp.cache" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-flaskapp.database">
+<span id="flaskapp-database-module"></span><h2>flaskapp.database module<a class="headerlink" href="#module-flaskapp.database" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-flaskapp.routes">
+<span id="flaskapp-routes-module"></span><h2>flaskapp.routes module<a class="headerlink" href="#module-flaskapp.routes" title="Permalink to this heading"></a></h2>
+<p>from flask import render_template
+from flask_smorest import Blueprint</p>
+<p>blp = Blueprint(“routes”, __name__, description=”Routes for HTML pages”)</p>
+<p>&#64;blp.route(‘/’)
+def index():</p>
+<blockquote>
+<div><p>return render_template(‘index.html’)</p>
+</div></blockquote>
+<p>&#64;blp.route(‘/productinfo/&lt;string:id&gt;’)
+def info(id):</p>
+<blockquote>
+<div><p>return render_template(‘product.html’)</p>
+</div></blockquote>
+<p>&#64;blp.app_errorhandler(404)
+def page_not_found(e):</p>
+<blockquote>
+<div><p>return render_template(‘404.html’)</p>
+</div></blockquote>
+<p>&#64;blp.route(‘/error’)
+def pagenotfoumd():</p>
+<blockquote>
+<div><p>return render_template(‘404.html’)</p>
+</div></blockquote>
+</section>
+<section id="module-flaskapp.schemas">
+<span id="flaskapp-schemas-module"></span><h2>flaskapp.schemas module<a class="headerlink" href="#module-flaskapp.schemas" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="flaskapp.schemas.CategorySchema">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flaskapp.schemas.</span></span><span class="sig-name descname"><span class="pre">CategorySchema</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">only</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">types.StrSequenceOrSet</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">types.StrSequenceOrSet</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">many</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_only</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">types.StrSequenceOrSet</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dump_only</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">types.StrSequenceOrSet</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">partial</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">types.StrSequenceOrSet</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unknown</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flaskapp/schemas.html#CategorySchema"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.schemas.CategorySchema" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Schema</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flaskapp.schemas.CategorySchema.opts">
+<span class="sig-name descname"><span class="pre">opts</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">SchemaOpts</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;marshmallow.schema.SchemaOpts</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#flaskapp.schemas.CategorySchema.opts" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="flaskapp.schemas.MultiPartFileSchema">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flaskapp.schemas.</span></span><span class="sig-name descname"><span class="pre">MultiPartFileSchema</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">only</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">types.StrSequenceOrSet</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">types.StrSequenceOrSet</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">many</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_only</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">types.StrSequenceOrSet</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dump_only</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">types.StrSequenceOrSet</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">partial</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">types.StrSequenceOrSet</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unknown</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flaskapp/schemas.html#MultiPartFileSchema"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.schemas.MultiPartFileSchema" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Schema</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flaskapp.schemas.MultiPartFileSchema.opts">
+<span class="sig-name descname"><span class="pre">opts</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">SchemaOpts</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;marshmallow.schema.SchemaOpts</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#flaskapp.schemas.MultiPartFileSchema.opts" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="flaskapp.schemas.PaginationSchema">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flaskapp.schemas.</span></span><span class="sig-name descname"><span class="pre">PaginationSchema</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">only</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">types.StrSequenceOrSet</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">types.StrSequenceOrSet</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">many</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_only</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">types.StrSequenceOrSet</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dump_only</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">types.StrSequenceOrSet</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">partial</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">types.StrSequenceOrSet</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unknown</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flaskapp/schemas.html#PaginationSchema"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.schemas.PaginationSchema" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Schema</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flaskapp.schemas.PaginationSchema.opts">
+<span class="sig-name descname"><span class="pre">opts</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">SchemaOpts</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;marshmallow.schema.SchemaOpts</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#flaskapp.schemas.PaginationSchema.opts" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="flaskapp.schemas.PlainProductSchema">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flaskapp.schemas.</span></span><span class="sig-name descname"><span class="pre">PlainProductSchema</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">only</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">types.StrSequenceOrSet</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">types.StrSequenceOrSet</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">many</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_only</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">types.StrSequenceOrSet</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dump_only</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">types.StrSequenceOrSet</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">partial</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">types.StrSequenceOrSet</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unknown</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flaskapp/schemas.html#PlainProductSchema"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.schemas.PlainProductSchema" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Schema</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flaskapp.schemas.PlainProductSchema.opts">
+<span class="sig-name descname"><span class="pre">opts</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">SchemaOpts</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;marshmallow.schema.SchemaOpts</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#flaskapp.schemas.PlainProductSchema.opts" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="flaskapp.schemas.ProductListSchema">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flaskapp.schemas.</span></span><span class="sig-name descname"><span class="pre">ProductListSchema</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">only</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">types.StrSequenceOrSet</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">types.StrSequenceOrSet</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">many</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_only</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">types.StrSequenceOrSet</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dump_only</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">types.StrSequenceOrSet</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">partial</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">types.StrSequenceOrSet</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unknown</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flaskapp/schemas.html#ProductListSchema"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.schemas.ProductListSchema" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Schema</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flaskapp.schemas.ProductListSchema.opts">
+<span class="sig-name descname"><span class="pre">opts</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">SchemaOpts</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;marshmallow.schema.SchemaOpts</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#flaskapp.schemas.ProductListSchema.opts" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="flaskapp.schemas.SearchSchema">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flaskapp.schemas.</span></span><span class="sig-name descname"><span class="pre">SearchSchema</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">only</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">types.StrSequenceOrSet</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">types.StrSequenceOrSet</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">many</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_only</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">types.StrSequenceOrSet</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dump_only</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">types.StrSequenceOrSet</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">partial</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">types.StrSequenceOrSet</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unknown</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flaskapp/schemas.html#SearchSchema"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.schemas.SearchSchema" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#flaskapp.schemas.PaginationSchema" title="flaskapp.schemas.PaginationSchema"><code class="xref py py-class docutils literal notranslate"><span class="pre">PaginationSchema</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flaskapp.schemas.SearchSchema.dump_fields">
+<span class="sig-name descname"><span class="pre">dump_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ma_fields.Field</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#flaskapp.schemas.SearchSchema.dump_fields" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flaskapp.schemas.SearchSchema.fields">
+<span class="sig-name descname"><span class="pre">fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ma_fields.Field</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#flaskapp.schemas.SearchSchema.fields" title="Permalink to this definition"></a></dt>
+<dd><p>Dictionary mapping field_names -&gt; <code class="xref py py-class docutils literal notranslate"><span class="pre">Field</span></code> objects</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flaskapp.schemas.SearchSchema.load_fields">
+<span class="sig-name descname"><span class="pre">load_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ma_fields.Field</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#flaskapp.schemas.SearchSchema.load_fields" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flaskapp.schemas.SearchSchema.opts">
+<span class="sig-name descname"><span class="pre">opts</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">SchemaOpts</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;marshmallow.schema.SchemaOpts</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#flaskapp.schemas.SearchSchema.opts" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-flaskapp">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-flaskapp" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="flaskapp.create_app">
+<span class="sig-prename descclassname"><span class="pre">flaskapp.</span></span><span class="sig-name descname"><span class="pre">create_app</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/flaskapp.html#create_app"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.create_app" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="flaskapp.initialize_extensions">
+<span class="sig-prename descclassname"><span class="pre">flaskapp.</span></span><span class="sig-name descname"><span class="pre">initialize_extensions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flaskapp.html#initialize_extensions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.initialize_extensions" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="flaskapp.register_blueprints">
+<span class="sig-prename descclassname"><span class="pre">flaskapp.</span></span><span class="sig-name descname"><span class="pre">register_blueprints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flaskapp.html#register_blueprints"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.register_blueprints" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Prajwal Santosh.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

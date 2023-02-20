@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>flaskapp.dal package &mdash; bppFashions 1.0.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            bppFashions
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">flaskapp.dal package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-flaskapp.dal.catalog">flaskapp.dal.catalog module</a><ul>
+<li><a class="reference internal" href="#flaskapp.dal.catalog.CatalogDAL"><code class="docutils literal notranslate"><span class="pre">CatalogDAL</span></code></a><ul>
+<li><a class="reference internal" href="#flaskapp.dal.catalog.CatalogDAL.create"><code class="docutils literal notranslate"><span class="pre">CatalogDAL.create()</span></code></a></li>
+<li><a class="reference internal" href="#flaskapp.dal.catalog.CatalogDAL.find_all"><code class="docutils literal notranslate"><span class="pre">CatalogDAL.find_all()</span></code></a></li>
+<li><a class="reference internal" href="#flaskapp.dal.catalog.CatalogDAL.find_by_id"><code class="docutils literal notranslate"><span class="pre">CatalogDAL.find_by_id()</span></code></a></li>
+<li><a class="reference internal" href="#flaskapp.dal.catalog.CatalogDAL.save"><code class="docutils literal notranslate"><span class="pre">CatalogDAL.save()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-flaskapp.dal.category">flaskapp.dal.category module</a><ul>
+<li><a class="reference internal" href="#flaskapp.dal.category.CategoryDAL"><code class="docutils literal notranslate"><span class="pre">CategoryDAL</span></code></a><ul>
+<li><a class="reference internal" href="#flaskapp.dal.category.CategoryDAL.create"><code class="docutils literal notranslate"><span class="pre">CategoryDAL.create()</span></code></a></li>
+<li><a class="reference internal" href="#flaskapp.dal.category.CategoryDAL.find_all"><code class="docutils literal notranslate"><span class="pre">CategoryDAL.find_all()</span></code></a></li>
+<li><a class="reference internal" href="#flaskapp.dal.category.CategoryDAL.find_all_children"><code class="docutils literal notranslate"><span class="pre">CategoryDAL.find_all_children()</span></code></a></li>
+<li><a class="reference internal" href="#flaskapp.dal.category.CategoryDAL.find_by_id"><code class="docutils literal notranslate"><span class="pre">CategoryDAL.find_by_id()</span></code></a></li>
+<li><a class="reference internal" href="#flaskapp.dal.category.CategoryDAL.find_by_level"><code class="docutils literal notranslate"><span class="pre">CategoryDAL.find_by_level()</span></code></a></li>
+<li><a class="reference internal" href="#flaskapp.dal.category.CategoryDAL.find_if_exists"><code class="docutils literal notranslate"><span class="pre">CategoryDAL.find_if_exists()</span></code></a></li>
+<li><a class="reference internal" href="#flaskapp.dal.category.CategoryDAL.save"><code class="docutils literal notranslate"><span class="pre">CategoryDAL.save()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-flaskapp.dal.color">flaskapp.dal.color module</a><ul>
+<li><a class="reference internal" href="#flaskapp.dal.color.ColorDAL"><code class="docutils literal notranslate"><span class="pre">ColorDAL</span></code></a><ul>
+<li><a class="reference internal" href="#flaskapp.dal.color.ColorDAL.create"><code class="docutils literal notranslate"><span class="pre">ColorDAL.create()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-flaskapp.dal.product">flaskapp.dal.product module</a><ul>
+<li><a class="reference internal" href="#flaskapp.dal.product.ProductDAL"><code class="docutils literal notranslate"><span class="pre">ProductDAL</span></code></a><ul>
+<li><a class="reference internal" href="#flaskapp.dal.product.ProductDAL.count_all"><code class="docutils literal notranslate"><span class="pre">ProductDAL.count_all()</span></code></a></li>
+<li><a class="reference internal" href="#flaskapp.dal.product.ProductDAL.count_by_category_id"><code class="docutils literal notranslate"><span class="pre">ProductDAL.count_by_category_id()</span></code></a></li>
+<li><a class="reference internal" href="#flaskapp.dal.product.ProductDAL.create"><code class="docutils literal notranslate"><span class="pre">ProductDAL.create()</span></code></a></li>
+<li><a class="reference internal" href="#flaskapp.dal.product.ProductDAL.find_all"><code class="docutils literal notranslate"><span class="pre">ProductDAL.find_all()</span></code></a></li>
+<li><a class="reference internal" href="#flaskapp.dal.product.ProductDAL.find_by_category_id"><code class="docutils literal notranslate"><span class="pre">ProductDAL.find_by_category_id()</span></code></a></li>
+<li><a class="reference internal" href="#flaskapp.dal.product.ProductDAL.find_by_id"><code class="docutils literal notranslate"><span class="pre">ProductDAL.find_by_id()</span></code></a></li>
+<li><a class="reference internal" href="#flaskapp.dal.product.ProductDAL.save"><code class="docutils literal notranslate"><span class="pre">ProductDAL.save()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-flaskapp.dal.product_category">flaskapp.dal.product_category module</a><ul>
+<li><a class="reference internal" href="#flaskapp.dal.product_category.ProductCategoryDAL"><code class="docutils literal notranslate"><span class="pre">ProductCategoryDAL</span></code></a><ul>
+<li><a class="reference internal" href="#flaskapp.dal.product_category.ProductCategoryDAL.create"><code class="docutils literal notranslate"><span class="pre">ProductCategoryDAL.create()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-flaskapp.dal.size">flaskapp.dal.size module</a><ul>
+<li><a class="reference internal" href="#flaskapp.dal.size.SizeDAL"><code class="docutils literal notranslate"><span class="pre">SizeDAL</span></code></a><ul>
+<li><a class="reference internal" href="#flaskapp.dal.size.SizeDAL.create"><code class="docutils literal notranslate"><span class="pre">SizeDAL.create()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-flaskapp.dal">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">bppFashions</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">flaskapp.dal package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/flaskapp.dal.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="flaskapp-dal-package">
+<h1>flaskapp.dal package<a class="headerlink" href="#flaskapp-dal-package" title="Permalink to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-flaskapp.dal.catalog">
+<span id="flaskapp-dal-catalog-module"></span><h2>flaskapp.dal.catalog module<a class="headerlink" href="#module-flaskapp.dal.catalog" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="flaskapp.dal.catalog.CatalogDAL">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flaskapp.dal.catalog.</span></span><span class="sig-name descname"><span class="pre">CatalogDAL</span></span><a class="reference internal" href="_modules/flaskapp/dal/catalog.html#CatalogDAL"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.dal.catalog.CatalogDAL" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="flaskapp.dal.catalog.CatalogDAL.create">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filepath</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flaskapp/dal/catalog.html#CatalogDAL.create"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.dal.catalog.CatalogDAL.create" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flaskapp.dal.catalog.CatalogDAL.find_all">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">find_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flaskapp/dal/catalog.html#CatalogDAL.find_all"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.dal.catalog.CatalogDAL.find_all" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flaskapp.dal.catalog.CatalogDAL.find_by_id">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">find_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flaskapp/dal/catalog.html#CatalogDAL.find_by_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.dal.catalog.CatalogDAL.find_by_id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flaskapp.dal.catalog.CatalogDAL.save">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">catalog</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flaskapp/dal/catalog.html#CatalogDAL.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.dal.catalog.CatalogDAL.save" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-flaskapp.dal.category">
+<span id="flaskapp-dal-category-module"></span><h2>flaskapp.dal.category module<a class="headerlink" href="#module-flaskapp.dal.category" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="flaskapp.dal.category.CategoryDAL">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flaskapp.dal.category.</span></span><span class="sig-name descname"><span class="pre">CategoryDAL</span></span><a class="reference internal" href="_modules/flaskapp/dal/category.html#CategoryDAL"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.dal.category.CategoryDAL" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="flaskapp.dal.category.CategoryDAL.create">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flaskapp/dal/category.html#CategoryDAL.create"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.dal.category.CategoryDAL.create" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flaskapp.dal.category.CategoryDAL.find_all">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">find_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flaskapp/dal/category.html#CategoryDAL.find_all"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.dal.category.CategoryDAL.find_all" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flaskapp.dal.category.CategoryDAL.find_all_children">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">find_all_children</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flaskapp/dal/category.html#CategoryDAL.find_all_children"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.dal.category.CategoryDAL.find_all_children" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flaskapp.dal.category.CategoryDAL.find_by_id">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">find_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flaskapp/dal/category.html#CategoryDAL.find_by_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.dal.category.CategoryDAL.find_by_id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flaskapp.dal.category.CategoryDAL.find_by_level">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">find_by_level</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flaskapp/dal/category.html#CategoryDAL.find_by_level"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.dal.category.CategoryDAL.find_by_level" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flaskapp.dal.category.CategoryDAL.find_if_exists">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">find_if_exists</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flaskapp/dal/category.html#CategoryDAL.find_if_exists"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.dal.category.CategoryDAL.find_if_exists" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flaskapp.dal.category.CategoryDAL.save">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flaskapp/dal/category.html#CategoryDAL.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.dal.category.CategoryDAL.save" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-flaskapp.dal.color">
+<span id="flaskapp-dal-color-module"></span><h2>flaskapp.dal.color module<a class="headerlink" href="#module-flaskapp.dal.color" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="flaskapp.dal.color.ColorDAL">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flaskapp.dal.color.</span></span><span class="sig-name descname"><span class="pre">ColorDAL</span></span><a class="reference internal" href="_modules/flaskapp/dal/color.html#ColorDAL"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.dal.color.ColorDAL" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="flaskapp.dal.color.ColorDAL.create">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flaskapp/dal/color.html#ColorDAL.create"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.dal.color.ColorDAL.create" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-flaskapp.dal.product">
+<span id="flaskapp-dal-product-module"></span><h2>flaskapp.dal.product module<a class="headerlink" href="#module-flaskapp.dal.product" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="flaskapp.dal.product.ProductDAL">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flaskapp.dal.product.</span></span><span class="sig-name descname"><span class="pre">ProductDAL</span></span><a class="reference internal" href="_modules/flaskapp/dal/product.html#ProductDAL"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.dal.product.ProductDAL" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="flaskapp.dal.product.ProductDAL.count_all">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">count_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flaskapp/dal/product.html#ProductDAL.count_all"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.dal.product.ProductDAL.count_all" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flaskapp.dal.product.ProductDAL.count_by_category_id">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">count_by_category_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flaskapp/dal/product.html#ProductDAL.count_by_category_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.dal.product.ProductDAL.count_by_category_id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flaskapp.dal.product.ProductDAL.create">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">availability</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">product_description</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">price</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">product_category_associations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sizes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flaskapp/dal/product.html#ProductDAL.create"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.dal.product.ProductDAL.create" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flaskapp.dal.product.ProductDAL.find_all">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">find_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_field</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reverse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rows</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flaskapp/dal/product.html#ProductDAL.find_all"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.dal.product.ProductDAL.find_all" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flaskapp.dal.product.ProductDAL.find_by_category_id">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">find_by_category_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_field</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reverse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rows</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flaskapp/dal/product.html#ProductDAL.find_by_category_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.dal.product.ProductDAL.find_by_category_id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flaskapp.dal.product.ProductDAL.find_by_id">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">find_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flaskapp/dal/product.html#ProductDAL.find_by_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.dal.product.ProductDAL.find_by_id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flaskapp.dal.product.ProductDAL.save">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">product</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flaskapp/dal/product.html#ProductDAL.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.dal.product.ProductDAL.save" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-flaskapp.dal.product_category">
+<span id="flaskapp-dal-product-category-module"></span><h2>flaskapp.dal.product_category module<a class="headerlink" href="#module-flaskapp.dal.product_category" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="flaskapp.dal.product_category.ProductCategoryDAL">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flaskapp.dal.product_category.</span></span><span class="sig-name descname"><span class="pre">ProductCategoryDAL</span></span><a class="reference internal" href="_modules/flaskapp/dal/product_category.html#ProductCategoryDAL"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.dal.product_category.ProductCategoryDAL" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="flaskapp.dal.product_category.ProductCategoryDAL.create">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">product_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flaskapp/dal/product_category.html#ProductCategoryDAL.create"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.dal.product_category.ProductCategoryDAL.create" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-flaskapp.dal.size">
+<span id="flaskapp-dal-size-module"></span><h2>flaskapp.dal.size module<a class="headerlink" href="#module-flaskapp.dal.size" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="flaskapp.dal.size.SizeDAL">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flaskapp.dal.size.</span></span><span class="sig-name descname"><span class="pre">SizeDAL</span></span><a class="reference internal" href="_modules/flaskapp/dal/size.html#SizeDAL"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.dal.size.SizeDAL" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="flaskapp.dal.size.SizeDAL.create">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flaskapp/dal/size.html#SizeDAL.create"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskapp.dal.size.SizeDAL.create" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-flaskapp.dal">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-flaskapp.dal" title="Permalink to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Prajwal Santosh.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
