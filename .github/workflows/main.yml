@@ -1,0 +1,68 @@
+# This workflow will install Python dependencies, run tests and lint with a single version of Python
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
+
+name: Python CI/CD pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+env:
+  PYTHON_VERSION: 3.9
+  PG_DATABASE: postgres
+  PG_HOST: localhost
+  PG_PORT: 5432
+  PG_USER: postgres
+  PG_PASSWORD: postgres
+
+permissions:
+  contents: read
+
+jobs:
+  deploy-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Start minikube
+        uses: medyagh/setup-minikube@master
+      - name: Try the cluster !
+        run: kubectl get pods -A
+      - name: Deploy to minikube
+        run: |
+          sh minikube-deploy.sh
+          kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
+      - name: Add hosts to /etc/hosts
+        run: |
+          sudo echo "127.0.0.1 bpp.fashions.com" | sudo tee -a /etc/hosts     
+
+      - uses: actions/checkout@v3
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.9"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install flake8 pytest
+          if [ -f ./backend/requirements.txt ]; then pip install -r ./backend/requirements.txt; fi
+      - name: Lint with flake8
+        run: |
+          # stop the build if there are Python syntax errors or undefined names
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+      - name: Unit test with pytest
+        run: |
+          sh minikube-test.sh
+      - name: Setup newman for postman
+        uses: actions/checkout@master
+#      - name: Run postman tests
+#        uses: matt-ball/newman-action@master
+#        with:
+#          collection: ./backend/tests/postman/postman_collection.json
+#          environment: ./backend/tests/postman/postman_environment.json
+#          folder: "Test Suite"
+#          insecure:

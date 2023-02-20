@@ -1,0 +1,1157 @@
+{
+	"info": {
+		"_postman_id": "103f68bc-ddf6-4f2b-8f07-312b1a2bf819",
+		"name": "E-commerce Site",
+		"description": "Collection of API's visible to users and site owners. Provides functionality to ingest catalog, view products and use Unbxd's Seach API.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25395677"
+	},
+	"item": [
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "Get specific product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/products/80000660",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"80000660"
+							]
+						},
+						"description": "Get a product with a given product ID if it exists."
+					},
+					"response": [
+						{
+							"name": "Product exists",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/products/80000660",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"products",
+										"80000660"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/2.2.2 Python/3.9.6"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 30 Jan 2023 06:50:02 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "560"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"availability\": true,\n    \"id\": \"80000660\",\n    \"imageURL\": \"https://images.express.com/is/image/expressfashion/0342_80000660_3032?cache=on&wid=361&fmt=jpeg&qlt=75,1&resmode=sharp2&op_usm=1,1,5,0&defaultImage=Photo-Coming-Soon\",\n    \"price\": 5,\n    \"productDescription\": \"A small, oil free cleansing sheet that magically transforms when you add water.  Work the cleansing sheet into a lather and massage onto your face!  Cleansing sheets come in a resealable bag that fits just about anywhere.\",\n    \"title\": \"pure aura paper cloud 2-IN-1 makeup remover sheets\"\n}"
+						},
+						{
+							"name": "Produce does not exist",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/products/800006600",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"products",
+										"800006600"
+									]
+								}
+							},
+							"status": "NOT FOUND",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/2.2.2 Python/3.9.6"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 30 Jan 2023 06:52:32 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "78"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 404,\n    \"message\": \"Resource not found\",\n    \"status\": \"Not Found\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get list of products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/products?sort=price desc&rows=9&page=1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"products"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "price desc",
+									"description": "Rank products based on specified field. Format: \"sort={{fieldname}} {{order}}\". {{order}} can be \"asc\" or \"desc\"."
+								},
+								{
+									"key": "rows",
+									"value": "9",
+									"description": "Number of products to display at a time."
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"description": "Offset or page number from which products are displayed."
+								}
+							]
+						},
+						"description": "Get list of all products present in the catalog."
+					},
+					"response": [
+						{
+							"name": "Sample request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/products?sort=price desc&rows=9&page=1",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"products"
+									],
+									"query": [
+										{
+											"key": "sort",
+											"value": "price desc",
+											"description": "Rank products based on specified field. Format: \"sort={{fieldname}} {{order}}\". {{order}} can be \"asc\" or \"desc\"."
+										},
+										{
+											"key": "rows",
+											"value": "9",
+											"description": "Number of products to display at a time."
+										},
+										{
+											"key": "page",
+											"value": "1",
+											"description": "Offset or page number from which products are displayed."
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/2.2.2 Python/3.9.6"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 03 Feb 2023 05:27:44 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "4995"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"products\": [\n        {\n            \"availability\": true,\n            \"id\": \"08803898\",\n            \"imageURL\": \"https://images.express.com/is/image/expressfashion/0098_08803898_0410?cache=on&wid=361&fmt=jpeg&qlt=75,1&resmode=sharp2&op_usm=1,1,5,0&defaultImage=Photo-Coming-Soon\",\n            \"price\": 398,\n            \"productDescription\": \"Rich genuine leather makes this jacket a luxurious choice for all your day-to-night looks. Exposed zippers and an asymmetrical design adds edgy detail to any ensemble.\",\n            \"title\": \"genuine suede moto jacket\"\n        },\n        {\n            \"availability\": true,\n            \"id\": \"80001896\",\n            \"imageURL\": \"https://images.express.com/is/image/expressfashion/0309_80001896_3000?cache=on&wid=361&fmt=jpeg&qlt=75,1&resmode=sharp2&op_usm=1,1,5,0&defaultImage=Photo-Coming-Soon\",\n            \"price\": 395,\n            \"productDescription\": \"Compact, medium-sized version of our iconic Cast Away satchel with pleat detail and perfectly proportioned raised panel handle. The ends of the zipper fold down and are held in place with button closures for a more streamlined look.\",\n            \"title\": \"joanna maxham leather cast away too bag\"\n        },\n        {\n            \"availability\": true,\n            \"id\": \"04352260\",\n            \"imageURL\": \"https://images.express.com/is/image/expressfashion/0039_04352260_1378?cache=on&wid=361&fmt=jpeg&qlt=75,1&resmode=sharp2&op_usm=1,1,5,0&defaultImage=Photo-Coming-Soon\",\n            \"price\": 328,\n            \"productDescription\": \"Go for excellence at weddings and beyond in this extra slim, stretch blend tuxedo jacket. With its high peak lapels and satin accents, it's a timeless, memorable look for the man of distinction.\",\n            \"title\": \"extra slim navy wool-blend performance tuxedo jacket\"\n        },\n        {\n            \"availability\": true,\n            \"id\": \"04352244\",\n            \"imageURL\": \"https://images.express.com/is/image/expressfashion/0039_04352244_0466?cache=on&wid=361&fmt=jpeg&qlt=75,1&resmode=sharp2&op_usm=1,1,5,0&defaultImage=Photo-Coming-Soon\",\n            \"price\": 328,\n            \"productDescription\": null,\n            \"title\": \"slim garnet red oxford wool-blend stretch tuxedo jacket\"\n        },\n        {\n            \"availability\": true,\n            \"id\": \"04352414\",\n            \"imageURL\": \"https://images.express.com/is/image/expressfashion/0039_04352414_2199?cache=on&wid=361&fmt=jpeg&qlt=75,1&resmode=sharp2&op_usm=1,1,5,0&defaultImage=Photo-Coming-Soon\",\n            \"price\": 298,\n            \"productDescription\": \"Streamlined tailoring and soft stretch fabric make this suit jacket irresistible. A fresh hue looks sharp with dress shirts and silky ties. Pair with the matching pant for a sharp look.\",\n            \"title\": \"extra slim blue stretch wrinkle-resistant suit jacket\"\n        },\n        {\n            \"availability\": true,\n            \"id\": \"04356000\",\n            \"imageURL\": \"https://images.express.com/is/image/expressfashion/0039_04356000_0098?cache=on&wid=361&fmt=jpeg&qlt=75,1&resmode=sharp2&op_usm=1,1,5,0&defaultImage=Photo-Coming-Soon\",\n            \"price\": 298,\n            \"productDescription\": \"Look your best and rep your favorite NBA team at the same time in this crisp suit jacket. An interior logo shows off your team pride, while breakthrough stretch fabric keeps you comfortable on game day and beyond.\",\n            \"title\": \"slim black chicago bulls NBA performance tech suit jacket\"\n        },\n        {\n            \"availability\": false,\n            \"id\": \"04352254C\",\n            \"imageURL\": \"https://images.express.com/is/image/expressfashion/0039_04352254_1336?cache=on&wid=361&fmt=jpeg&qlt=75,1&resmode=sharp2&op_usm=1,1,5,0&defaultImage=Photo-Coming-Soon\",\n            \"price\": 298,\n            \"productDescription\": \"Our classic fit suit jacket made from a breakthrough stretch fabric that moves with you and keeps its shape. Just pair it with the matching pant and a dress shirt, and you'll be ready for anything.\",\n            \"title\": \"classic dusty blue wool-blend wrinkle-resistant performance suit jacket\"\n        },\n        {\n            \"availability\": false,\n            \"id\": \"04104587C\",\n            \"imageURL\": \"https://images.express.com/is/image/expressfashion/0037_04104587_1056?cache=on&wid=361&fmt=jpeg&qlt=75,1&resmode=sharp2&op_usm=1,1,5,0&defaultImage=Photo-Coming-Soon\",\n            \"price\": 298,\n            \"productDescription\": \"A warm, durable topcoat crafted from a recycled wool blend with a water-resistant surface. Its tailored suit-like appearance keeps your look sharp and sophisticated wherever you go.\",\n            \"title\": \"black recycled wool topcoat\"\n        },\n        {\n            \"availability\": true,\n            \"id\": \"04358000\",\n            \"imageURL\": \"https://images.express.com/is/image/expressfashion/0039_04358000_0098?cache=on&wid=361&fmt=jpeg&qlt=75,1&resmode=sharp2&op_usm=1,1,5,0&defaultImage=Photo-Coming-Soon\",\n            \"price\": 298,\n            \"productDescription\": \"Look your best and rep your favorite NBA team at the same time in this crisp suit jacket. An interior logo shows off your team pride, while breakthrough stretch fabric keeps you comfortable on game day and beyond.\",\n            \"title\": \"slim black houston rockets NBA performance tech suit jacket\"\n        }\n    ],\n    \"rows\": 9,\n    \"total\": 3000\n}"
+						},
+						{
+							"name": "Get all products",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/products",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"products"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/2.2.2 Python/3.9.6"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 03 Feb 2023 05:28:46 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "4756"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"products\": [\n        {\n            \"availability\": true,\n            \"id\": \"01705319\",\n            \"imageURL\": \"https://images.express.com/is/image/expressfashion/0020_01705319_0001?cache=on&wid=361&fmt=jpeg&qlt=75,1&resmode=sharp2&op_usm=1,1,5,0&defaultImage=Photo-Coming-Soon\",\n            \"price\": 59.9,\n            \"productDescription\": \"Our performance dress shirt is easy care, so that you can look sharp with little effort. Wear this shirt from work days to weekends with chinos or jeans.\",\n            \"title\": \"slim button-down wrinkle resistant performance dress shirt\"\n        },\n        {\n            \"availability\": false,\n            \"id\": \"07207835C\",\n            \"imageURL\": \"https://images.express.com/is/image/expressfashion/0091_07207835_0019?cache=on&wid=361&fmt=jpeg&qlt=75,1&resmode=sharp2&op_usm=1,1,5,0&defaultImage=Photo-Coming-Soon\",\n            \"price\": 79.9,\n            \"productDescription\": \"Create your sexiest silhouette with our curve-hugging skinny jean. With an alluring mid rise and a classic wash, your legs never had it so good.\",\n            \"title\": \"mid rise medium wash skinny jeans\"\n        },\n        {\n            \"availability\": true,\n            \"id\": \"09725333\",\n            \"imageURL\": \"https://images.express.com/is/image/expressfashion/0087_09725333_0037?cache=on&wid=361&fmt=jpeg&qlt=75,1&resmode=sharp2&op_usm=1,1,5,0&defaultImage=Photo-Coming-Soon\",\n            \"price\": 69.9,\n            \"productDescription\": \"Add chic style to your layered looks with this supersoft duster, designed with a lightweight drape and fresh stripes.\",\n            \"title\": \"stripe duster\"\n        },\n        {\n            \"availability\": true,\n            \"id\": \"07199265\",\n            \"imageURL\": \"https://images.express.com/is/image/expressfashion/0091_07199265_0578?cache=on&wid=361&fmt=jpeg&qlt=75,1&resmode=sharp2&op_usm=1,1,5,0&defaultImage=Photo-Coming-Soon\",\n            \"price\": 88,\n            \"productDescription\": \"Fierce and flattering, this stretch-infused jean promises comfort, style and an eye-catching outfit thanks to the bold leopard print. Cut at ankle length with a mid rise fit.\",\n            \"title\": \"mid rise leopard print jean ankle leggings\"\n        },\n        {\n            \"availability\": true,\n            \"id\": \"06507065\",\n            \"imageURL\": \"https://images.express.com/is/image/expressfashion/0086_06507065_0935?cache=on&wid=361&fmt=jpeg&qlt=75,1&resmode=sharp2&op_usm=1,1,5,0&defaultImage=Photo-Coming-Soon\",\n            \"price\": 59.9,\n            \"productDescription\": \"We love the looks that you can create with this long sleeve bodysuit. It stays perfectly tucked in under your favorite jeans or a high waisted skirt. Great for versatile styling.\",\n            \"title\": \"pleated balloon sleeve thong bodysuit\"\n        },\n        {\n            \"availability\": true,\n            \"id\": \"04372520\",\n            \"imageURL\": \"https://images.express.com/is/image/expressfashion/0039_04372520_2241?cache=on&wid=361&fmt=jpeg&qlt=75,1&resmode=sharp2&op_usm=1,1,5,0&defaultImage=Photo-Coming-Soon\",\n            \"price\": 228,\n            \"productDescription\": \"Tailored for an extra slim fit and sharp look, this wrinkle-resistant jacket keeps its shape all-night long with just the amount of stretch. Pair with one of our dress shirts and the matching pant for your next big meeting or event.\",\n            \"title\": \"extra slim light gray luxe comfort knit suit jacket\"\n        },\n        {\n            \"availability\": true,\n            \"id\": \"80002557\",\n            \"imageURL\": \"https://images.express.com/is/image/expressfashion/0394_80002557_3019?cache=on&wid=361&fmt=jpeg&qlt=75,1&resmode=sharp2&op_usm=1,1,5,0&defaultImage=Photo-Coming-Soon\",\n            \"price\": 59.9,\n            \"productDescription\": \"This floral print mini dress is perfect for all your weekend plans, featuring a ruffle hem and cut-out back. Pair with open toe heels.\",\n            \"title\": \"emory park floral print cut-out back mini dress\"\n        },\n        {\n            \"availability\": true,\n            \"id\": \"00310138\",\n            \"imageURL\": \"https://images.express.com/is/image/expressfashion/0095_00310138_0578?cache=on&wid=361&fmt=jpeg&qlt=75,1&resmode=sharp2&op_usm=1,1,5,0&defaultImage=Photo-Coming-Soon\",\n            \"price\": 111.95,\n            \"productDescription\": \"Leopard spotted pony hair puts a fun feline twist on the super-sexy Malibu pump from featured brand Steve Madden. A partially transparent upper lends this stiletto a modern element while revealing just the right amount of skin.\",\n            \"title\": \"steve madden malibu genuine hair pumps\"\n        },\n        {\n            \"availability\": true,\n            \"id\": \"80002556\",\n            \"imageURL\": \"https://images.express.com/is/image/expressfashion/0395_80002556_3000?cache=on&wid=361&fmt=jpeg&qlt=75,1&resmode=sharp2&op_usm=1,1,5,0&defaultImage=Photo-Coming-Soon\",\n            \"price\": 85,\n            \"productDescription\": \"The Melissa Pointy III features a resin buckle with bow detailing and a pointed toe.\",\n            \"title\": \"melissa black pointy iii flat\"\n        }\n    ],\n    \"rows\": 9,\n    \"total\": 3000\n}"
+						}
+					]
+				},
+				{
+					"name": "Get list of products belonging to specific category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/products/categories/2?sort=price desc&rows=9&page=1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"categories",
+								"2"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "price desc",
+									"description": "Rank products based on specified field. Format: \"sort={{fieldname}} {{order}}\". {{order}} can be \"asc\" or \"desc\"."
+								},
+								{
+									"key": "rows",
+									"value": "9",
+									"description": "Number of products to display at a time."
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"description": "Offset or page number from which products are displayed."
+								}
+							]
+						},
+						"description": "Get list of all products that fall under a certain category."
+					},
+					"response": [
+						{
+							"name": "Sample request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/products/categories/2?sort=price desc&rows=9&page=1",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"products",
+										"categories",
+										"2"
+									],
+									"query": [
+										{
+											"key": "sort",
+											"value": "price desc"
+										},
+										{
+											"key": "rows",
+											"value": "9"
+										},
+										{
+											"key": "page",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/2.2.2 Python/3.9.6"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 03 Feb 2023 05:53:54 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "5074"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"products\": [\n        {\n            \"availability\": true,\n            \"id\": \"04352260\",\n            \"imageURL\": \"https://images.express.com/is/image/expressfashion/0039_04352260_1378?cache=on&wid=361&fmt=jpeg&qlt=75,1&resmode=sharp2&op_usm=1,1,5,0&defaultImage=Photo-Coming-Soon\",\n            \"price\": 328,\n            \"productDescription\": \"Go for excellence at weddings and beyond in this extra slim, stretch blend tuxedo jacket. With its high peak lapels and satin accents, it's a timeless, memorable look for the man of distinction.\",\n            \"title\": \"extra slim navy wool-blend performance tuxedo jacket\"\n        },\n        {\n            \"availability\": true,\n            \"id\": \"04352244\",\n            \"imageURL\": \"https://images.express.com/is/image/expressfashion/0039_04352244_0466?cache=on&wid=361&fmt=jpeg&qlt=75,1&resmode=sharp2&op_usm=1,1,5,0&defaultImage=Photo-Coming-Soon\",\n            \"price\": 328,\n            \"productDescription\": null,\n            \"title\": \"slim garnet red oxford wool-blend stretch tuxedo jacket\"\n        },\n        {\n            \"availability\": true,\n            \"id\": \"04352414\",\n            \"imageURL\": \"https://images.express.com/is/image/expressfashion/0039_04352414_2199?cache=on&wid=361&fmt=jpeg&qlt=75,1&resmode=sharp2&op_usm=1,1,5,0&defaultImage=Photo-Coming-Soon\",\n            \"price\": 298,\n            \"productDescription\": \"Streamlined tailoring and soft stretch fabric make this suit jacket irresistible. A fresh hue looks sharp with dress shirts and silky ties. Pair with the matching pant for a sharp look.\",\n            \"title\": \"extra slim blue stretch wrinkle-resistant suit jacket\"\n        },\n        {\n            \"availability\": true,\n            \"id\": \"04356000\",\n            \"imageURL\": \"https://images.express.com/is/image/expressfashion/0039_04356000_0098?cache=on&wid=361&fmt=jpeg&qlt=75,1&resmode=sharp2&op_usm=1,1,5,0&defaultImage=Photo-Coming-Soon\",\n            \"price\": 298,\n            \"productDescription\": \"Look your best and rep your favorite NBA team at the same time in this crisp suit jacket. An interior logo shows off your team pride, while breakthrough stretch fabric keeps you comfortable on game day and beyond.\",\n            \"title\": \"slim black chicago bulls NBA performance tech suit jacket\"\n        },\n        {\n            \"availability\": false,\n            \"id\": \"04352254C\",\n            \"imageURL\": \"https://images.express.com/is/image/expressfashion/0039_04352254_1336?cache=on&wid=361&fmt=jpeg&qlt=75,1&resmode=sharp2&op_usm=1,1,5,0&defaultImage=Photo-Coming-Soon\",\n            \"price\": 298,\n            \"productDescription\": \"Our classic fit suit jacket made from a breakthrough stretch fabric that moves with you and keeps its shape. Just pair it with the matching pant and a dress shirt, and you'll be ready for anything.\",\n            \"title\": \"classic dusty blue wool-blend wrinkle-resistant performance suit jacket\"\n        },\n        {\n            \"availability\": false,\n            \"id\": \"04104587C\",\n            \"imageURL\": \"https://images.express.com/is/image/expressfashion/0037_04104587_1056?cache=on&wid=361&fmt=jpeg&qlt=75,1&resmode=sharp2&op_usm=1,1,5,0&defaultImage=Photo-Coming-Soon\",\n            \"price\": 298,\n            \"productDescription\": \"A warm, durable topcoat crafted from a recycled wool blend with a water-resistant surface. Its tailored suit-like appearance keeps your look sharp and sophisticated wherever you go.\",\n            \"title\": \"black recycled wool topcoat\"\n        },\n        {\n            \"availability\": true,\n            \"id\": \"04358000\",\n            \"imageURL\": \"https://images.express.com/is/image/expressfashion/0039_04358000_0098?cache=on&wid=361&fmt=jpeg&qlt=75,1&resmode=sharp2&op_usm=1,1,5,0&defaultImage=Photo-Coming-Soon\",\n            \"price\": 298,\n            \"productDescription\": \"Look your best and rep your favorite NBA team at the same time in this crisp suit jacket. An interior logo shows off your team pride, while breakthrough stretch fabric keeps you comfortable on game day and beyond.\",\n            \"title\": \"slim black houston rockets NBA performance tech suit jacket\"\n        },\n        {\n            \"availability\": true,\n            \"id\": \"04352267\",\n            \"imageURL\": \"https://images.express.com/is/image/expressfashion/0039_04352267_0904?cache=on&wid=361&fmt=jpeg&qlt=75,1&resmode=sharp2&op_usm=1,1,5,0&defaultImage=Photo-Coming-Soon\",\n            \"price\": 298,\n            \"productDescription\": \"Crafted with a rich wool blend, this stretchy suit jacket is tailored to give you a clean, handsome look for any wedding, party or event. Pair with the matching pant and our 1MX shirt for a complete suit.\",\n            \"title\": \"extra slim plaid charcoal wrinkle-resistant performance suit jacket\"\n        },\n        {\n            \"availability\": true,\n            \"id\": \"04352000\",\n            \"imageURL\": \"https://images.express.com/is/image/expressfashion/0039_04352000_0098?cache=on&wid=361&fmt=jpeg&qlt=75,1&resmode=sharp2&op_usm=1,1,5,0&defaultImage=Photo-Coming-Soon\",\n            \"price\": 298,\n            \"productDescription\": \"Look your best and rep your favorite NBA team at the same time in this crisp suit jacket. An interior logo shows off your team pride, while breakthrough stretch fabric keeps you comfortable on game day and beyond.\",\n            \"title\": \"slim black boston celtics NBA performance tech suit jacket\"\n        }\n    ],\n    \"rows\": 9,\n    \"total\": 1112\n}"
+						}
+					]
+				},
+				{
+					"name": "Search request",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/search?q=red shirt&sort=price desc&rows=10&page=1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"search"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "red shirt",
+									"description": "Contains search term"
+								},
+								{
+									"key": "sort",
+									"value": "price desc",
+									"description": "Rank products based on specified field. Format: \"sort={{fieldname}} {{order}}\". {{order}} can be \"asc\" or \"desc\"."
+								},
+								{
+									"key": "rows",
+									"value": "10",
+									"description": "Number of products to display at a time."
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"description": "Offset or page number from which products are displayed."
+								}
+							]
+						},
+						"description": "Get list of products relevant to provided search query."
+					},
+					"response": [
+						{
+							"name": "Sample request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/search?q=red shirt&sort=price desc&rows=10&page=1",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"search"
+									],
+									"query": [
+										{
+											"key": "q",
+											"value": "red shirt",
+											"description": "Contains search term"
+										},
+										{
+											"key": "sort",
+											"value": "price desc",
+											"description": "Rank products based on specified field. Format: \"sort={{fieldname}} {{order}}\". {{order}} can be \"asc\" or \"desc\"."
+										},
+										{
+											"key": "rows",
+											"value": "10",
+											"description": "Number of products to display at a time."
+										},
+										{
+											"key": "page",
+											"value": "1",
+											"description": "Offset or page number from which products are displayed."
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/2.2.2 Python/3.9.6"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 03 Feb 2023 05:30:15 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "5600"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"products\": [\n        {\n            \"availability\": true,\n            \"id\": \"01760042\",\n            \"imageURL\": \"https://images.express.com/is/image/expressfashion/0020_01760042_0446?cache=on&wid=361&fmt=jpeg&qlt=75,1&resmode=sharp2&op_usm=1,1,5,0&defaultImage=Photo-Coming-Soon\",\n            \"price\": 88,\n            \"productDescription\": \"Stay comfortable and rep your favorite NBA team at the same time with this pure cotton shirt jacket. You're ready for game day and beyond thanks to a drawstring hood and a plaid pattern in team colors.\",\n            \"title\": \"atlanta hawks NBA hooded shirt jacket\"\n        },\n        {\n            \"availability\": true,\n            \"id\": \"01760023\",\n            \"imageURL\": \"https://images.express.com/is/image/expressfashion/0020_01760023_0299?cache=on&wid=361&fmt=jpeg&qlt=75,1&resmode=sharp2&op_usm=1,1,5,0&defaultImage=Photo-Coming-Soon\",\n            \"price\": 88,\n            \"productDescription\": \"Stay comfortable and rep your favorite NBA team at the same time with this pure cotton shirt jacket. You're ready for game day and beyond thanks to a drawstring hood and a plaid pattern in team colors.\",\n            \"title\": \"houston rockets NBA hooded shirt jacket\"\n        },\n        {\n            \"availability\": true,\n            \"id\": \"00303655\",\n            \"imageURL\": \"https://images.express.com/is/image/expressfashion/0020_00303655_2393?cache=on&wid=361&fmt=jpeg&qlt=75,1&resmode=sharp2&op_usm=1,1,5,0&defaultImage=Photo-Coming-Soon\",\n            \"price\": 69.9,\n            \"productDescription\": \"Crisp and lightweight, this dress shirt has your back during long days at the office or nights out on the town. Sharp tailoring and moisture-wicking stretch fabric keep you cool and confident.\",\n            \"title\": \"extra slim solid wrinkle-resistant performance dress shirt\"\n        },\n        {\n            \"availability\": true,\n            \"id\": \"00303696\",\n            \"imageURL\": \"https://images.express.com/is/image/expressfashion/0020_00303696_0001?cache=on&wid=361&fmt=jpeg&qlt=75,1&resmode=sharp2&op_usm=1,1,5,0&defaultImage=Photo-Coming-Soon\",\n            \"price\": 69.9,\n            \"productDescription\": \"Our classic fit offers the room you need to move comfortably, while still giving a sharp tailored look. Add in the moisture-wicking & quick-drying design & it's the perfect pick for easy, polished style, whether you're headed to work or an event.\",\n            \"title\": \"classic solid button-down wrinkle-resistant performance dress shirt\"\n        },\n        {\n            \"availability\": true,\n            \"id\": \"00303969\",\n            \"imageURL\": \"https://images.express.com/is/image/expressfashion/0020_00303969_0851?cache=on&wid=361&fmt=jpeg&qlt=75,1&resmode=sharp2&op_usm=1,1,5,0&defaultImage=Photo-Coming-Soon\",\n            \"price\": 69.9,\n            \"productDescription\": \"Crisp and lightweight, this dress shirt has your back during long days at the office or nights out on the town. Featuring a versatile solid hue, a broader athletic fit and moisture-wicking stretch fabric to keep you cool and confident.\",\n            \"title\": \"classic wrinkle-resistant performance dress shirt\"\n        },\n        {\n            \"availability\": true,\n            \"id\": \"00303656\",\n            \"imageURL\": \"https://images.express.com/is/image/expressfashion/0020_00303656_0746?cache=on&wid=361&fmt=jpeg&qlt=75,1&resmode=sharp2&op_usm=1,1,5,0&defaultImage=Photo-Coming-Soon\",\n            \"price\": 69.9,\n            \"productDescription\": \"This shirt is an essential in every sharp-dressed man's wardrobe thanks to the crisp fit. Easy-to-care for and made from cool stretch fabric for all-day comfort.\",\n            \"title\": \"classic solid wrinkle-resistant performance dress shirt\"\n        },\n        {\n            \"availability\": true,\n            \"id\": \"06036045\",\n            \"imageURL\": \"https://images.express.com/is/image/expressfashion/0020_06036045_1056?cache=on&wid=361&fmt=jpeg&qlt=75,1&resmode=sharp2&op_usm=1,1,5,0&defaultImage=Photo-Coming-Soon\",\n            \"price\": 69.9,\n            \"productDescription\": \"Ace your next boardroom meeting or business lunch in a sharp, wrinkle-resistant shirt with performance stretch for lasting comfort.\",\n            \"title\": \"slim geometric button-down wrinkle-resistant performance shirt\"\n        },\n        {\n            \"availability\": true,\n            \"id\": \"00303697\",\n            \"imageURL\": \"https://images.express.com/is/image/expressfashion/0020_00303697_0001?cache=on&wid=361&fmt=jpeg&qlt=75,1&resmode=sharp2&op_usm=1,1,5,0&defaultImage=Photo-Coming-Soon\",\n            \"price\": 69.9,\n            \"productDescription\": \"Ace your next boardroom meeting or business lunch in a sharp button-down shirt that features rich performance stretch fabric for lasting comfort.\",\n            \"title\": \"extra slim button-down wrinkle-resistant performance dress shirt\"\n        },\n        {\n            \"availability\": true,\n            \"id\": \"00303811\",\n            \"imageURL\": \"https://images.express.com/is/image/expressfashion/0020_00303811_2237?cache=on&wid=361&fmt=jpeg&qlt=75,1&resmode=sharp2&op_usm=1,1,5,0&defaultImage=Photo-Coming-Soon\",\n            \"price\": 69.9,\n            \"productDescription\": \"Take the versatility of cotton sateen all over town in this sharp dress shirt with floral printed cuffs. Put it together with a suit jacket and pants for a refined, handsome look.\",\n            \"title\": \"slim sateen patterned cuff dress shirt\"\n        },\n        {\n            \"availability\": true,\n            \"id\": \"00305253\",\n            \"imageURL\": \"https://images.express.com/is/image/expressfashion/0020_00305253_0851?cache=on&wid=361&fmt=jpeg&qlt=75,1&resmode=sharp2&op_usm=1,1,5,0&defaultImage=Photo-Coming-Soon\",\n            \"price\": 69.9,\n            \"productDescription\": \"Soft and smooth, this button-up shirt offers cool, casual style that still looks polished. Wear it with your go-to jeans or chinos.\",\n            \"title\": \"slim button-up rayon shirt\"\n        }\n    ],\n    \"rows\": 10,\n    \"total\": 148\n}"
+						}
+					]
+				}
+			],
+			"description": "Collection of endpoints that support retrieving, searching and filtering products."
+		},
+		{
+			"name": "Categories",
+			"item": [
+				{
+					"name": "Get specific category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/categories/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"categories",
+								"2"
+							]
+						},
+						"description": "Get details about a specific category, including it's parent category id."
+					},
+					"response": [
+						{
+							"name": "Category exists",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/categories/2",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"categories",
+										"2"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/2.2.2 Python/3.9.6"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 03 Feb 2023 07:12:35 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "63"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 2,\n    \"level\": 1,\n    \"name\": \"men\",\n    \"parent_id\": 1\n}"
+						},
+						{
+							"name": "Category does not exist",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/categories/0",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"categories",
+										"0"
+									]
+								}
+							},
+							"status": "NOT FOUND",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/2.2.2 Python/3.9.6"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 03 Feb 2023 07:14:02 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "78"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 404,\n    \"message\": \"Resource not found\",\n    \"status\": \"Not Found\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get sub-categories of specified category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/categories/0/children",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"categories",
+								"0",
+								"children"
+							]
+						},
+						"description": "Get list of all sub-categories belonging to a specific category."
+					},
+					"response": [
+						{
+							"name": "Sample request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/categories/0/children",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"categories",
+										"0",
+										"children"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/2.2.2 Python/3.9.6"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 03 Feb 2023 05:55:08 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "235"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 1,\n        \"level\": 1,\n        \"name\": \"men\",\n        \"parent_id\": 0\n    },\n    {\n        \"id\": 5,\n        \"level\": 1,\n        \"name\": \"women\",\n        \"parent_id\": 0\n    },\n    {\n        \"id\": 274,\n        \"level\": 1,\n        \"name\": \"exp\",\n        \"parent_id\": 0\n    }\n]"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Ingestion",
+			"item": [
+				{
+					"name": "Upload Catalog",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"description": "Catalog file",
+									"type": "file",
+									"src": "FqJoeL7Ym/out.json"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/upload-catalog/{{SITE_KEY}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"upload-catalog",
+								"{{SITE_KEY}}"
+							]
+						},
+						"description": "Update website catalog by uploading product details stored in JSON format. Meant to be used by site owners."
+					},
+					"response": []
+				}
+			],
+			"description": "Supports ingesting catalogs curated by site-owners into database."
+		},
+		{
+			"name": "Test Suite",
+			"item": [
+				{
+					"name": "Get existing product details",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Existing product retrieval\", function () {",
+									"    var jsonData = pm.response.json()",
+									"    pm.expect(jsonData.id).to.eql(\"80000660\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/products/80000660",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"80000660"
+							]
+						},
+						"description": "Get a product with a given product ID if it exists."
+					},
+					"response": []
+				},
+				{
+					"name": "Get product that does not exist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"404 response for non-existent product\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/products/800006600",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"800006600"
+							]
+						},
+						"description": "Get a product with a given product ID if it exists."
+					},
+					"response": []
+				},
+				{
+					"name": "Get list of products",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var query = {};",
+									"pm.request.url.query.all().forEach((param) => { query[param.key] = param.value});",
+									"",
+									"pm.test(\"Check count\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.total).to.eql(3000);",
+									"});",
+									"",
+									"pm.test(\"Check rows\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.rows).to.eql(parseInt(query.rows));",
+									"});",
+									"",
+									"pm.test(\"Check number of products\", function(){",
+									"    var jsonData = pm.response.json();",
+									"    var page = parseInt(query.page);",
+									"    var rows = parseInt(query.rows);",
+									"    var total = parseInt(jsonData.total)",
+									"",
+									"    var page_limit = Math.floor((total - 1) / rows) + 1",
+									"    if(page == page_limit){",
+									"        pm.expect(jsonData.products.length).lte(rows)",
+									"    }",
+									"    else if(page < 0 || page > page_limit){",
+									"        pm.response.to.have.status(400);",
+									"    }",
+									"    else{",
+									"        pm.expect(jsonData.products.length).to.eql(rows);",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/products?sort=price desc&rows=9&page=1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"products"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "price desc"
+								},
+								{
+									"key": "rows",
+									"value": "9"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						},
+						"description": "Get list of all products present in the catalog."
+					},
+					"response": []
+				},
+				{
+					"name": "Get list of products belonging to specific category",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var query = {};",
+									"pm.request.url.query.all().forEach((param) => { query[param.key] = param.value});",
+									"",
+									"pm.test(\"Check count\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.total).to.eql(1112);",
+									"});",
+									"",
+									"pm.test(\"Check rows\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.rows).to.eql(parseInt(query.rows));",
+									"});",
+									"",
+									"pm.test(\"Check number of products\", function(){",
+									"    var jsonData = pm.response.json();",
+									"    var page = parseInt(query.page);",
+									"    var rows = parseInt(query.rows);",
+									"    var total = parseInt(jsonData.total)",
+									"",
+									"    var page_limit = Math.floor((total - 1) / rows) + 1",
+									"    if(page == page_limit){",
+									"        pm.expect(jsonData.products.length).lte(rows)",
+									"    }",
+									"    else if(page < 0 || page > page_limit){",
+									"        pm.response.to.have.status(400);",
+									"    }",
+									"    else{",
+									"        pm.expect(jsonData.products.length).to.eql(rows);",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/products/categories/1?sort=price desc&rows=9&page=1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"categories",
+								"1"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "price desc",
+									"description": "Rank products based on specified field. Format: \"sort={{fieldname}} {{order}}\". {{order}} can be \"asc\" or \"desc\"."
+								},
+								{
+									"key": "rows",
+									"value": "9",
+									"description": "Number of products to display at a time."
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"description": "Offset or page number from which products are displayed."
+								}
+							]
+						},
+						"description": "Get list of all products that fall under a certain category."
+					},
+					"response": []
+				},
+				{
+					"name": "Search request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var query = {};",
+									"pm.request.url.query.all().forEach((param) => { query[param.key] = param.value});",
+									"",
+									"pm.test(\"Check count\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.total).to.eql(148);",
+									"});",
+									"",
+									"pm.test(\"Check rows\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.rows).to.eql(parseInt(query.rows));",
+									"});",
+									"",
+									"pm.test(\"Check number of products\", function(){",
+									"    var jsonData = pm.response.json();",
+									"    var page = parseInt(query.page);",
+									"    var rows = parseInt(query.rows);",
+									"    var total = parseInt(jsonData.total)",
+									"",
+									"    var page_limit = Math.floor((total - 1) / rows) + 1",
+									"    if(page == page_limit){",
+									"        pm.expect(jsonData.products.length).lte(rows)",
+									"    }",
+									"    else if(page < 0 || page > page_limit){",
+									"        pm.response.to.have.status(400);",
+									"    }",
+									"    else{",
+									"        pm.expect(jsonData.products.length).to.eql(rows);",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/search?q=red shirt&sort=price desc&rows=100&page=1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"search"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "red shirt",
+									"description": "Contains search term"
+								},
+								{
+									"key": "sort",
+									"value": "price desc",
+									"description": "Rank products based on specified field. Format: \"sort={{fieldname}} {{order}}\". {{order}} can be \"asc\" or \"desc\"."
+								},
+								{
+									"key": "rows",
+									"value": "100",
+									"description": "Number of products to display at a time."
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"description": "Offset or page number from which products are displayed."
+								}
+							]
+						},
+						"description": "Get list of products relevant to provided search query."
+					},
+					"response": []
+				},
+				{
+					"name": "Get existing category details",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Existing category retrieval\", function () {",
+									"    var jsonData = pm.response.json()",
+									"    pm.expect(jsonData.id).to.eql(2);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/categories/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"categories",
+								"2"
+							]
+						},
+						"description": "Get details about a specific category, including it's parent category id."
+					},
+					"response": []
+				},
+				{
+					"name": "Get category that does not exist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"404 response for non-existent product\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/categories/-1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"categories",
+								"-1"
+							]
+						},
+						"description": "Get details about a specific category, including it's parent category id."
+					},
+					"response": []
+				},
+				{
+					"name": "Get sub-categories of specified category",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Parent consistency check\", function () {",
+									"    var jsonData = pm.response.json();",
+									"",
+									"    jsonData.forEach(element => {",
+									"        pm.expect(element.parent_id).to.eql(0)",
+									"    });",
+									"});",
+									"",
+									"pm.test(\"Number of children\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.length).to.eql(3);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/categories/0/children",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"categories",
+								"0",
+								"children"
+							]
+						},
+						"description": "Get list of all sub-categories belonging to a specific category."
+					},
+					"response": []
+				},
+				{
+					"name": "Upload Catalog",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"File upload check\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.message).to.eql(\"File Uploaded Successfully\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"description": "Catalog file",
+									"type": "file",
+									"src": "FqJoeL7Ym/out.json"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/upload-catalog/{{SITE_KEY}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"upload-catalog",
+								"{{SITE_KEY}}"
+							]
+						},
+						"description": "Update website catalog by uploading product details stored in JSON format. Meant to be used by site owners."
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

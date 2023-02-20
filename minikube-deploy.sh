@@ -22,7 +22,7 @@ kubectl apply -f ./kubernetes/postgres-deployment.yml
 kubectl apply -f ./kubernetes/postgres-service.yml
 kubectl wait pod --for=condition=Ready -l service=postgres
 POD_NAME=$(kubectl get pod -l service=postgres -o jsonpath="{.items[0].metadata.name}")
-kubectl exec $POD_NAME --stdin --tty -- createdb -U unbxd bpp
+kubectl exec $POD_NAME --stdin -- createdb -U unbxd bpp
 
 
 echo "Creating the redis deployment and service"
