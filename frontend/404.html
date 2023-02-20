@@ -6,7 +6,7 @@
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
-  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark d-flex justify-content-between">
@@ -32,13 +32,13 @@
         $('#err').append(html)
     })
     function category(val){
-        ceurl=new URL("http://bpp.fashions.com")
+        ceurl=new URL("http://127.0.0.1:8080")
         ceurl.search='';
         ceurl.searchParams.append('id',val)
         window.location.href=ceurl
       }
 
 </script>
-<script type="text/javascript" src="./script.js"></script>
+<script type="text/javascript" src="script.js"></script>
 </body>
 </html>

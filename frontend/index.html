@@ -5,7 +5,7 @@
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark d-flex justify-content-between">
@@ -33,14 +33,14 @@
   rows=currenturl.searchParams.get('rows')
   page=currenturl.searchParams.get('page')
   if (catid!=null && catid!=0){
-    var newurl=new URL("http://bpp.fashions.com/api/products/categories/"+catid)
+    var newurl=new URL("http://127.0.0.1:5000/api/products/categories/"+catid)
   }
   else if(q!=null){
-    var newurl=new URL("http://bpp.fashions.com/api/search")
+    var newurl=new URL("http://127.0.0.1:5000/api/search")
     newurl.searchParams.append("q",q)
   }
   else if((catid==0 || catid==null) && q==null){
-    var newurl=new URL("http://bpp.fashions.com/api/products")
+    var newurl=new URL("http://127.0.0.1:5000/api/products")
   }
   if(sort!=null){
     newurl.searchParams.append("sort",sort)
@@ -91,7 +91,7 @@
         html+='<div class="card-body">';
         html+='<h4 class="card-title">'+dataitems[i].title+'</h4>';
         html+='<hr>'
-        html+='<h4 class="card-title">'+dataitems[i].price+'$</h4>';
+        html+='<h4 class="card-title">$'+dataitems[i].price+'</h4>';
         html+='<p class="card-text">'+dataitems[i].productDescription+'</p>';
         html+='<a href="/product.html?product_id='+dataitems[i].id+'" class="align-self-end btn btn-dark stretched-link">View Product</a>'
         html+='</div>';
@@ -199,12 +199,12 @@
           window.location.href=pagurl
         })
         function category(val){
-          ceurl=new URL("http://bpp.fashions.com")
+          ceurl=new URL("http://127.0.0.1:8080")
           ceurl.search='';
           ceurl.searchParams.append('id',val)
           window.location.href=ceurl
         }
       </script>
-<script type="text/javascript" src="./script.js"></script>
+<script type="text/javascript" src="script.js"></script>
 </body>
 </html>

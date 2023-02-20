@@ -5,7 +5,7 @@
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark d-flex justify-content-between">
@@ -32,12 +32,12 @@ $('.lds-ellipsis').show();
 $('#wrapper').hide();
 var currenturl=new URL(window.location.href)
 prodid=currenturl.searchParams.get('product_id')
+
 $.ajaxSetup({traditional: true});
 $.ajax({
-  url:'http://bpp.fashions.com/api/products/'+prodid,
+  url:'http://127.0.0.1:5000/api/products/'+prodid,
   type:'GET',
   success:function(data){
-    console.log(data)
         var html='<div class="col-sm-6>';
         html +='<div class="card" id="prodi">';
         html +='<div class="row card-body">'
@@ -45,13 +45,44 @@ $.ajax({
         html+='<div class="col-sm-6">';
         html+='<h1>'+data.title+'</h1>';
         html+='<hr>'
-        html+='<h2>'+data.price+'$</h2>';
+        html+='<h2>$'+data.price+'</h2>';
         html+='<br>'
         html+='<p>'+data.productDescription+'</p>';
         html+='</div>';
         html+='</div>';
         html+='</div>';
         $('.container-fluid').append(html)
+        sessionStorage.setItem(prodid,prodid)
+        var arr=[]
+        i=0
+        for (let k in sessionStorage){
+          if (i<sessionStorage.length){
+            arr.push(k)
+            i+=1
+          }
+        }
+        newarr=arr.slice(-20)
+        /*$.ajax({
+          url:'http://127.0.0.1:5000/api/products/'+prodid+'/recommendations',
+          type:'GET',
+          data:newarr,
+          success:function(recommendata){
+            for (var i=0;i<recommendata.length;i++){
+            var rechtml='<div class="col md-4 d-flex">';
+            rechtml+='<div class="card" id="'+recommendata[i].id+'">';
+            rechtml+='<img class="card-img-top" src="'+recommendata[i].imageURL+'" alt="...">';
+            rechtml+='<div class="card-body">';
+            rechtml+='<h4 class="card-title">'+recommendata[i].title+'</h4>';
+            rechtml+='<hr>'
+            rechtml+='<h4 class="card-title">$'+recommendata[i].price+'</h4>';
+            rechtml+='<a href="/product.html?product_id='+recommendata[i].id+'" class="align-self-end btn btn-dark stretched-link">View Product</a>'
+            rechtml+='</div>';
+            rechtml+='</div>';
+            rechtml+='</div>';
+            $('#recommendations').append(rechtml)
+            }
+          }
+        })*/
         },
   complete:function(){
     $('.lds-ellipsis').hide();
@@ -63,7 +94,7 @@ $.ajax({
 })
 })
 function category(val){
-          ceurl=new URL("http://bpp.fashions.com")
+          ceurl=new URL("http://127.0.0.1:8080")
           ceurl.search='';
           ceurl.searchParams.append('id',val)
           window.location.href=ceurl
@@ -71,6 +102,8 @@ function category(val){
 </script>
 <div class="container-fluid">
 </div>
-<script type="text/javascript" src="./script.js"></script>
+<div class="row row-cols-1 row-cols-md-4 mx-center" id="recommendations">
+</div>
+<script type="text/javascript" src="script.js"></script>
 </body>
 </html>
