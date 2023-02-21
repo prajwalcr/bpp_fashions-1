@@ -4,7 +4,7 @@ with open('products_prob.json') as f:
    products_prob = json.load(f)
 
 #Specify product id here to get recommendations here
-prodid='abcd'
+prodid='7016775C'
 if prodid not in products_prob['columns']:
     print('[]')
 else:
@@ -18,11 +18,11 @@ else:
         indexratings.append(indindexratings)
     s=indexratings[index]
     sorte=sorted(s,key=lambda x:x[0],reverse=True)
-    no_of_suggestions=5
+    no_of_suggestions=2
     pred=sorte[:no_of_suggestions]
     finalpred=[]
     for i in pred:
-        finalpred.append(products_prob['columns'][i[1]])
+        finalpred.append([products_prob['columns'][i[1]],i[0]])
     print(finalpred)
 
 '''
