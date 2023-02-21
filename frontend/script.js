@@ -33,7 +33,7 @@ $.ajax({
 
   function category(val){
 
-    ceurl=new URL("http://bpp.fashions.com/")
+    ceurl=new URL("http://bpp.fashions.com")
     ceurl.search='';
     ceurl.searchParams.append('id',val)
     window.location.href=ceurl
