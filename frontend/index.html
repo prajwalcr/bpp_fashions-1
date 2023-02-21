@@ -33,14 +33,14 @@
   rows=currenturl.searchParams.get('rows')
   page=currenturl.searchParams.get('page')
   if (catid!=null && catid!=0){
-    var newurl=new URL("http://127.0.0.1:5000/api/products/categories/"+catid)
+    var newurl=new URL("http://bpp.fashions.com/api/products/categories/"+catid)
   }
   else if(q!=null){
-    var newurl=new URL("http://127.0.0.1:5000/api/search")
+    var newurl=new URL("http://bpp.fashions.com/api/search")
     newurl.searchParams.append("q",q)
   }
   else if((catid==0 || catid==null) && q==null){
-    var newurl=new URL("http://127.0.0.1:5000/api/products")
+    var newurl=new URL("http://bpp.fashions.com/api/products")
   }
   if(sort!=null){
     newurl.searchParams.append("sort",sort)
@@ -199,7 +199,7 @@
           window.location.href=pagurl
         })
         function category(val){
-          ceurl=new URL("http://127.0.0.1:8080")
+          ceurl=new URL("http://bpp.fashions.com")
           ceurl.search='';
           ceurl.searchParams.append('id',val)
           window.location.href=ceurl
