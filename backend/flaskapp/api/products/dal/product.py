@@ -1,8 +1,11 @@
 from flaskapp.models import ProductModel
 from typing import List, Optional
+import pandas as pd
 
 from sqlalchemy.orm.session import Session
 from sqlalchemy.orm.query import Query
+from sqlalchemy.sql import select
+from sqlalchemy.engine import Engine
 
 
 class ProductDAL:
@@ -59,6 +62,27 @@ class ProductDAL:
         q = cls.__sort_by(q, sort_field, reverse)
         q = cls.__paginate(q, page, rows)
         return q.all()
+
+    @classmethod
+    def find_all_df(cls, db: Session, engine: Engine) -> pd.DataFrame:
+        """
+        Returns pandas dataframe with all products.
+
+        Parameters
+        ----------
+        db: Session
+            The database session in which to execute the operation.
+
+        engine: Engine
+            The connection to the database.
+
+        Returns
+        ----------
+        Dataframe
+            The list of all products in a pandas dataframe containing id and description.
+        """
+        q = select(ProductModel.id, ProductModel.productDescription)
+        return pd.read_sql(sql=q, con=engine)
 
     @classmethod
     def find_by_category_id(cls, db: Session, category_id: int, sort_field: Optional[str] = None, reverse: Optional[bool] = False,
