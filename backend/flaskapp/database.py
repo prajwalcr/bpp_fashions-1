@@ -10,7 +10,7 @@ load_dotenv()
 POSTGRES_USER = os.getenv('POSTGRES_USER')
 POSTGRES_PASSWORD = os.getenv('POSTGRES_PASSWORD')
 SQLALCHEMY_DATABASE_URI = f'postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@postgres:5432/bpp'
-# SQLALCHEMY_DATABASE_URI = f'postgresql://postgres:postgres@localhost:5432/postgres'
+# SQLALCHEMY_DATABASE_URI = f'postgresql://unbxd:postgres@localhost:5432/postgres'
 # SQLALCHEMY_DATABASE_URI = "sqlite:///site.db"
 
 engine = create_engine(SQLALCHEMY_DATABASE_URI)
